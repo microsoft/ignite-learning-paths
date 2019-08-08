@@ -1,10 +1,10 @@
 # Deployment Practices for Greater Reliability
 
-[![Build Status](https://dev.azure.com/tailwindtraders-learning/tailwindtraders-learning/_apis/build/status/APP10?branchName=master)](https://dev.azure.com/tailwindtraders-learning/tailwindtraders-learning/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://dev.azure.com/ignite-learning-paths/tour-fy20/_apis/build/status/app10?branchName=master)](https://dev.azure.com/ignite-learning-paths/tour-fy20/_build/latest?definitionId=8&branchName=master)
 
 Click this button to deploy the session environment.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Foprs40%2Fdeployment%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Foprs40%2Foprs40%2Fdeployment%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
