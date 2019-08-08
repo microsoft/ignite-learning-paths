@@ -1,4 +1,4 @@
-# OPRS40: Deployment Practices for Greater Reliability
+# Deployment Practices for Greater Reliability
 
 [![Build Status](https://dev.azure.com/tailwindtraders-learning/tailwindtraders-learning/_apis/build/status/APP10?branchName=master)](https://dev.azure.com/tailwindtraders-learning/tailwindtraders-learning/_build/latest?definitionId=3&branchName=master)
 
