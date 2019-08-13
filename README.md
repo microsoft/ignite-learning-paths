@@ -3,10 +3,10 @@
 - [Building Applications for the Cloud](./apps)
 - [Developers Guide to AI](./aiml)
 - [Azure Fundamentals](./afun)
-- [Managing Cloud Operations](./mgco)
-- [Modernizing Data, Applications, and APIs to the Cloud](./mode)
-- [Migrating your Server Infrastructure](./mgsi)
-- [Improving Your Reliability through Modern Operations Practices](./oprs)
+- [Managing Cloud Operations](./mco)
+- [Modernizing Data, Applications, and APIs to the Cloud](./mod)
+- [Migrating your Server Infrastructure](./msi)
+- [Improving Your Reliability through Modern Operations Practices](./ops)
 
 ## Contributing
 
