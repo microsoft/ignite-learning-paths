@@ -16,9 +16,9 @@ variables:
 - name: LOCATION
   value: eastus
 - name: TEMPLATE_FILE
-  value: ./app/app10/deployment/azuredeploy.json
+  value: ./ops/ops40/deployment/azuredeploy.json
 - name: FQDN_PREFIX
-  value: app10test
+  value: ops40
 
 steps:
 
