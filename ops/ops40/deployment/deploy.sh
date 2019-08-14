@@ -37,7 +37,7 @@ printf "\n*** Deploying resources: this will take a few minutes... ***\n"
 az group deployment create -g $azureResourceGroup --template-file $tailwindInfrastructure \
   --parameters servicePrincipalId=$azureClientID servicePrincipalSecret=$azureClientSecret \
   sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=$sqlServePassword \
-  aksVersion=1.13.5 pgversion=10
+  aksVersion=1.14.5 pgversion=10
 
 # Install Helm on Kubernetes cluster
 printf "\n*** Installing Tiller on Kubernets cluster... ***\n"
