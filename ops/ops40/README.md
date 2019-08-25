@@ -19,36 +19,62 @@ The following asset are used for delivering this talk:
 - [PowerPoint deck]()
 - [Demonstration videos]()
 
-## Demo instructions
+## Demo 1 - Azure Resource Manager Template
 
-One the environment has been deployed, select the container instances > containers > logs and scroll the bottom of the log output. Here you will find the specific command needed to connect to the new Kubernetes cluster. Copy and run this command in cloud shell.
+In this demo, an Azure Resource Manager template is examined, updated, and deployed.
 
-```
-az aks get-credentials --name tailwindtradersakscmmwyi53x4jls --resource-group twt-1000 --admin
-```
+### Examine the template
 
-Once connected to the cluster, run this command to list all Kubernetes deployments.
+The template file is found in the same directory as this readme and is named `azuredeploy.json`. Take a quick walk through the template, highlighting these items.
 
-```
-$ kubectl get deployments
+- The four sections of the tempalte (paramaters, variabls, resources, and outputs) - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
+- Secure string parameter - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/template-best-practices#security-recommendations-for-parameters)
+- Dependencies - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-define-dependencies#reference-and-list-functions)
+- Copy function - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-multiple)
+- Template extensions - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-use-extensions)
 
-NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-my-tt-image-classifier                     1/1     1            1           25h
-my-tt-login                                1/1     1            1           25h
-my-tt-mobilebff                            1/1     1            1           25h
-my-tt-popular-product-tt-popularproducts   1/1     1            1           25h
-my-tt-product-tt-products                  1/1     1            1           25h
-my-tt-profile                              1/1     1            1           25h
-my-tt-stock                                1/1     1            1           25h
-my-tt-webbff                               1/1     1            1           25h
-web-tt-web                                 1/1     1            1           25h
-```
+Not in the demo, but to mention during the demo:
 
-Identify the deployment with a name that contains login, and delete the deployment.
+- Create resources and resource groups with a template - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/deploy-to-subscription)
+- Linked templates - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-linked-templates)
+
+Once done, show the already created resources in the Azure portal. Take note that a storage account has not been deployed.
+
+### Add storage account
+
+Add the storage account resource to the template. It can be placed between any two existing resources.
 
 ```
-kubectl delete deployment my-tt-login
+{
+	"type": "Microsoft.Storage/storageAccounts",
+	"name": "[variables('storageAccountName')]",
+	"location": "[resourceGroup().location]",
+	"apiVersion": "2019-04-01",
+	"sku": {
+		"name": "Standard_LRS"
+	},
+	"kind": "StorageV2",
+	"properties": {}
+},
 ```
+
+Add a variable which will provide the storage account name. Don't forget to add appropriate commas for valid json.
+
+```
+"storageAccountName": "[toLower(concat(variables('resourceName'), uniqueString(resourceGroup().id)))]"
+```
+
+Deploy the template with the following command. The resource group name must match the resource group in-which the template has already been deployed. Also, to prevent redeploying things, the `adminUserName` and `adminPassword` parameters should match.
+
+```
+az group deployment create --resource-group twt-standalone --template-file azuredeploy.json --parameters adminUserName=twtadmin adminPassword=Password2020!
+```
+
+Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
+
+## Demo 2 - Azure DevOps
+
+<TODO>
 
 ## Teardown instructions
 
