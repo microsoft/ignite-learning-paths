@@ -1,20 +1,20 @@
 # Deployment Practices for Greater Reliability
 
-Click this button to deploy the session environment.
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fops40%2Fdeployment%2Fazuredeploy.json" target="_blank">
- <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
-
-## Session abstract
+Session abstract
 
 Infrastructure and software delivery methods have a direct and material impact on reliability. Manual service deployment and provisioning is slow, error-prone, and can result in incidents. Using modern continuous deployment practices and provisioning methods can reduce overhead while preventing incidents before they happen.
 
 In this session, we will see how continuous delivery pipelines have helped Tailwind Traders and the rest of the industry deploy tested software to production environments to increase reliability. We’ll also explore modern methods for environment provisioning using infrastructure as code. As a result of attending this session, you will gain practical information on automated deployment and provisioning solutions using Azure-based technology.
 
+## Demo environment deployment
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fops40%2Fdeployment%2Fazuredeploy.json" target="_blank">
+ <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
 ## Delivery assets
 
-The following asset are used for delivering this talk:
+The following asset can be used for delivering this talk:
 
 - [PowerPoint deck]()
 - [Demonstration videos]()
@@ -46,15 +46,15 @@ Add the storage account resource to the template. It can be placed between any t
 
 ```
 {
-	"type": "Microsoft.Storage/storageAccounts",
-	"name": "[variables('storageAccountName')]",
-	"location": "[resourceGroup().location]",
-	"apiVersion": "2019-04-01",
-	"sku": {
-		"name": "Standard_LRS"
-	},
-	"kind": "StorageV2",
-	"properties": {}
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[variables('storageAccountName')]",
+    "location": "[resourceGroup().location]",
+    "apiVersion": "2019-04-01",
+    "sku": {
+        "name": "Standard_LRS"
+    },
+    "kind": "StorageV2",
+    "properties": {}
 },
 ```
 
