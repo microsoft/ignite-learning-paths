@@ -2,7 +2,7 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"adminUsername": {
+		"adminUserName": {
 			"type": "string",
 			"minLength": 1,
 			"metadata": {
@@ -52,7 +52,8 @@
         "databaseEdition": "Basic",
         "databaseCollation": "SQL_Latin1_General_CP1_CI_AS",
         "databaseServiceObjectiveName": "Basic",
-		"transparentDataEncryption": "Enabled"
+		"transparentDataEncryption": "Enabled",
+		"storageAccountName": "[toLower(concat(variables('resourceName'), uniqueString(resourceGroup().id)))]"
 	},
 
 	"resources": [{
@@ -60,6 +61,9 @@
 			"type": "Microsoft.Network/networkSecurityGroups",
 			"name": "[variables('networkSecurityGroup')]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "networkSecurityGroups"
+			  },
 			"properties": {
 				"securityRules": [{
 						"name": "http",
@@ -97,6 +101,9 @@
 			"type": "Microsoft.Network/publicIPAddresses",
 			"name": "[variables('publicIpAddressName')]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "publicIPAddresses"
+			  },
 			"properties": {
 				"publicIPAllocationMethod": "Dynamic"
 			}
@@ -106,6 +113,9 @@
 			"type": "Microsoft.Network/virtualNetworks",
 			"name": "[variables('virtualNetworkName')]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "virtualNetworks"
+			  },
 			"dependsOn": [
 				"[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroup'))]"
 			],
@@ -131,6 +141,9 @@
 			"type": "Microsoft.Network/networkInterfaces",
 			"name": "[concat(variables('networkInterfaceName'), copyindex())]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "networkInterfaces"
+			  },
 			"copy": {
 				"name": "nicLoop",
 				"count": "[parameters('numberOfInstances')]"
@@ -164,6 +177,9 @@
 			"type": "Microsoft.Network/loadBalancers",
 			"name": "[variables('loadBalancerName')]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "loadBalancers"
+			  },
 			"dependsOn": [
 				"[variables('vnetId')]",
 				"[variables('publicIpAddressName')]"
@@ -237,6 +253,9 @@
 			"type": "Microsoft.Compute/virtualMachines",
 			"name": "[concat(variables('resourceName'),copyindex())]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "virtualMachines"
+			  },
 			"copy": {
 				"name": "virtualMachineLoop",
 				"count": "[parameters('numberOfInstances')]"
@@ -308,6 +327,9 @@
 			"type": "Microsoft.Compute/availabilitySets",
 			"name": "[variables('availabilitySetName')]",
 			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "load-balancer"
+			  },
 			"dependsOn": [],
 			"properties": {
 				"platformUpdateDomainCount": 5,
@@ -318,11 +340,24 @@
 			}
 		},
 		{
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName')]",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2019-04-01",
+            "sku": {
+              "name": "Standard_LRS"
+            },
+            "kind": "StorageV2",
+            "properties": {}
+          },
+		{
 			"apiVersion": "2015-05-01-preview",
 			"type": "Microsoft.Sql/servers",
 			"name": "[variables('sqlServerName')]",
 			"location": "[resourceGroup().location]",
-
+			"tags": {
+				"displayName": "SQLServer"
+			  },
 			"dependsOn": [],
 			"properties": {
 				"administratorLogin": "[parameters('adminUsername')]",
@@ -377,7 +412,10 @@
             "type": "Microsoft.DocumentDB/databaseAccounts",
             "kind": "MongoDB",
             "name": "[variables('cosmosAccountNameUnique')]",
-            "location": "[resourceGroup().location]",
+			"location": "[resourceGroup().location]",
+			"tags": {
+				"displayName": "MongoDB"
+			  },
             "properties": {
 			  "databaseAccountOfferType": "Standard"
             }
