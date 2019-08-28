@@ -12,7 +12,7 @@ In this session, we’ll create a set of routines that run on Azure Functions, r
 
 ## Demo: Serverless for Elastic Scale
 
-1. Use the empty `mod40-demo` variant of the function
+1. Use the empty `mod30-demo` variant of the function
 2. Create an HTTP Trigger (not the Webhook quick start, use "additional templates")
 3. Mention function security types and choose anonymous
 4. Open application insights -> Live Metrics Stream (collapse outgoing requests and general health)
@@ -23,7 +23,26 @@ In this session, we’ll create a set of routines that run on Azure Functions, r
 
 ## Demo: Thumbnails with Functions
 
+1. Take a picture in the app and save it
+2. Navigate to the `wishlist` container in the storage account
+3. Show the image and save the full URL
+4. Navigate to the `mod30-app` function and expand, drill into `MakeThumbnailHttp`
+5. Open the "test" tab and change the body to:
+
+    `{ "blob": "{url}" }`
+6. Run and show the execution
+7. Navigate back to the storage and show the thumbnail
+
 ## Demo: Trigger Function with Event Grid Event
+
+1. Navigate to storage and show events
+2. Navigate to the `mod30-app` function and expand, drill into `MakeThumbnailEventGrid`
+3. Click "Add event grid subscription" and add the details of the storage account
+4. Filter to just the "blob created" event
+5. Wait for subscription to confirm
+6. Expand the logs
+7. Upload a new image and show it processed in the event grid
+8. Navigate to storage and show the thumbnail
 
 ## Demo: Social Media Integration with Logic Apps
 
