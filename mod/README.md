@@ -2,6 +2,6 @@
 
 * MOD10
 * MOD20
-* MOD30
-* [MOD40: Enhancing Web Applications with Cloud Intelligence](./mod40/README.md)
+* [MOD30: Enhancing Web Applications with Cloud Intelligence](./mod30/README.md)
+* MOD40
 * MOD50
