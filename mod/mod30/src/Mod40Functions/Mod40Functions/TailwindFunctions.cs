@@ -13,6 +13,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Azure.EventGrid.Models;
+using Microsoft.VisualBasic.CompilerServices;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace Mod40Functions
 {
@@ -20,6 +23,7 @@ namespace Mod40Functions
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
         const string CONTAINER = "wishlist";
+        const string DESCRIPTION = "description";
 
         [FunctionName(nameof(MakeThumbnailHttp))]
         public static async Task<IActionResult> MakeThumbnailHttp(
@@ -67,6 +71,106 @@ namespace Mod40Functions
             }
         }
 
+        [FunctionName(nameof(GetWishlist))]
+        public static async Task<IActionResult> GetWishlist(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]
+            HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("GetWishList invoked.");
+            if (req == null)
+            {
+                throw new ArgumentNullException(nameof(req));
+            }
+            var result = new List<object>();
+            var account = CloudStorageAccount.Parse(ConnectionString);
+            var client = account.CreateCloudBlobClient();
+            var container = client.GetContainerReference(CONTAINER);
+            BlobContinuationToken continuationToken = null;
+            do
+            {
+                var response = await container.ListBlobsSegmentedAsync(continuationToken);
+                continuationToken = response.ContinuationToken;
+                foreach (var item in response.Results)
+                {
+                    var uri = item.Uri.ToString();
+                    if (!uri.Contains("_thumb.jpg"))
+                    {
+                        var cloudBlob = new CloudBlob(item.Uri);
+                        var blobRef = container.GetBlockBlobReference(cloudBlob.Name);
+                        var description = string.Empty;
+                        await blobRef.FetchAttributesAsync();
+                        if (blobRef.Metadata.ContainsKey(DESCRIPTION))
+                        {
+                            description = blobRef.Metadata[DESCRIPTION];
+                        }
+                        var thumbRef = container.GetBlockBlobReference(cloudBlob.Name.Replace(".jpg", "_thumb.jpg"));
+                        string thumbnail = await thumbRef.ExistsAsync() ?
+                            uri.Replace(".jpg", "_thumb.jpg") : string.Empty;
+                        var entry = new
+                        {
+                            Thumbnail = thumbnail,
+                            Full = uri,
+                            Description = description
+                        };
+                        result.Add(entry);
+                    }
+                }
+            }
+            while (continuationToken != null);
+            return new OkObjectResult(result);
+        }
+
+        [FunctionName(nameof(UpdateDescription))]
+        public static async Task<IActionResult> UpdateDescription(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("UpdateDescription invoked.");
+
+            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            var blob = (string)data?.blob;
+            var description = (string)data?.description;
+            if (string.IsNullOrWhiteSpace(blob))
+            {
+                return new BadRequestObjectResult("Blob is required.");
+            }
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                return new BadRequestObjectResult("Description is required.");
+            }
+            try
+            {
+                var uri = new Uri(blob);
+                var cloudBlob = new CloudBlob(uri);
+                var name = cloudBlob.Name;
+                var account = CloudStorageAccount.Parse(ConnectionString);
+                var client = account.CreateCloudBlobClient();
+                var container = client.GetContainerReference(CONTAINER);
+                var blockBlob = container.GetBlockBlobReference(name);
+                var otherBlob =
+                    container.GetBlockBlobReference(name.Replace(".jpg", "_thumb.jpg"));
+                await UpdateMetadata(blockBlob, description);
+                await UpdateMetadata(otherBlob, description);
+                return new OkResult();
+            }
+            catch(Exception ex)
+            {
+                log.LogError(ex, "Unexpected error updating description.");
+                return new BadRequestResult();
+            }
+        }
+
+        private static async Task UpdateMetadata(CloudBlockBlob blob, string description)
+        {
+            if (blob != null && await blob.ExistsAsync())
+            {
+                blob.Metadata[DESCRIPTION] = description;
+                await blob.SetMetadataAsync();
+            }
+        }
+
         private static bool ThumbnailCallback() => false;
 
         private static async Task<bool> MakeThumb(string url, ILogger log)
@@ -103,7 +207,14 @@ namespace Mod40Functions
                 }
                 thumb.Properties.ContentType = "image/jpeg";
                 await thumb.SetPropertiesAsync();
-            }
+
+                // transfer description if one exists
+                await blockBlob.FetchAttributesAsync();
+                if (blockBlob.Metadata.ContainsKey(DESCRIPTION))
+                {
+                    await UpdateMetadata(thumb, blockBlob.Metadata[DESCRIPTION]);
+                }
+            }           
             return true;
         }
     }
