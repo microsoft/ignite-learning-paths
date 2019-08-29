@@ -16,6 +16,7 @@ using Microsoft.Azure.EventGrid.Models;
 using Microsoft.VisualBasic.CompilerServices;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Newtonsoft.Json.Linq;
 
 namespace Mod40Functions
 {
@@ -65,9 +66,9 @@ namespace Mod40Functions
         {
             log.LogInformation("Event grid event received.");
             log.LogInformation(eventWrapper.Data.ToString());
-            if (eventWrapper.Data is StorageBlobCreatedEventData blobEvent)
+            if (eventWrapper.Data is JObject blobEvent)
             {
-                await MakeThumb(blobEvent.Url, log);
+                await MakeThumb(blobEvent["url"].Value<string>(), log);
             }
         }
 
@@ -191,6 +192,7 @@ namespace Mod40Functions
             using (var inputStream = await blockBlob.OpenReadAsync())
             {
                 var thumb = container.GetBlockBlobReference(name.Replace(".jpg", "_thumb.jpg"));
+                log.LogInformation("Processing thumbnail with URL: {url}", thumb.Uri);
                 if (await thumb.ExistsAsync())
                 {
                     log.LogInformation("Thumbnail already exists.");

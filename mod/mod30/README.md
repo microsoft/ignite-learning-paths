@@ -6,9 +6,27 @@ In this session, we’ll create a set of routines that run on Azure Functions, r
 
 ## Demo Setup
 
+The following steps are necessary to prepare for MOD30 demos.
+
+### Software
+
 1. Provision the Tailwind Traders monolith app available [here](https://gist.github.com/anthonychu/9ab34d2991fb5c1c0c29faeebbe43a51)
 2. Install [Node.js](https://nodejs.org) LTS
 3. Install [artillery](https://artillery.io/): `npm i -g artillery`
+4. Install [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/?WT.mc_id=msignitethetour2019-github-mod30) with the Azure/cloud workloads (for functions)
+5. (Optional) Install [Storage Explorer](https://docs.microsoft.com/azure/vs-azure-tools-storage-manage-with-storage-explorer?tabs=windows&WT.mc_id=msignitethetour2019-github-mod30)
+
+### Azure Portal
+
+Create a custom dashboard for the session. (Tip: use [this link](https:/aka.ms/publicportal) to ensure you are using the public portal.)
+
+Pin the following items for easy reference:
+
+* `mod30-demo` function app
+* `mod30demo` storage
+* `mod30-app` function app
+* `mod30-cognitive-vision` Computer Vision
+* `mod30-caption` logic app
 
 ## Demo: Serverless for Elastic Scale
 
@@ -23,9 +41,11 @@ In this session, we’ll create a set of routines that run on Azure Functions, r
 
 ## Demo: Thumbnails with Functions
 
+> **Important Note**: the demo as designed will only work with files using the `.jpg` (not `.jpeg`, `.png` etc.) extension. This should be handled by the app but in case you are testing it manually, keep this in mind.
+
 1. Take a picture in the app and save it
 2. Navigate to the `wishlist` container in the storage account
-3. Show the image and save the full URL
+3. Show the image and copy the full URL to the clipboard
 4. Navigate to the `mod30-app` function and expand, drill into `MakeThumbnailHttp`
 5. Open the "test" tab and change the body to:
 
@@ -38,12 +58,17 @@ In this session, we’ll create a set of routines that run on Azure Functions, r
 1. Navigate to storage and show events
 2. Navigate to the `mod30-app` function and expand, drill into `MakeThumbnailEventGrid`
 3. Click "Add event grid subscription" and add the details of the storage account
-4. Filter to just the "blob created" event
-5. Wait for subscription to confirm
-6. Expand the logs
-7. Upload a new image and show it processed in the event grid
-8. Navigate to storage and show the thumbnail
+4. Give it a name like "WishlistSubscription"
+5. Topic Type is `Storage Accounts`
+6. Select the `mod30demo` storage account
+7. Filter to just the `Blob Created` event
+8. Wait for subscription to confirm
+9. Expand the logs and keep those open
+10. Upload a new image and show it processed in the event grid
+11. Navigate to storage and show the thumbnail
 
 ## Demo: Social Media Integration with Logic Apps
 
 ## Demo: Automatic Image Captioning with Cognitive Services
+
+
