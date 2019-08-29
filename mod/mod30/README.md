@@ -10,11 +10,18 @@ The following steps are necessary to prepare for MOD30 demos.
 
 ### Software
 
+1. Install [Node.js](https://nodejs.org) LTS
+2. Install [artillery](https://artillery.io/): `npm i -g artillery`
+3. Install [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/?WT.mc_id=msignitethetour2019-github-mod30) with the Azure/cloud workloads (for functions)
+4. (Optional) Install [Storage Explorer](https://docs.microsoft.com/azure/vs-azure-tools-storage-manage-with-storage-explorer?tabs=windows&WT.mc_id=msignitethetour2019-github-mod30)
+
+### Deployments
+
 1. Provision the Tailwind Traders monolith app available [here](https://gist.github.com/anthonychu/9ab34d2991fb5c1c0c29faeebbe43a51)
-2. Install [Node.js](https://nodejs.org) LTS
-3. Install [artillery](https://artillery.io/): `npm i -g artillery`
-4. Install [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/?WT.mc_id=msignitethetour2019-github-mod30) with the Azure/cloud workloads (for functions)
-5. (Optional) Install [Storage Explorer](https://docs.microsoft.com/azure/vs-azure-tools-storage-manage-with-storage-explorer?tabs=windows&WT.mc_id=msignitethetour2019-github-mod30)
+2. Deploy the MOD30 Assets: [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/microsoft/ignite-learning-paths/tree/master/mod/mod30)
+    > **Note:** give it a unique prefix it with, i.e. `mod30xyz` should replace `mod30`, and hereafter assume `mod30-demo` translates to `mod30xyz-demo`
+3. Navigate to the `azureeventgrid` connection, click "Edit API connection" then click `Authorize` to authorize the connection
+4. Publish the `Mod30Functions` app to the deployed `mod30-app` endpoint.
 
 ### Azure Portal
 
@@ -23,7 +30,7 @@ Create a custom dashboard for the session. (Tip: use [this link](https:/aka.ms/p
 Pin the following items for easy reference:
 
 * `mod30-demo` function app
-* `mod30demo` storage
+* `mod30demostorage` storage
 * `mod30-app` function app
 * `mod30-cognitive-vision` Computer Vision
 * `mod30-caption` logic app
@@ -60,7 +67,7 @@ Pin the following items for easy reference:
 3. Click "Add event grid subscription" and add the details of the storage account
 4. Give it a name like "WishlistSubscription"
 5. Topic Type is `Storage Accounts`
-6. Select the `mod30demo` storage account
+6. Select the `mod30demostorage` storage account
 7. Filter to just the `Blob Created` event
 8. Wait for subscription to confirm
 9. Expand the logs and keep those open
@@ -71,4 +78,8 @@ Pin the following items for easy reference:
 
 ## Demo: Automatic Image Captioning with Cognitive Services
 
-
+1. Navigate to the `mod30-caption` logic app
+2. Walk through the various steps and explain how one step feeds into the next with variables
+3. Show the functions integration and expand the functions code for `UpdateDescription`
+4. Enable the logic app
+5. Upload a new image and show the automated caption
