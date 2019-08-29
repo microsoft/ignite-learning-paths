@@ -38,7 +38,7 @@ Pin the following items for easy reference:
 ## Demo: Serverless for Elastic Scale
 
 1. Use the empty `mod30-demo` variant of the function
-2. Create an HTTP Trigger (not the Webhook quick start, use "additional templates")
+2. Create an HTTP Trigger (not the WebHook quick start, use "additional templates")
 3. Mention function security types and choose anonymous
 4. Open application insights -> Live Metrics Stream (collapse outgoing requests and general health)
 5. Hit the endpoint (either via Test or copy/paste URL, this is preferred so you can capture the endpoint) and show the live metric
@@ -53,12 +53,15 @@ Pin the following items for easy reference:
 1. Take a picture in the app and save it
 2. Navigate to the `wishlist` container in the storage account
 3. Show the image and copy the full URL to the clipboard
-4. Navigate to the `mod30-app` function and expand, drill into `MakeThumbnailHttp`
-5. Open the "test" tab and change the body to:
+4. Take a picture in the app and save it
+5. Navigate to the `wishlist` container in the storage account
+6. Show the image and save the full URL
+7. Navigate to the `mod30-app` function and expand, drill into `MakeThumbnailHttp`
+8. Open the "test" tab and change the body to:
 
     `{ "blob": "{url}" }`
-6. Run and show the execution
-7. Navigate back to the storage and show the thumbnail
+9. Run and show the execution
+10. Navigate back to the storage and show the thumbnail
 
 ## Demo: Trigger Function with Event Grid Event
 
