@@ -8,7 +8,7 @@
       },
       "siteLocation": {
         "type": "string",
-        "defaultValue": "eastus"
+        "defaultValue": "East US"
       },
       "SKU": {
         "type": "string",
