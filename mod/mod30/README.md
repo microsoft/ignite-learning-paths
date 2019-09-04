@@ -83,6 +83,7 @@ Pin the following items for easy reference:
 
 1. Navigate to the `mod30-caption` logic app
 2. Walk through the various steps and explain how one step feeds into the next with variables
-3. Show the functions integration and expand the functions code for `UpdateDescription`
-4. Enable the logic app
-5. Upload a new image and show the automated caption
+3. Add a step to connect with the `UpdateDescription` function
+4. Set the `blob` to the URL of the blob and `description` to the generated caption
+5. Enable the logic app
+6. Upload a new image and show the automated caption
