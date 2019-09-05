@@ -24,16 +24,22 @@ Server=tcp:lbtailwind-sqlsvr.database.windows.net,1433;Initial Catalog=lbtailwin
 
 - Choose a unique prefix, for example your initials. Here below referred to as `[prefix]`.
 
+- Choose a username and password. Here below referred to as `username` and `password`.
+
 - [Deploy to Azure button](https://gist.github.com/anthonychu/9ab34d2991fb5c1c0c29faeebbe43a51)
 	- Microsoft
 	- Ignite the Tour
 	- Create New
-	- `Mod20-[prefix]-TailwindTraders-Standalone`
+	- `Mod20-[prefix]-TailwindTraders`
 	- `Mod20[prefix]TailwindTraders`
 	- Your region
 	- standalone
-	- `tailwind`
-	- `traderstraders42.`
+	- `username`
+	- `password`
+
+> Note: Sometimes the deployment gets stuck, especially at the "Configuring SQL Server Firewall rules" step. If that happens, start a new deployment.
+
+> Note 2: The last step "Setting up source control" can take a long time.
 
 ## Additional work
 
@@ -122,6 +128,8 @@ In the `Mod20-[prefix]-TailwindTraders-Standalone` resource group:
 	- After a few minutes, you will see a new debug header on top of the page at `https://mod20[prefix]tailwindtraders.azurewebsites.net` with the host information of the databases.
 	
 ## Prep before session
+
+Note: For all demos we recommend using the [Public Portal](https://portal.azure.com/?feature.customportal=false#home).
 
 	• Reboot
 	• Check that MongoDB VM is up and running, CLOSE
