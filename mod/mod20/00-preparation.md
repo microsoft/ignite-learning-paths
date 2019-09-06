@@ -154,7 +154,9 @@ In the `Mod20-[prefix]-TailwindTraders-Standalone` resource group:
 You should see some vulnerabilities. During the presentation later, you can come back to this tab and show to the audience the vulnerabilites and remediation. Explain that the scan happens periodically and that email reports are sent.
 
 - Open the Azure SQL Database (backup)
-	- Configure security as shown above.
+	- Security is configured at the SQL Server level so no need to configure it.
+	- Go to Vulnerability assessment
+	- Scan
 	
 ## Prep before session
 
