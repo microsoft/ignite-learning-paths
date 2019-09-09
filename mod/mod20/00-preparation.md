@@ -24,16 +24,22 @@ Server=tcp:lbtailwind-sqlsvr.database.windows.net,1433;Initial Catalog=lbtailwin
 
 - Choose a unique prefix, for example your initials. Here below referred to as `[prefix]`.
 
+- Choose a username and password. Here below referred to as `username` and `password`.
+
 - [Deploy to Azure button](https://gist.github.com/anthonychu/9ab34d2991fb5c1c0c29faeebbe43a51)
 	- Microsoft
 	- Ignite the Tour
 	- Create New
-	- `Mod20-[prefix]-TailwindTraders-Standalone`
+	- `Mod20-[prefix]-TailwindTraders`
 	- `Mod20[prefix]TailwindTraders`
 	- Your region
 	- standalone
-	- `tailwind`
-	- `traderstraders42.`
+	- `username`
+	- `password`
+
+> Note: Sometimes the deployment gets stuck, especially at the "Configuring SQL Server Firewall rules" step. If that happens, start a new deployment.
+
+> Note 2: The last step "Setting up source control" can take a long time.
 
 ## Additional work
 
@@ -98,6 +104,17 @@ In the `Mod20-[prefix]-TailwindTraders-Standalone` resource group:
 		- Keep the data migration activity
 		- Keep the migration project
 
+- Create a Storage account
+	- Ignite the Tour
+	- Mod20-[prefix]-TailwindTraders-Standalone resource group
+	- Name: `mod20[prefix]storage` (lowercase)
+	- Your region
+	- Standard
+	- StorageV2
+	- Locally-redundant (LRS)
+	- Hot
+	- Review and create
+
 ## Additional configuration
 
 - Open the mod20[prefix]tailwindtraders App Service
@@ -120,8 +137,30 @@ In the `Mod20-[prefix]-TailwindTraders-Standalone` resource group:
 	- Save.
 	- In the Overview blade of the App service, click on `Restart` then `Yes`.
 	- After a few minutes, you will see a new debug header on top of the page at `https://mod20[prefix]tailwindtraders.azurewebsites.net` with the host information of the databases.
+
+- Open the Azure SQL Database
+	- Go to Advanced Data Security
+	- Vulnerability assessment
+	- Turn Advanced Data Security on
+	- Subscription Ignite the Tour
+	- Storage account: `mod20[prefix]storage`
+	- Send scan reports to: `Your email address`
+	- Send alerts to: `Your email address`
+	- Advanced Threat Protection Types: All
+	- Save
+	- Go back to Vulneability Assesment
+	- Click `Scan`
+
+You should see some vulnerabilities. During the presentation later, you can come back to this tab and show to the audience the vulnerabilites and remediation. Explain that the scan happens periodically and that email reports are sent.
+
+- Open the Azure SQL Database (backup)
+	- Security is configured at the SQL Server level so no need to configure it.
+	- Go to Vulnerability assessment
+	- Scan
 	
 ## Prep before session
+
+Note: For all demos we recommend using the [Public Portal](https://portal.azure.com/?feature.customportal=false#home).
 
 	• Reboot
 	• Check that MongoDB VM is up and running, CLOSE
