@@ -179,8 +179,6 @@ Note: For all demos we recommend using the [Public Portal](https://portal.azure.
 		○ Add an item to cart
 		○ Clear cart
 		○ Log off
-	• Make sure that the Data Migration Assistant is installed and runs
-		○ Delete all the projects if available
 	• Make sure that the tables in the Azure SQL DB are dropped
 	• Go back to overview
 	• Make sure that the collections in the CosmosDB are dropped

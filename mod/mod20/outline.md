@@ -27,7 +27,7 @@
 - Show the new collection in CosmosDB
 - Give a quick tour of CosmosDB, replicate data globally
 - Go back to the website, refresh
-- Show the new connection string
+- Show the new connection string in the debug header
 - Go to the cart
 - Go to CosmosDB data explorer
 - Add a new document (see commands.md)
@@ -41,3 +41,12 @@
 - Go back to DMS
 - Create new migration project
 - Show that it requires the DMA first to assess and migrate the schema
+- Migrate the Schema first
+- Using the same migration project, create a new activity for data (offline)
+- Finish the migration
+- In the App Service, switch the Connection string to the new one
+- Give a quick tour of the Azure SQL Database
+    - Show the Advanced Security tab with the vulnerabilities
+- Go back to the website, refresh
+- The new connection string should now show up in the debug header
+- Navigate the products to show that everything was migrated.
