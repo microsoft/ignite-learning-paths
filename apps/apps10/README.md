@@ -184,6 +184,8 @@ Have some fun the the VM. When it will be the real tailwind VM the app should be
 - Exit 
 - Disconnect shh
 
+Demo 1 is done, let's do demo 1.5.
+
 ### Demo 1.5 - Plan B: PaaS - WebApp
 
 Now it's time to introduce the PaaS setup. Some people prefer VM other will embrace the PaaS and go VMsless
@@ -205,6 +207,22 @@ Now it's time to introduce the PaaS setup. Some people prefer VM other will embr
 
 Demo 1 done. Back to slide.
 
+### Demo 2 - Securing the app with Azure Key Vault
+
+- From the portal, back to tab with the Configuration open
+- Show a "old way" to do by showing the CosmoDB connection String **use the ZOOM**
+- Now show the SQLConnectionString
+
+Let's explain where it come from. See Before that talk you already created a Key Vaul. 
+
+- Switch to Browser Tab: Key Vault
+- Creating one is super simple `az keyvault create`, or a few textbox from the portal.
+- Open Show the button to add secret
+- From the left panel click on Secret, and click again.
+- Provide information about where the URL come from, show the real connectionstring
+- Explains the how you could do a ne version or the and expiration date.
+
+Congratulation you just finish your last demo.
 
 ## Become a Presenter
 
