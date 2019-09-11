@@ -132,7 +132,7 @@ Once the key vault is created we will add a secret, and populate it.
         --admin-username azureuser \
         --generate-ssh-keys
   ```
-- Zoom should be running, there is tiny stuff to show.
+- ZoomIt (or another application that zoom your screen) should be running, there is tiny stuff to show.
 
 ### Demo 1 - Let’s Create a VM 
 
