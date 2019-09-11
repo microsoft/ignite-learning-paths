@@ -11,6 +11,7 @@
 |About SQL, Managed Instance|6'|0:37|
 |Demo Migration SQL part 2|3'|0:40|
 |PostgreSQL, MySQL, MariaDB|2'|0:42|
+|Resources, conclusion|3'|0:45|
 
 <a id="demomigratemongodb"></a>
 ## Demo Migrate MongoDB -> Cosmos DB
