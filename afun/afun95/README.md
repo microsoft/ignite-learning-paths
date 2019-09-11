@@ -57,7 +57,7 @@ Just like on TV show you already have one created.
 - Click the "+" beside Function to create a new Function
 - Mention there is many different ways to create Function, We will use VS Code in the next one, but right now let's do it In-Portal
 - click **In-Portal**, and the Continue button
-- click More tempaltes
+- click More templates
 - show all template, briefly mention scenario where it could be use.
 - For this demo let's do an HTTP trigger, Click on HTTP trigger.
 - Rename HttpTrigger1, and change the *Authorization level* to `Anonymous`
@@ -75,11 +75,11 @@ Just like on TV show you already have one created.
 
 
 
-
-
-
-
 ### Demo 3 - Deploying from GitHub Demo
+
+
+
+[![Deploy to Azure](https://img.shields.io/badge/Deploy%20To-Azure-blue?logo=microsoft-azure)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fafun95%2Fdeployment%2FdeployAzure.json?WT.mc_id=cloud5mins-github-frbouche)
 
 
 
