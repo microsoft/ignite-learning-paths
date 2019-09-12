@@ -27,7 +27,7 @@ The following steps are necessary to prepare for AFUN95 demos.
 > - Browser Tab - Portal Azure - Dashboard/ home
 > - Browser Tab - Portal Azure - Function App (with out any Functions)
 > - Browser Tab - Portal Azure - Logic App Overview blade 
-> - Browser Tab - GitHub - Folder ______________________
+> - Browser Tab - GitHub - this document. (https://github.com/microsoft/ignite-learning-paths/tree/afun95/afun/afun95)
 > - ZoomIt (or another application that zoom your screen) should be running
 >   
 
@@ -77,12 +77,23 @@ Just like on TV show you already have one created.
 
 ### Demo 3 - Deploying from GitHub Demo
 
+Let's now deploy the same Azure Function from GitHub
 
+- Switch to : Browser Tab - GitHub - this document.
+- examine folder **functionapp-demo** it the same function that previously.
+- Open the file `functionapp-demo/afun95demoHttpTrigger/index.js` and change the code. Change `Hello Ignite I'm ` by `Hello again Ignite!!! I'm `
+- Commit
+- Open the ARM template in `adeployment/deployAzure.json`
+- Examine the template (MORE TO COME)
+- Click the following button.
 
 [![Deploy to Azure](https://img.shields.io/badge/Deploy%20To-Azure-blue?logo=microsoft-azure)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fafun95%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure.json)
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fafun95%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure.json" target="_blank"><img src="https://azuredeploy.net/deploybutton.png"/></a>
 
+- Once deployment is done open the code...
+
+Congrats all demos are done.
 
 ## Become a Presenter
 
