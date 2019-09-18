@@ -30,7 +30,7 @@
 		"containerName": "logs",
 		"deploymentImage": "scottyc/itt-bootstrap:1.0",
 		"sourceRepo": "https://github.com/scotty-c/ignite-learning-paths.git",
-		"entrypoint": "apps/apps40/deploy.sh",
+		"entrypoint": "/apps/apps40/deploy.sh",
 		"sessionCode": "TWT"
 	},
 	"resources": [{
