@@ -39,7 +39,7 @@ printf "\n*** Deploying resources: this will take a few minutes... ***\n"
 az network vnet create \
     --resource-group $azureResourceGroup \
     --name k8sVNet \
-    --address-prefixes 10.241.0.0/16 \
+    --address-prefixes 10.0.0.0/8 \
     --subnet-name k8sSubnet \
     --subnet-prefix 10.240.0.0/16
 
