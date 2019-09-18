@@ -15,7 +15,7 @@ containerVersion=v1
 # Tailwind deployment
 tailwindInfrastructure=deployment.json
 tailwindCharts=TailwindTraders-Backend/Deploy/helm
-tailwindChartValuesScript=TailwindTraders-Backend/Deploy/Generate-Config.ps1
+tailwindChartValuesScript=helm-values/Generate-Config.ps1
 tailwindChartValues=../../../values.yaml
 tailwindWebImages=TailwindTraders-Backend/Deploy/tt-images
 tailwindServiceAccount=TailwindTraders-Backend/Deploy/helm/ttsa.yaml
@@ -33,7 +33,7 @@ printf "\n*** Cloning Tailwind code repository... ***\n"
 git clone https://github.com/neilpeterson/TailwindTraders-Backend.git
 
 # Deploy backend infrastructure
-printf "\n*** Deploying resources: this will take a few minutes... ***\n"
+printf "\n*** Deploying networking resources  ***\n"
 
 # create the vnet
 az network vnet create \
@@ -50,7 +50,7 @@ az network vnet subnet create \
     --name VNSubnet  \
     --address-prefix 10.241.0.0/16
 
-
+printf "\n*** Deploying resources: this will take a few minutes... ***\n"
 # Deploy cluster and sql
 vnetID=$(az network vnet subnet show --resource-group $azureResourceGroup --vnet-name k8sVNet --name k8sSubnet --query id -o tsv)
 az group deployment create -g $azureResourceGroup --template-file $tailwindInfrastructure \
