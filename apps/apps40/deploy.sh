@@ -15,7 +15,7 @@ containerVersion=v1
 # Tailwind deployment
 tailwindInfrastructure=deployment.json
 tailwindCharts=TailwindTraders-Backend/Deploy/helm
-tailwindChartValuesScript=helm-values/Generate-Config.ps1
+tailwindChartValuesScript=./helm-values/Generate-Config.ps1
 tailwindChartValues=../../../values.yaml
 tailwindWebImages=TailwindTraders-Backend/Deploy/tt-images
 tailwindServiceAccount=TailwindTraders-Backend/Deploy/helm/ttsa.yaml
@@ -33,7 +33,7 @@ printf "\n*** Cloning Tailwind code repository... ***\n"
 git clone https://github.com/neilpeterson/TailwindTraders-Backend.git
 
 # Deploy backend infrastructure
-printf "\n*** Deploying networking resources  ***\n"
+printf "\n*** Deploying networking resources ***\n"
 
 # create the vnet
 az network vnet create \
@@ -79,6 +79,7 @@ az aks get-credentials --name $AKS_CLUSTER --resource-group $azureResourceGroup 
 kubectl apply -f https://raw.githubusercontent.com/Azure/helm-charts/master/docs/prerequisities/helm-rbac-config.yaml
 helm init --wait --service-account tiller
 
+printf "\n*** Installing virtual node on Kubernets cluster... ***\n"
 # Deploy virtual node 
 az aks enable-addons \
     --resource-group $azureResourceGroup  \
