@@ -15,7 +15,7 @@ containerVersion=v1
 # Tailwind deployment
 tailwindInfrastructure=deployment.json
 tailwindCharts=TailwindTraders-Backend/Deploy/helm
-tailwindChartValuesScript=./helm-values/Generate-Config.ps1
+tailwindChartValuesScript=helm-values/Generate-Config.ps1
 tailwindChartValues=../../../values.yaml
 tailwindWebImages=TailwindTraders-Backend/Deploy/tt-images
 tailwindServiceAccount=TailwindTraders-Backend/Deploy/helm/ttsa.yaml
