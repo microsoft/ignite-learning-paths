@@ -13,7 +13,7 @@ containerRegistry=neilpeterson
 containerVersion=v1
 
 # Tailwind deployment
-tailwindInfrastructure=TailwindTraders-Backend/Deploy/deployment.json
+tailwindInfrastructure=deployment.json
 tailwindCharts=TailwindTraders-Backend/Deploy/helm
 tailwindChartValuesScript=TailwindTraders-Backend/Deploy/Generate-Config.ps1
 tailwindChartValues=../../../values.yaml
