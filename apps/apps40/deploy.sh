@@ -31,8 +31,6 @@ printf "\n*** Cloning Tailwind code repository... ***\n"
 
 # Issue to fix with upstream: https://github.com/microsoft/TailwindTraders-Backend/blob/master/Deploy/Generate-Config.ps1#L92
 git clone https://github.com/neilpeterson/TailwindTraders-Backend.git
-pwd
-ls -la
 
 # Deploy backend infrastructure
 printf "\n*** Deploying resources: this will take a few minutes... ***\n"
