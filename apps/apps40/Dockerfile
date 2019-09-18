@@ -19,7 +19,7 @@ RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin
 
 # Add entrypoint
-COPY . . 
+COPY boot-strap.sh /
 RUN chmod 777 boot-strap.sh
 
 CMD ["/boot-strap.sh"]
