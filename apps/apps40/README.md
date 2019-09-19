@@ -2,6 +2,13 @@
 
 # Tailwind Traders AKS
 
+## Regions this code will work with  ​
+* East US 2​
+* North Europe​
+* Southeast Asia​
+* West Europe​
+* West US 2
+
 In order to deploy this template, you need an Azure Service Principal. If needed, use the `az ad sp create-for-rbac` command to create the service principal. See [az ad sp create-for-rbac](https://docs.microsoft.com/en-us/cli/azure/ad/sp?WT.mc_id=none-github-nepeters&view=azure-cli-latest#az-ad-sp-create-for-rbac) for more information.
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fscotty-c%2Fignite-learning-paths%2Fmaster%2Fapps%2Fapps40%2Fazuredeploy.json" target="_blank">
@@ -81,6 +88,23 @@ kubectl get pods -o wide
  ![alt text](./images/pods.png)
 
 In the image above you can see that we are scaling the pods to virtual node on ACI dynamically. 
+
+## Availability zones
+This is set up by the [deployment.json](deployment.json)
+To test this is set up correctly use the following command
+```
+kubectl describe nodes | grep -e "Name:" -e "failure-domain.beta.kubernetes.io/zone"
+```
+The output should look like 
+```
+Name:               aks-agentpool-12493275-vmss000000
+                    failure-domain.beta.kubernetes.io/zone=southeastasia-1
+Name:               aks-agentpool-12493275-vmss000001
+                    failure-domain.beta.kubernetes.io/zone=southeastasia-2
+Name:               aks-agentpool-12493275-vmss000002
+                    failure-domain.beta.kubernetes.io/zone=southeastasia-3
+Name:               virtual-node-aci-linux
+```
 
 ## Delete your deployment
 To delete the deployment run the following 
