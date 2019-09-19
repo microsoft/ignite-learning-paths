@@ -8,12 +8,6 @@
   c. Open the Connection strings blade.
   d. Make sure that the `ADO.NET` tab is selected and copy the connection string.
 
-> For example it should look like this:
-
-```
-Server=tcp:lbtailwind-sqlsvr.database.windows.net,1433;Initial Catalog=lbtailwind-sqldb;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-```
-
 **TO BE CONTINUED**
 
 # TEMPO WORK IN PROGRESS
