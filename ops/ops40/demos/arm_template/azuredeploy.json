@@ -7,6 +7,7 @@
 			"defaultvalue": "sqladmin"
 		},
 		"sqlServerAdministratorLoginPassword": {
+			"defaultValue": "Password2020!",
 			"type": "securestring"
 		},
 		"pgversion": {
@@ -15,7 +16,7 @@
 		},
 		"components_app_insights_name": {
 			"defaultValue": "tt-app-insights",
-			"type": "String"
+			"type": "string"
 		}
 	},
 	"variables": {
@@ -35,7 +36,7 @@
 			"type": "Microsoft.Storage/storageAccounts",
 			"name": "[variables('storageAccountName')]",
 			"location": "[resourceGroup().location]",
-			"apiVersion": "2018-07-01",
+			"apiVersion": "2017-10-01",
 			"sku": {
 				"name": "Standard_LRS"
 			},
