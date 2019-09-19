@@ -6,7 +6,7 @@ In this session, we will see how continuous delivery pipelines have helped Tailw
 
 ## Demo environment deployment
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fops40%2Fdeployment%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
  <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
@@ -19,11 +19,79 @@ The following asset can be used for delivering this talk:
 
 ## Demo 1 - Azure DevOps
 
-Address the following in this demo:
+**Part 1:** Pipeline Overview
 
-- Pipeline overview (stages, jobs, tasks, variables, and conditions)
-- Show how production can be reconciled .via build ID (helm release version, pod version, and container image version)
-- Add 'unit test' to pipeline and show results
+- Pipeline overview
+- [Stages](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml)
+- [Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
+- [Trigger](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&tabs=yaml)
+- [Path filter](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&tabs=yaml#paths)
+- [Pull request trigger](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&tabs=yaml#pr-triggers)
+- [Variables](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch)
+- [Variable groups](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml)
+- [Conditions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml)
+- [Tasks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml)
+
+**Part 2:** Production Reconciliation
+
+Show how production can be reconciled .via build ID (helm release version and container image version).
+
+Get the latest build id, this can be seen in the last runs URL.
+
+![Pipeline Run URL with Build ID](./images/buildid.png)
+
+Navigate back to the pipeline and show how the built-in `Build.BuildId` variable can be used as a task value.
+
+```
+- task: HelmDeploy@0
+  displayName: 'helm package (tt-cart)'
+  inputs:
+    command: package
+    chartPath: 'Deploy/helm/cart-api'
+    arguments: '--version $(Build.BuildId)'
+```
+
+Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
+
+```
+$ helm list
+
+NAME                    REVISION        UPDATED                         STATUS          CHART                           NAMESPACE
+my-tt-cart              2               Wed Sep 18 21:18:46 2019        DEPLOYED        cart-api-1818                   default
+```
+
+Return a list of pods to get the name of the cart pod.
+
+```
+$ kubectl get pods
+
+my-tt-cart-cart-api-77db6f9f58-wqs7p                        1/1     Running   0          11h
+my-tt-coupon-tt-coupons-85c96964fc-z7tc7                    1/1     Running   0          15h
+my-tt-image-classifier-7d6d97875f-4z66s                     1/1     Running   0          15h
+my-tt-login-7f88cff49-fqk95                                 1/1     Running   0          15h
+my-tt-mobilebff-67dcb9f988-7vgc9                            1/1     Running   0          15h
+my-tt-popular-product-tt-popularproducts-67dfcc8b67-f7knj   1/1     Running   0          15h
+my-tt-product-tt-products-d9c54d955-6fmd8                   1/1     Running   0          15h
+my-tt-profile-5c57bf89b4-5z79c                              1/1     Running   0          15h
+my-tt-stock-6b969dd459-hw559                                1/1     Running   0          15h
+my-tt-webbff-67849c78b7-qhvlg                               1/1     Running   0          15h
+web-6b56cc7d7c-w7t9x                                        1/1     Running   0          15h
+```
+
+Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
+
+```
+$ kubectl describe pod my-tt-cart-cart-api-77db6f9f58-wqs7p
+
+Containers:
+  cart-api:
+    Container ID:   docker://9438c601b838855659abef2f68ab19c281bd172525ce09aedbbcf65dc0940580
+    Image:          ttacr5iny4v2wygm3k.azurecr.io/cart.api:1818
+```
+
+**Part 2:** Add Unit Test
+
+Add the following stage to the pipeline, click save, which will start a new run.
 
 ```
 - stage: test
@@ -75,6 +143,15 @@ Address the following in this demo:
         failTaskOnFailedTests: true
 ```
 
+While the run is in progress show the following.
+
+- Pipeline logs
+- [Azure Pipeline YAML reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema)
+
+Once the testing stage has completed, show the test results.
+
+![Azure Pipeline test results](./images/tests.png)
+
 ## Demo 2 - Azure Resource Manager templates
 
 In this demo, an Azure Resource Manager template is examined, updated, and deployed.
@@ -83,16 +160,11 @@ In this demo, an Azure Resource Manager template is examined, updated, and deplo
 
 The template file is found in the same directory as this readme and is named `azuredeploy.json`. Take a quick walk through the template, highlighting these items.
 
-- The four sections of the tempalte (paramaters, variabls, resources, and outputs) - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
-- Secure string parameter - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/template-best-practices#security-recommendations-for-parameters)
-- Dependencies - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-define-dependencies#reference-and-list-functions)
-- Copy function - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-multiple)
-- Template extensions - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-use-extensions)
-
-Not in the demo, but to mention during the demo:
-
-- Create resources and resource groups with a template - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/deploy-to-subscription)
-- Linked templates - [docs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-linked-templates)
+- The four sections of the tempalte [(paramaters, variabls, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
+- [Secure string parameter](https://docs.microsoft.com/en-us/azure/azure-resource-manager/template-best-practices#security-recommendations-for-parameters)
+- [Dependencies](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-define-dependencies#reference-and-list-functions)
+- [Copy function](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-multiple)
+- [Template extensions](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-use-extensions)
 
 Once done, show the already created resources in the Azure portal. Take note that a storage account has not been deployed.
 
@@ -114,7 +186,7 @@ Add the storage account resource to the template. It can be placed between any t
 },
 ```
 
-Add a variable which will provide the storage account name. Don't forget to add appropriate commas for valid json.
+Add a variable which will provide the storage account name. Don't forget to add appropriate commas for valid JSON.
 
 ```
 "storageAccountName": "[toLower(concat(variables('resourceName'), uniqueString(resourceGroup().id)))]"
