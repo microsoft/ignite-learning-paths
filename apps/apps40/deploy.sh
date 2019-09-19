@@ -200,8 +200,9 @@ spec:
       host: 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
       queueLength  : '5'
 EOF
-
-
+  
+  
+  
 # Notes
 echo "*************** Connection Information ***************"
 echo "The Tailwind Traders Website can be accessed at:"
