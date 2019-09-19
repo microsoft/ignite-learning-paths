@@ -17,7 +17,65 @@ The following asset can be used for delivering this talk:
 - [PowerPoint deck]()
 - [Demonstration videos]()
 
-## Demo 1 - Azure Resource Manager Template
+## Demo 1 - Azure DevOps
+
+Address the following in this demo:
+
+- Pipeline overview (stages, jobs, tasks, variables, and conditions)
+- Show how production can be reconciled .via build ID (helm release version, pod version, and container image version)
+- Add 'unit test' to pipeline and show results
+
+```
+- stage: test
+  jobs:
+  - job:
+
+    variables:
+      hostDB: https://ttshoppingdbxy4tce6fzj25s.documents.azure.com:443/
+
+    pool:
+      name: Hosted Ubuntu 1604
+
+    steps:
+
+    - task: PowerShell@2
+      displayName: Install Pester
+      inputs:
+        targetType: 'inline'
+        script: |
+          Find-Module pester | Install-Module -Force
+
+    - task: AzureCLI@1
+      displayName: Generate values file for test
+      inputs:
+        azureSubscription: 'nepeters-azure'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          pwsh Deploy/Generate-Config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate Deploy/helm/gvalues.template -outputFile ./values.yaml
+
+    - task: PowerShell@2
+      displayName: Parse host name
+      inputs:
+        targetType: 'inline'
+        script: |
+          $content = Get-Content values.yaml
+          $hostName = $content[37].split(" ")[7]
+
+    - task: PowerShell@2
+      displayName: Run Pester tests
+      inputs:
+        targetType: 'inline'
+        script: 'invoke-pester -Script @{ Path = ''./tests/''; Parameters = @{ hostName = ''$(hostDB)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
+
+    - task: PublishTestResults@2
+      displayName: Publish test results
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: '**/test-results.xml'
+        failTaskOnFailedTests: true
+```
+
+## Demo 2 - Azure Resource Manager templates
 
 In this demo, an Azure Resource Manager template is examined, updated, and deployed.
 
@@ -44,15 +102,15 @@ Add the storage account resource to the template. It can be placed between any t
 
 ```
 {
-    "type": "Microsoft.Storage/storageAccounts",
-    "name": "[variables('storageAccountName')]",
-    "location": "[resourceGroup().location]",
-    "apiVersion": "2019-04-01",
-    "sku": {
-        "name": "Standard_LRS"
-    },
-    "kind": "StorageV2",
-    "properties": {}
+    "type": "Microsoft.Storage/storageAccounts",
+    "name": "[variables('storageAccountName')]",
+    "location": "[resourceGroup().location]",
+    "apiVersion": "2019-04-01",
+    "sku": {
+        "name": "Standard_LRS"
+    },
+    "kind": "StorageV2",
+    "properties": {}
 },
 ```
 
@@ -70,9 +128,9 @@ az group deployment create --resource-group twt-standalone --template-file azure
 
 Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
 
-## Demo 2 - Azure DevOps
+## Demo 3 - Azure Resource Change API
 
-<TODO>
+TODO
 
 ## Teardown instructions
 
