@@ -137,6 +137,71 @@ az storage blob upload-batch --destination $BLOB_ENDPOINT --destination product-
 az storage blob upload-batch --destination $BLOB_ENDPOINT --destination product-list --source $tailwindWebImages/product-list --account-name $STORAGE
 az storage blob upload-batch --destination $BLOB_ENDPOINT --destination profiles-list --source $tailwindWebImages/profiles-list --account-name $STORAGE
 
+#
+printf "\n***Setting up sclaing backend componets.***\n"
+helm repo add kedacore https://kedacore.azureedge.net/helm
+helm repo update
+helm install kedacore/keda-edge --devel --set logLevel=debug --namespace keda --name keda
+helm install --name rabbitmq --set rabbitmq.username=user,rabbitmq.password=PASSWORD stable/rabbitmq
+
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-consumer
+  namespace: default
+  labels:
+    app: rabbitmq-consumer
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq-consumer
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-consumer
+    spec:
+      containers:
+      - name: rabbitmq-consumer
+        image: jeffhollan/rabbitmq-client:dev
+        imagePullPolicy: Always
+        command:
+          - receive
+        args:
+          - 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule      
+---
+apiVersion: keda.k8s.io/v1alpha1
+kind: ScaledObject
+metadata:
+  name: rabbitmq-consumer
+  namespace: default
+  labels:
+    deploymentName: rabbitmq-consumer
+spec:
+  scaleTargetRef:
+    deploymentName: rabbitmq-consumer
+  pollingInterval: 5   # Optional. Default: 30 seconds
+  cooldownPeriod: 30   # Optional. Default: 300 seconds
+  maxReplicaCount: 30  # Optional. Default: 100
+  triggers:
+  - type: rabbitmq
+    metadata:
+      queueName: hello
+      host: 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
+      queueLength  : '5'
+EOF
+
+
 # Notes
 echo "*************** Connection Information ***************"
 echo "The Tailwind Traders Website can be accessed at:"

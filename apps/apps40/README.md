@@ -29,10 +29,53 @@ To validate that the deployment has completed, select the Azure Container Instan
 
 ![alt text](./images/aci.jpg)
 
-Select **Containers**. Once the container state has changed from **Running** to **Terminated**, the deployment automation has completed. Select logs.
+Select **Containers**. Once the container state has changed from **Running** to **Terminated**, the deployment automation has completed. 
 
 ![alt text](./images/logs.jpg)
 
 Scroll to the bottom of the logs to retrieve both the application URL and the command needed to connect to the Kubernetes cluster.
 
 ![alt text](./images/connection.jpg)
+
+
+## Runing scale demo
+To run the scaling demo you need to add the publisher 
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rabbitmq-publish
+spec:
+  template:
+    spec:
+      containers:
+      - name: rabbitmq-client
+        image: jeffhollan/rabbitmq-client:dev
+        imagePullPolicy: Always
+        command: ["send",  "amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672", "300"]
+      restartPolicy: Never
+  backoffLimit: 4
+EOF 
+```
+ In two new terminals you need to have the following commands running to watch the results.
+ ```
+ kubectl get hpa -w
+ ```
+ ![alt text](./images/hpa.png)
+
+In the image above you can see that the application is scaling using the metrics from the horizontal pod autoscaler
+
+
+```
+kubectl get pods -o wide
+```
+ ![alt text](./images/pods.png)
+
+In the image above you can see that we are scaling the pods to virtual node on ACI dynamically. 
+
+## Delete your deployment
+To delete the deployment run the following 
+```
+az group delete -n < your resource group> -y
+```
