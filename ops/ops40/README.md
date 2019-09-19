@@ -163,14 +163,16 @@ A simple template named `simple-tempalte.json` can be found under the demos dire
 
 - The four sections of the tempalte [(paramaters, variabls, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
 
-A more complex template named `azuredeploy.json` can also be found in the demos directory. We will deploy this template into the Tailwind Traders resource group.
+### Deploy more complex template
 
-First, show the already created resources in the Azure portal. Take note that a storage account with the prefix `twtdemo` has not been created.
+A more complex template named `azuredeploy.json` can also be found in the demos directory.
 
-Deploy the template with the following command. The resource group name must match the resource group in-which the template has already been deployed. Also, to prevent redeploying things, the `adminUserName` and `adminPassword` parameters should match.
+First, show the already created Tailwind Traders resources in the Azure portal.
+
+Deploy the template with the following command making sure that the resource group names match.
 
 ```
-az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json --parameters sqlServerAdministratorLogin=sqladmin sqlServerAdministratorLoginPassword=Password2020!
+az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
 Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
