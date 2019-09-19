@@ -126,7 +126,10 @@
           "networkProfile": {
             "networkPlugin": "azure",
             "networkPolicy": "calico",
-            "loadBalancerSku": "standard"
+            "loadBalancerSku": "standard",
+            "serviceCidr": "10.0.0.0/16",
+            "dnsServiceIP": "10.0.0.10",
+            "dockerBridgeCidr": "172.17.0.1/16"
           }
         },
         "dependsOn": [
