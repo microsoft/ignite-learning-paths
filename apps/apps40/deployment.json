@@ -109,7 +109,7 @@
               "vmSize": "Standard_D2_v2",
               "osType": "Linux",
               "storageProfile": "ManagedDisks",
-              "enableAutoScaling": "true",
+              "enableAutoScaling": true,
               "vnetSubnetID": "[parameters('vnetSubnetID')]",
               "type": "VirtualMachineScaleSets",
               "availabilityZones": [
