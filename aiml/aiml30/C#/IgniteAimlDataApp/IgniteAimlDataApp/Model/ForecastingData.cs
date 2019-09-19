@@ -66,12 +66,6 @@ namespace IgniteAimlDataApp.Model
             forecastingData.Time = Convert.ToDateTime(values[2]);
             forecastingData.Value = Convert.ToDouble(values[3]);
             forecastingData.RDPI = Convert.ToDecimal(values[4]);
-            forecastingData.DatesInWeek = new List<DateTime>();
-
-            for (var dt = forecastingData.Time; dt <= forecastingData.Time.AddDays(6); dt = dt.AddDays(1))
-            {
-                forecastingData.DatesInWeek.Add(dt);
-            }
             return forecastingData;
         }
 
