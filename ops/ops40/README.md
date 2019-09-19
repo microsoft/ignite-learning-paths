@@ -21,7 +21,8 @@ The following asset can be used for delivering this talk:
 
 **Part 1:** Pipeline Overview
 
-- Pipeline overview
+Open up the cart pipeline, and detail the following:
+
 - [Stages](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml)
 - [Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
 - [Trigger](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&tabs=yaml)
@@ -156,46 +157,20 @@ Once the testing stage has completed, show the test results.
 
 In this demo, an Azure Resource Manager template is examined, updated, and deployed.
 
-### Examine the template
+### Examine a simple template
 
-The template file is found in the same directory as this readme and is named `azuredeploy.json`. Take a quick walk through the template, highlighting these items.
+A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
 
 - The four sections of the tempalte [(paramaters, variabls, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
-- [Secure string parameter](https://docs.microsoft.com/en-us/azure/azure-resource-manager/template-best-practices#security-recommendations-for-parameters)
-- [Dependencies](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-define-dependencies#reference-and-list-functions)
-- [Copy function](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-multiple)
-- [Template extensions](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-use-extensions)
 
-Once done, show the already created resources in the Azure portal. Take note that a storage account has not been deployed.
+A more complex template named `azuredeploy.json` can also be found in the demos directory. We will deploy this template into the Tailwind Traders resource group.
 
-### Add storage account
-
-Add the storage account resource to the template. It can be placed between any two existing resources.
-
-```
-{
-    "type": "Microsoft.Storage/storageAccounts",
-    "name": "[variables('storageAccountName')]",
-    "location": "[resourceGroup().location]",
-    "apiVersion": "2019-04-01",
-    "sku": {
-        "name": "Standard_LRS"
-    },
-    "kind": "StorageV2",
-    "properties": {}
-},
-```
-
-Add a variable which will provide the storage account name. Don't forget to add appropriate commas for valid JSON.
-
-```
-"storageAccountName": "[toLower(concat(variables('resourceName'), uniqueString(resourceGroup().id)))]"
-```
+First, show the already created resources in the Azure portal. Take note that a storage account with the prefix `twtdemo` has not been created.
 
 Deploy the template with the following command. The resource group name must match the resource group in-which the template has already been deployed. Also, to prevent redeploying things, the `adminUserName` and `adminPassword` parameters should match.
 
 ```
-az group deployment create --resource-group twt-standalone --template-file azuredeploy.json --parameters adminUserName=twtadmin adminPassword=Password2020!
+az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json --parameters sqlServerAdministratorLogin=sqladmin sqlServerAdministratorLoginPassword=Password2020!
 ```
 
 Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
