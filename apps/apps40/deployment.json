@@ -111,7 +111,7 @@
               "storageProfile": "ManagedDisks",
               "enableAutoScaling": "true",
               "vnetSubnetID": "[parameters('vnetSubnetID')]",
-              "loadBalancerSku": "standard",
+              "type": "VirtualMachineScaleSets",
               "availabilityZones": [
                 "1",
                 "2",
@@ -125,7 +125,8 @@
           },
           "networkProfile": {
             "networkPlugin": "azure",
-            "networkPolicy": "calico"
+            "networkPolicy": "calico",
+            "loadBalancerSku": "standard"
           }
         },
         "dependsOn": [
