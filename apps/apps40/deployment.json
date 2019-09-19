@@ -111,6 +111,7 @@
               "storageProfile": "ManagedDisks",
               "enableAutoScaling": "true",
               "vnetSubnetID": "[parameters('vnetSubnetID')]",
+              "loadBalancerSku": "standard",
               "availabilityZones": [
                 "1",
                 "2",
