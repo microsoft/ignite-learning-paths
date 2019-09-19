@@ -21,6 +21,14 @@ az provider register --namespace Microsoft.ContainerService
 az provider register --namespace Microsoft.Sql
 az provider register --namespace Microsoft.ContainerRegistry
 az provider register --namespace Microsoft.insights
+az feature register --name AvailabilityZonePreview --namespace Microsoft.ContainerService
+az feature register --name AKSAzureStandardLoadBalancer --namespace Microsoft.ContainerService
+az feature register --name VMSSPreview --namespace Microsoft.ContainerService
+```
+Then refresh you account with 
+
+```
+az provider register --namespace Microsoft.ContainerService
 ```
 
 ## Connect to deployment
