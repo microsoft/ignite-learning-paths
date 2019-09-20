@@ -89,6 +89,73 @@ kubectl get pods -o wide
 
 In the image above you can see that we are scaling the pods to virtual node on ACI dynamically. 
 
+## Network policy
+For the networking policy demo we will need to open two terminals. The first we will pretend to be a rouge service in the default namespace.
+The second we will apply the network policy. 
+
+In the first terminal issue the following commands
+```
+kubectl run --rm -it --image=alpine network-policy  --generator=run-pod/v1
+```
+Once you have the shell inside the cluster issue 
+```
+wget http://stock.twt
+```
+Now exit this terminal with `exit`.
+
+This will show that we are able to hit backend services in twt from any namespace as the network by default is flat.
+Now in the second terminal we need to apply a network policy that will not allow any traffic from outside the twt namespace to hit it. 
+```
+cat <<EOF | kubectl apply -f -
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: twt-policy
+  namespace: twt
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          purpose: prod-app
+      podSelector:
+        matchLabels:
+          role: twt-ap
+EOF
+```
+
+now in the first terminal enter 
+```
+kubectl run --rm -it --image=alpine network-policy  --generator=run-pod/v1  
+```
+Once you have the shell enter
+```
+wget --timeout=2 http://stock.twt
+```
+The connection should be blocked. Exit the terminal with `exit `
+
+Now cleanup 
+```
+cat <<EOF | kubectl delete -f -
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: twt-policy
+  namespace: twt
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          purpose: prod-app
+      podSelector:
+        matchLabels:
+          role: twt-ap
+EOF
+```
+
 ## Availability zones
 This is set up by the [deployment.json](deployment.json)
 To test this is set up correctly use the following command

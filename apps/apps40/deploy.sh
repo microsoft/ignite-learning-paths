@@ -92,6 +92,7 @@ az aks enable-addons \
 printf "\n*** Create Helm service account in Kubernetes... ***\n"
 nameSpace=twt
 kubectl create namespace $nameSpace
+kubectl label namespace/$nameSpace purpose=prod-app
 #kubectl apply -f $tailwindServiceAccount
 
 cat <<EOF | kubectl apply -f -
@@ -131,6 +132,15 @@ helm install --name my-tt-webbff -f $tailwindChartValues --namespace=$nameSpace 
 # Pulling from a stable fork of the tailwind website
 git clone https://github.com/neilpeterson/TailwindTraders-Website.git
 helm install --name web -f TailwindTraders-Website/Deploy/helm/gvalues.yaml --namespace=$nameSpace --set ingress.protocol=http --set ingress.hosts={$INGRESS} --set image.repository=$containerRegistry/web --set image.tag=v1 TailwindTraders-Website/Deploy/helm/web/
+
+# Label all pods in the twt namespce for the network policy to be applied
+x=$(kubectl get pods -n twt -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{"\t"}{end}' |sort)
+for i in $x
+do
+   kubectl label -n twt pods $i role=twt-app
+done
+
+
 
 # Copy website images to storage
 printf "\n***Copying application images (graphics) to Azure storage.***\n"
