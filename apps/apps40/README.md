@@ -121,7 +121,7 @@ spec:
           purpose: prod-app
       podSelector:
         matchLabels:
-          role: twt-ap
+          role: twt-app
 EOF
 ```
 
