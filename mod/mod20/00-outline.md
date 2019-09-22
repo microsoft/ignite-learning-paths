@@ -1,5 +1,7 @@
 # Session outline
 
+> **TODO**: Remove the demo script from here and create a separate document with more details.
+
 |Title|Duration|Timing|
 |-----|--------|------|
 |Introduction, Why migrate now, Tools|5'|0:05|
