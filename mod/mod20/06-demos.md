@@ -1,4 +1,4 @@
-# Demo description
+# Demos description
 
 > **TODO**:
 > - Describe all the demos in details.
