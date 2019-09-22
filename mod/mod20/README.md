@@ -6,14 +6,24 @@ Northwind kept the bulk of its data in an on-premises data center, which hosted 
 
 In this session, you’ll see how to migrate an on-premises MongoDB database to Azure Cosmos DB and SQL Server database to an Azure SQL Server. From there, you’ll walk through performing the migration and ensuring minimal downtime while you switch over to the cloud-hosted providers. 
 
-## Outline
+## Outline, Powerpoint slides, Session recording
 
-TODO
+You can see the [outline for this session here](./00-outline.md). 
 
-## Demos
+The [Powerpoint slides are available online here](https://microsoft.sharepoint.com/:p:/t/CloudDevAdvocacy/EV37sX0MXLtAgtPPYj8lEwYBF6BaxEvB6mDGS5T4-t72zA?e=yjAxyg).
 
-- [Preparation](./00-preparation.md)
-- [Demo script and information](./01-demos.md)
+> Note that you will need some permissions to view these slides.
+
+There is a [recording of a dry run for this session here](https://msit.microsoftstream.com/video/564c9557-4737-4f18-9ddd-1b11e9a19996).
+
+> Note that at this time the recording is only available to Microsoft employees.
+
+## Demos deployment and preparation
+
+In order to run the demos, you will need to run two deployments to Azure. [This is explained in details here](./01-preparation.md). You can run this deployment for training purpose and then delete the resource groups that you created, and deploy again. The deployment can also be run in parallel multiple times with a unique name. This is needed sometimes when mutliple speakers are presenting the session in different locations at the same time.
+
+## Running the demos
+
 
 ## See also on Microsoft Learn
 
