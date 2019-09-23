@@ -24,6 +24,7 @@ In order to run the demos, you will need to run two deployments to Azure. [This 
 
 ## Running the demos
 
+Before each session you will need to run a few steps to [prepare the demo environment](./05-prep-demos.md). After that you'll be all set, and you can find a [complete description of the demos here](./06-demos.md).
 
 ## See also on Microsoft Learn
 
