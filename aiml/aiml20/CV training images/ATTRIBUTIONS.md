@@ -13,13 +13,13 @@ Images were selected manually for suitability as part of a custom vision model. 
 
 ## Hammers
 
-https://commons.wikimedia.org/wiki/Category:Claw_hammers
+https://commons.wikimedia.org/wiki/Category:Claw_hammers  
 https://commons.wikimedia.org/wiki/Category:Ball-peen_hammers
 
 ## Pliers
-https://commons.wikimedia.org/wiki/Category:Long-nose_pliers
-https://commons.wikimedia.org/wiki/Category:Needle-nose_pliers
-https://commons.wikimedia.org/wiki/Category:Linesman%27s_pliers
+https://commons.wikimedia.org/wiki/Category:Long-nose_pliers 
+https://commons.wikimedia.org/wiki/Category:Needle-nose_pliers  
+https://commons.wikimedia.org/wiki/Category:Linesman%27s_pliers  
 
 ## Screwdrivers
 
