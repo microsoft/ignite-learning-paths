@@ -33,7 +33,7 @@
         "sqlNicName": "[concat(variables('sqlVirtualMachineName'), '-nic')]",
 		"sqlNicIpConfigName": "[concat(variables('sqlNicName'), '-ipconfig')]",
 
-		"mongoVirtualMachineName": "[concat(variables('name'), 'mongovm'))]",
+		"mongoVirtualMachineName": "[concat(variables('name'), 'mongovm')]",
         "mongoPublicIpAddressName": "[concat(variables('mongoVirtualMachineName'), '-ip')]",
         "mongoNsgName": "[concat(variables('mongoVirtualMachineName'), '-nsg')]",
         "mongoNicName": "[concat(variables('mongoVirtualMachineName'), '-nic')]",
@@ -42,7 +42,7 @@
 		"publicIpAddressType": "Dynamic",
 		"publicIpAddressSku": "Basic",
 
-		"virtualNetworkName": "[concat(variables('name'), 'vnet')]",
+		"virtualNetworkName": "[concat(variables('name'), 'vmvnet')]",
 		"virtualNetworkId": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
 		"subnetName": "default",
 		"subnetRef": "[concat(variables('virtualNetworkId'), '/subnets/', variables('subnetName'))]",

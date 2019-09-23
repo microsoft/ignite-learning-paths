@@ -30,7 +30,7 @@
         "location": "[resourceGroup().location]",
         
         "hostingEnvironment": "",
-        "hostingPlanName": "[concat(variables('name'), '-plan')]",
+        "hostingPlanName": "[concat(variables('name'), 'plan')]",
         "serverFarmResourceGroup": "[resourceGroup().name]",
         "alwaysOn": true,
         "sku": "PremiumV2",
@@ -45,8 +45,8 @@
         
         "appInsightsName": "[variables('name')]",
         
-        "sqlServerName": "[concat(variables('name'), '-sqlsvr')]",
-        "sqlDatabaseName": "[concat(variables('name'), '-sqldb')]",
+        "sqlServerName": "[concat(variables('name'), 'sqlsvr')]",
+        "sqlDatabaseName": "[concat(variables('name'), 'sqldb')]",
         "sqlBakDatabaseName": "[concat(variables('sqlDatabaseName'), '-bak')]",
         "collation": "SQL_Latin1_General_CP1_CI_AS",
         "maxSizeBytes": 2147483648,
@@ -60,15 +60,15 @@
         "sqlSkuName": "Basic",
         "sqlTier": "Basic",
         
-        "cosmosAccountName": "[concat(variables('name'), '-mongo')]",
+        "cosmosAccountName": "[concat(variables('name'), 'mongo')]",
         "cosmosBakAccountName": "[concat(variables('cosmosAccountName'), '-bak')]",
         "cosmosDatabaseName": "tailwind",
 
         "storageAccountName": "[concat(variables('name'), 'store')]",
 
-        "virtualNetworkName": "[concat(variables('name'), '-vnet')]",
+        "virtualNetworkName": "[concat(variables('name'), 'vnet')]",
 		"subnetName": "default",
-        "dmsName": "[concat(variables('name'), '-dms')]"
+        "dmsName": "[concat(variables('name'), 'dms')]"
     },
     "resources": [
         {
