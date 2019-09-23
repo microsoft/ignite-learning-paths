@@ -25,13 +25,15 @@
 		}
     },
     "variables": {
-		"sqlVirtualMachineName": "[tolower(concat('mod20', parameters('prefix'), 'sqlvm'))]",
+        "name": "[toLower(concat('mod20', parameters('prefix')))]",
+
+		"sqlVirtualMachineName": "[concat(variables('name'), 'sqlvm')]",
         "sqlPublicIpAddressName": "[concat(variables('sqlVirtualMachineName'), '-ip')]",
         "sqlNsgName": "[concat(variables('sqlVirtualMachineName'), '-nsg')]",
         "sqlNicName": "[concat(variables('sqlVirtualMachineName'), '-nic')]",
 		"sqlNicIpConfigName": "[concat(variables('sqlNicName'), '-ipconfig')]",
 
-		"mongoVirtualMachineName": "[tolower(concat('mod20', parameters('prefix'), 'mongovm'))]",
+		"mongoVirtualMachineName": "[concat(variables('name'), 'mongovm'))]",
         "mongoPublicIpAddressName": "[concat(variables('mongoVirtualMachineName'), '-ip')]",
         "mongoNsgName": "[concat(variables('mongoVirtualMachineName'), '-nsg')]",
         "mongoNicName": "[concat(variables('mongoVirtualMachineName'), '-nic')]",
@@ -40,12 +42,12 @@
 		"publicIpAddressType": "Dynamic",
 		"publicIpAddressSku": "Basic",
 
-		"virtualNetworkName": "[tolower(concat('mod20', parameters('prefix'), 'vnet'))]",
+		"virtualNetworkName": "[concat(variables('name'), 'vnet')]",
 		"virtualNetworkId": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
 		"subnetName": "default",
 		"subnetRef": "[concat(variables('virtualNetworkId'), '/subnets/', variables('subnetName'))]",
 
-        "storageAccountName": "[tolower(concat('mod20', parameters('prefix'), 'vmstore'))]",
+        "storageAccountName": "[concat(variables('name'), 'vmstore')]",
 
 		"location": "[resourceGroup().location]"
     },
