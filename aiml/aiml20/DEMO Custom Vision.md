@@ -28,7 +28,7 @@ All images were sourced from Wikimedia Commons and used under their respective C
 
 2. Scroll down to the "Analyze an Image" section. It looks like this:
 
-!["Computer Vision: Analyze an Image"](img/Computer%20Vision Analyze%20an%20Image.png)
+!["Computer Vision: Analyze an Image"](img/Computer%20Vision%20%Analyze%20an%20Image.png)
 
 3. Click the "Browse" button, and choose "Yellow Hard Hat.JPG" from the "hard hat" folder in "CV Training Images".
 
