@@ -6,12 +6,14 @@ The deployment of the demos is mostly automated. You can run this deployment for
 
 In order to run the deployment, you will need the following decisions:
 
+<a id="credentials"></a>
 - A **username** and a **password** which will be used everywhere:
     - Windows 2012 virtual machine login.
     - SQL Server 2012 login.
     - Linux virtual machine running the MongoDB.
     - Azure SQL Databases.
 
+<a id="location"></a>
 - A **location** where your services should be deployed. Note that not all the services used here are available at all Azure locations. We recommend choosing a location that allows running all services, for instance `East US 2` or `West Europe`.
 
 <a id="prefix"></a>
