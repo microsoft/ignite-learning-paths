@@ -28,12 +28,14 @@ After you entered the values, check the `Terms and conditions` checkbox and clic
 
 ![Deployment template](./images/2019-09-22_22-39-05.png)
 
-> Depending on a number of factors, the deployment should take about XX minutes.
+> Depending on a number of factors, the deployment should take about 6-10 minutes.
 
-> **TODO**
-> - Update the number of minutes needed for the deployment.
-> - Enter a description of steps needed to verify the deployment while it is running.
+## III. Checking the deployment while it is running
 
-## III. Deploy the other Azure services
+After clicking on Purchase, there is a validation step which should happen without issues. Then you can see the progress by clicking on the Notifications button (the one with the bell icon) and then on `Deployment in progress`. This will open a new web page where you can follow what is happening.
+
+![Notifications pane](./images/2019-09-23_17-53-56.png)
+
+## IV. Deploy the other Azure services
 
 [Click here](./03-prep-paas.md) and follow the instructions to deploy the other Azure services needed by the demos.
