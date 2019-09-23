@@ -20,7 +20,7 @@ There is a [recording of a dry run for this session here](https://msit.microsoft
 
 ## Demos deployment and preparation
 
-In order to run the demos, you will need to run two deployments to Azure. [This is explained in details here](./01-preparation.md). You can run this deployment for training purpose and then delete the resource groups that you created, and deploy again. The deployment can also be run in parallel multiple times with a unique name. This is needed sometimes when mutliple speakers are presenting the session in different locations at the same time.
+In order to run the demos, you will need to run two deployments to Azure. [This is explained in details here](./01-preparation.md). You can run this deployment for training purpose and then delete the resource groups that you created, and deploy again. The deployment can also be run in parallel multiple times with a unique name. This is needed sometimes when multiple speakers are presenting the session in different locations at the same time.
 
 ## Running the demos
 
