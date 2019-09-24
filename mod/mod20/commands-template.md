@@ -12,12 +12,14 @@ Save a copy of this file and replace the expressions in `[]` below according to 
 
 > Replace `[USERNAME]` and `[PASSWORD]` with the values prepared [as described here](./01-preparation.md#credentials).
 
-- Username: `[USERNAME]`
-- Password: `[PASSWORD]`
+```
+Username: [USERNAME]
+Password: [PASSWORD]
+```
 
 ### Mongo VM connection string
 
-> Replace `[MONGOIP]` with the Public IP address of the MongoDB virtual machine. You can find this value by navigating to the `mod20[prefix]mongocvm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
+> Replace `[MONGOIP]` with the Public IP address of the MongoDB virtual machine. You can find this value by navigating to the `mod20[prefix]mongovm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
 
 ```
 mongodb://[MONGOIP]:27017
@@ -35,7 +37,7 @@ Server=tcp:[SQLIP],1433;Initial Catalog=tailwindsql;Persist Security Info=False;
 
 ### Mongo DB VM
 
-> Replace `[MONGOIP]` with the Public IP address of the MongoDB virtual machine. You can find this value by navigating to the `mod20[prefix]mongocvm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
+> Replace `[MONGOIP]` with the Public IP address of the MongoDB virtual machine. You can find this value by navigating to the `mod20[prefix]mongovm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
 
 > Replace `[USERNAME]` and `[PASSWORD]` with the values prepared [as described here](./01-preparation.md#credentials).
 
@@ -73,7 +75,7 @@ Password: [PASSWORD]
 
 ### Mongo DB VM
 
-> Replace `[MONGOIP]` with the Public IP address of the MongoDB virtual machine. You can find this value by navigating to the `mod20[prefix]mongocvm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
+> Replace `[MONGOIP]` with the Public IP address of the MongoDB virtual machine. You can find this value by navigating to the `mod20[prefix]mongovm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
 
 > Replace `[USERNAME]` and `[PASSWORD]` with the values prepared [as described here](./01-preparation.md#credentials).
 
