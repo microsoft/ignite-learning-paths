@@ -48,9 +48,12 @@ password: [PASSWORD]
 
 ### Remote desktop SQL Server VM
 
+> Replace `[SQLIP]` with the Public IP address of the SQL virtual machine. You can find this value by navigating to the `mod20[prefix]sqlvm` resource in the Azure Portal. The Public IP address is listed on the Overview tab.
+
 > Replace `[USERNAME]` and `[PASSWORD]` with the values prepared [as described here](./01-preparation.md#credentials).
 
 ```
+IP address: [SQLIP]
 Username: [USERNAME]
 Password: [PASSWORD]
 ```
