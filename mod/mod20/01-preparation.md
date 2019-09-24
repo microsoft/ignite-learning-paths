@@ -35,6 +35,6 @@ The deployment for this session is split in two parts:
     - A storage account we'll use to configure advanced security features for the SQL database.
     - The Azure Database Migration Service we'll use for the demo.
 
-The advantage of the automated deployment is that you can deploy and delete the resources as often as you need.
-
 After both deployments are complete, some additional steps will be needed to [complete the deployment](./04-prep-finish.md). Then you will be able to [prepare for the demos](./05-prep-demos.md), and then [run the demos](./06-demos.md).
+
+The advantage of the automated deployment is that you can deploy and delete the resources as often as you need. To delete, simply [follow the steps described here](./07-cleaning-up.md).
