@@ -52,8 +52,34 @@ To make sure that the backup databases are populated, follow the steps:
 
 9. Log off the shopping cart.
 
+## III. Preparing the Advanced Data Security for the Azure SQL Database
+
+During the demo, we introduce some features of the Azure SQL Database, including the Advanced Data Security. This needs a little configuration first:
+
+1. In the Azure Portal, open the resource named `mod20[prefix]sqldb` where `[prefix]` is the unique prefix that you [prepared here](./01-preparation.md/#prefix).
+
+2. Open the tab `Advanced Data Security`.
+
+3. Click on `Enable Advanced Data Security on the server`.
+
+![Enable Advanced Data Security button](./images/2019-09-24_15-39-42.png)
+
+> Note that enabling Advanced Data Security costs a monthly fee, but there is a free trial period.
+
+4. After the feature has been enabled, click on the Vulnerability Assessment area and click on the `Scan` button to Initiate a new scan.
+
+> If you wait for a moment, the Vulnerability Assessment will start automatically.
+
+![Vulnerability Assessment](./images/2019-09-24_15-43-09.png)
+
+5. Open the resource named `mod20[prefix]sqldb-bak` where `[prefix]` is the unique prefix that you [prepared here](./01-preparation.md/#prefix).
+
+6. Open the Advanced Data Security tab.
+
+7. Click on the Vulnerability Assessment area and click on the `Scan` button to initiate a new scan.
+
 <a id="cheatsheet"></a>
-## III. Preparing the "cheat sheet" commands.md
+## IV. Preparing the "cheat sheet" commands.md
 
 For your convenience during the demos, we prepared a "cheat sheet" named [commands.md](./commands-template.md) with all the connection strings, usernames, password, etc. 
 
@@ -65,6 +91,6 @@ For your convenience during the demos, we prepared a "cheat sheet" named [comman
 
 3. For every step in the template, follow the indications to replace the values with the correct values. Later during the demos you can use this cheat sheet to help you find the values easily and copy/paste them in the proper locations.
 
-## IV. Time to rehearse your demos!!
+## V. Time to rehearse your demos!!
 
 Every time before you start the demos, you will need to execute a few simple steps to make sure that the environment is ready. [These steps are described here in details](./05-prep-demos.md). Have fun!!
