@@ -5,3 +5,5 @@ As a data-driven company, Tailwind Traders understands the importance of using A
 ## Technologies used
 
 Azure Cognitive Services
+Azure Cloud Shell
+Azure CLI

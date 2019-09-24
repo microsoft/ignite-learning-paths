@@ -11,6 +11,8 @@ programatically, using curl.
 
 ## Getting Set up
 
+### Create Cognitive Services resources
+
 1. Download "CV Training Images.zip" to your local machine, and expand the zip
    file. This will create a folder "CV Training Images" with the following
    subfolders:
@@ -38,7 +40,52 @@ and also get $200 in free Azure credits to use.
 
 TODO: Provide details on finding your tenant ID here.
 
+### Deploy the Tailwind Traders website
+
+TODO: Describe how to deploy the website from the repo, and get a link to the
+live website to demonstrate.
+
+### Load the simple ONNX model
+
+We will replace the products.onnx file in the Web app with a version that only recognizes two object categories: "hammer" and "wrench".
+
+1. In the Azure Portal, visit your tailwind-traders-standalone resource group
+
+1. Click the "onnx" Web App resource
+
+1. Under Development Tools, Click Advanced tools, then click "Go" in right pane to launch Kudu.
+
+1. In the main menu bar, Click Debug Console > PowerShell
+
+1. Browse to site / wwwroot / Standalone / Onnxmodels
+
+1. With Explorer, open the ONNX / simple model folder from your AIML20 repo
+
+1. Drag products.onnx into the LEFT HALF of the Kudu window. 
+
+1. Restart the web server. Return to the "onnx" Web App resource and click "Restart".
+
 # Demos
+
+## Defining the problem: Shop by Photo is broken
+
+1. Visit the Tailwind Traders website you deployed earlier. There is a pre-deployed version at:
+
+https://tailwind-traders-standalone-onnx.azurewebsites.net/
+
+2. Scroll down to the "Shop by Photo" section of the website
+
+3. Click "Shop by Photo"
+
+1. In your AIML20 repo, select CV training images / hammers / Carpenters Hammer.jpg
+
+1. It correctly identifies it as a hammer. Yay!
+
+1. Return to home page and click "Shop by Photo" again
+
+4. In your AIML20 repo, select CV training images / screwdrivers / Big Flat Screwdriver.jpg
+
+5. Oh no! It identifies it as a hammer as well. We'll fix that later, but first, let's understand why it failed.
 
 ## Using Computer Vision via the Web interface
 
