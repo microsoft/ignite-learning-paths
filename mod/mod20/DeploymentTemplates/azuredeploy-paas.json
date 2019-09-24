@@ -174,7 +174,7 @@
                     ],
                     "properties": {
                         "RepoUrl": "https://github.com/lbugnion/TailwindTraders-Website",
-                        "branch": "Fixed-typos",
+                        "branch": "master",
                         "IsManualIntegration": true
                     }
                 }
