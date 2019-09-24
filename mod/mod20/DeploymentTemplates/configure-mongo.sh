@@ -1,8 +1,8 @@
 #!/bin/bash
 
-wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+wget -qO - https://www.mongodb.org/static/pgp/server-3.4.asc | sudo apt-key add -
 
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 
 sudo apt-get update
 
