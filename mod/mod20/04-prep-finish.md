@@ -55,11 +55,15 @@ To make sure that the backup databases are populated, follow the steps:
 <a id="cheatsheet"></a>
 ## III. Preparing the "cheat sheet" commands.md
 
-For your convenience during the demos, we prepared a "cheat sheet" named `commands.md` with all the connection strings, usernames, password, etc. 
+For your convenience during the demos, we prepared a "cheat sheet" named [commands.md](./commands-template.md) with all the connection strings, usernames, password, etc. 
 
 > **IMPORTANT** Do not check the cheat sheet into a Github public repo, as this will be detected by Microsoft and you will have to remove the file and purge the history. You can check the document in a private repo if you want.
 
-> **TODO** Finish this section and prepare a commands.md template
+1. Navigate to the template "cheat sheet".
+
+2. Save this file locally under another name, for example `commands.md`.
+
+3. For every step in the template, follow the indications to replace the values with the correct values. Later during the demos you can use this cheat sheet to help you find the values easily and copy/paste them in the proper locations.
 
 ## IV. Time to rehearse your demos!!
 
