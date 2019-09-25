@@ -1,4 +1,4 @@
-Start-Sleep -s 600
+Restart-Service -Force MSSQLSERVER
 
 $dbName = "tailwind"
 
