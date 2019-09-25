@@ -226,9 +226,7 @@
 				"defaultSecurityRules": [
 					{
 						"name": "AllowVnetInBound",
-						"etag": "W/\"5c344365-fce8-411f-98c7-05d02bfd9c3d\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow inbound traffic from all VMs in VNET",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -246,9 +244,7 @@
 					},
 					{
 						"name": "AllowAzureLoadBalancerInBound",
-						"etag": "W/\"5c344365-fce8-411f-98c7-05d02bfd9c3d\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow inbound traffic from azure load balancer",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -266,9 +262,7 @@
 					},
 					{
 						"name": "DenyAllInBound",
-						"etag": "W/\"5c344365-fce8-411f-98c7-05d02bfd9c3d\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Deny all inbound traffic",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -286,9 +280,7 @@
 					},
 					{
 						"name": "AllowVnetOutBound",
-						"etag": "W/\"5c344365-fce8-411f-98c7-05d02bfd9c3d\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow outbound traffic from all VMs to all VMs in VNET",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -306,9 +298,7 @@
 					},
 					{
 						"name": "AllowInternetOutBound",
-						"etag": "W/\"5c344365-fce8-411f-98c7-05d02bfd9c3d\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow outbound traffic from all VMs to Internet",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -326,9 +316,7 @@
 					},
 					{
 						"name": "DenyAllOutBound",
-						"etag": "W/\"5c344365-fce8-411f-98c7-05d02bfd9c3d\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Deny all outbound traffic",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -397,7 +385,7 @@
 					"imageReference": {
 						"publisher": "Canonical",
 						"offer": "UbuntuServer",
-						"sku": "18.04-LTS",
+						"sku": "16.04-LTS",
 						"version": "latest"
 					},
 					"osDisk": {
@@ -494,9 +482,7 @@
 				"defaultSecurityRules": [
 					{
 						"name": "AllowVnetInBound",
-						"etag": "W/\"e044fc40-808d-4b7b-976c-9e4828e879c0\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow inbound traffic from all VMs in VNET",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -514,9 +500,7 @@
 					},
 					{
 						"name": "AllowAzureLoadBalancerInBound",
-						"etag": "W/\"e044fc40-808d-4b7b-976c-9e4828e879c0\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow inbound traffic from azure load balancer",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -534,9 +518,7 @@
 					},
 					{
 						"name": "DenyAllInBound",
-						"etag": "W/\"e044fc40-808d-4b7b-976c-9e4828e879c0\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Deny all inbound traffic",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -554,9 +536,7 @@
 					},
 					{
 						"name": "AllowVnetOutBound",
-						"etag": "W/\"e044fc40-808d-4b7b-976c-9e4828e879c0\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow outbound traffic from all VMs to all VMs in VNET",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -574,9 +554,7 @@
 					},
 					{
 						"name": "AllowInternetOutBound",
-						"etag": "W/\"e044fc40-808d-4b7b-976c-9e4828e879c0\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Allow outbound traffic from all VMs to Internet",
 							"protocol": "*",
 							"sourcePortRange": "*",
@@ -594,9 +572,7 @@
 					},
 					{
 						"name": "DenyAllOutBound",
-						"etag": "W/\"e044fc40-808d-4b7b-976c-9e4828e879c0\"",
 						"properties": {
-							"provisioningState": "Succeeded",
 							"description": "Deny all outbound traffic",
 							"protocol": "*",
 							"sourcePortRange": "*",
