@@ -40,6 +40,11 @@ and also get $200 in free Azure credits to use.
 
 TODO: Provide details on finding your tenant ID here.
 
+### Set up VS Code
+
+* How to install
+* Azure Account extension, configure
+
 ### Deploy the Tailwind Traders website
 
 TODO: Describe how to deploy the website from the repo, and get a link to the
@@ -150,7 +155,8 @@ of the object types that Computer Vision currently detects. (We'll address this
 problem with Custom Vision, later.) Also note that a confidence score is given
 for the object classification.
 
-The second "Tags" result gives a list of labels associated with the entire
+The second "Tags" re
+sult gives a list of labels associated with the entire
 image. The tag with the highest confidence (listed first) is "clothing", which
 doesn't help us much. The third tag, "helmet", is better but still not exactly
 what we are looking for.
@@ -208,6 +214,47 @@ Cloud Shell, run the commands in the section "Create a key". These commands will
 4. Find the key
 
 TODO: Finish
+
+### DEMO: Custom Vision
+
+TODO:
+Develop new model in Custom Vision
+Export as ONNX file
+
+### DEMO: ONNX in TWT
+
+1. Browse to https://lutzroeder.github.io/netron/, Click Open Model
+
+2. Open ONNX / Custom Model / products.onnx
+
+3. Scroll through the neural network and note:
+
+ - it's large
+ - at the top, is a 224x224 image as input (dirty secret: computer vision models have pretty poor vision)
+ - add the bottom, it outputs 5 values, these are the confidence scores for our class labels
+
+Next, drop the ONNX file we exported into TWT filesystem
+
+1. In the Azure Portal, visit your tailwind-traders-standalone resource group
+
+1. Click the "onnx" Web App resource
+
+1. Under Development Tools, Click Advanced tools, then click "Go" in right pane to launch Kudu.
+
+1. In the main menu bar, Click Debug Console > PowerShell
+
+1. Browse to site / wwwroot / Standalone / Onnxmodels
+
+1. With Explorer, open the ONNX / custom model folder from your AIML20 repo
+
+1. Drag products.onnx into the LEFT HALF of the Kudu window. 
+
+1. Restart the web server. Return to the "onnx" Web App resource and click "Restart".
+
+Rerun Shop by Photo, upload CV training images / screwdrivers / Big Flat Screwdriver.jpg. Now it works!
+
+
+
 
 
 
