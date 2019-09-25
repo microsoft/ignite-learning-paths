@@ -744,7 +744,7 @@
 				"autoUpgradeMinorVersion": true,
 				"settings": {
 					"fileUris": [
-						"https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/mod/mod20/DeploymentTemplates/create-sql-db.ps1.sh"
+						"https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/mod/mod20/DeploymentTemplates/create-sql-db.ps1"
 					]
 				},
 				"protectedSettings": {
