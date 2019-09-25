@@ -66,8 +66,6 @@ These steps must be executed everytime that you prepare to run the demos. The st
 
 > **IMPORTANT** We noticed that sometimes the DMS stops working. In which case we recommend deleting it and creating a new one using the `Create a resource` button in the Azure Portal. Note that the DMS needs about 15 minutes to be deployed.
 
-> **IMPORTANT** You can only have 2 DMS instances per subscription.
-
 3. Make sure that all the migration projects are deleted.
 
 ## Checking the Azure SQL Database
@@ -78,7 +76,7 @@ These steps must be executed everytime that you prepare to run the demos. The st
 
 3. Use the SQL server authentication to log into the database.
 
-> On the first login from a new IP address, you will need to configure the firewall. Simply follow the instructions to add your 
+> On the first login from a new IP address, you will need to configure the firewall. Simply follow the instructions to add your client IP address to the firewall list.
 
 ![Instructions to configure the firewall](./images/2019-09-24_16-50-01.png)
 
@@ -117,3 +115,5 @@ DROP TABLE [tablename]
 ## Slides
 
 1. Start the presentation :)
+
+[The demos are described in details here](./06-demos.md). Have fun!
