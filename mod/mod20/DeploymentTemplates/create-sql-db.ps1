@@ -1,3 +1,5 @@
+Start-Sleep -s 600
+
 $dbName = "tailwind"
 
 [reflection.assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo")
