@@ -7,3 +7,19 @@ As a data-driven company, Tailwind Traders understands the importance of using A
 Azure Cognitive Services
 Azure Cloud Shell
 Azure CLI
+
+## Pre-demo setup
+
+In a browser, open:
+
+* The Tailwind Trader app deployment(s):
+  * ONNX: https://tailwind-traders-standalone-onnx.azurewebsites.net/
+  * Personalizer: https://tailwindtraderss3wx6j2hv652e.azurewebsites.net/
+* https://portal.azure.com (browse to resources)  
+* https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/
+* https://customvision.ai
+* https://lutzroeder.github.io/netron/
+
+In Visual Studio Code load:
+
+TODO: Provide workspace with files at the ready
