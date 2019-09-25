@@ -102,7 +102,7 @@ namespace IgniteAimlDataApp
                     {
                         Console.WriteLine("Date: {0} Result: {1}",
                                           predictionList[i].Time,
-                                          forecastingResult.Results.output1[i].Forecast);
+                                          Convert.ToInt32(forecastingResult.Results.output1[i].Forecast));
                     }
 
                 }
