@@ -728,11 +728,10 @@
 		},
 		{
 			"apiVersion": "2015-06-15",
-			"type": "extensions",
-			"name": "config-app",
+			"type": "Microsoft.Compute/virtualMachines/extensions",
+			"name": "[concat(variables('sqlVirtualMachineName'), '/SqlScriptExtension')]",
 			"location": "[resourceGroup().location]",
 			"dependsOn": [
-				"[concat('Microsoft.Compute/virtualMachines/extensions', variables('sqlVirtualMachineName'), '/SqlIaasExtension')]"
 			],
 			"tags": {
 				"displayName": "create-sql-db"
@@ -745,9 +744,7 @@
 				"settings": {
 					"fileUris": [
 						"https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/mod/mod20/DeploymentTemplates/create-sql-db.ps1"
-					]
-				},
-				"protectedSettings": {
+					],
 					"commandToExecute": "powershell -ExecutionPolicy Unrestricted -File create-sql-db.ps1"
 				}
 			}
