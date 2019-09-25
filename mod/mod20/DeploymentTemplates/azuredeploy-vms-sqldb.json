@@ -732,6 +732,7 @@
 			"name": "[concat(variables('sqlVirtualMachineName'), '/SqlScriptExtension')]",
 			"location": "[resourceGroup().location]",
 			"dependsOn": [
+				"[concat('Microsoft.Compute/virtualMachines/', variables('sqlVirtualMachineName'), '/extensions/SqlIaasExtension')]"
 			],
 			"tags": {
 				"displayName": "create-sql-db"
