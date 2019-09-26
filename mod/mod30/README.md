@@ -21,7 +21,12 @@ The following steps are necessary to prepare for MOD30 demos.
 2. Deploy the MOD30 Assets: [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/microsoft/ignite-learning-paths/tree/master/mod/mod30)
     > **Note:** give it a unique prefix it with, i.e. `mod30xyz` should replace `mod30`, and hereafter assume `mod30-demo` translates to `mod30xyz-demo`
 3. Navigate to the `azureeventgrid` connection, click "Edit API connection" then click `Authorize` to authorize the connection (don't forget to `Save` after authorizing!)
-4. Publish the `Mod30Functions` app to the deployed `mod30-app` endpoint.
+4. Navigate to the `twitter` connection, click "Edit API connection" and authorize to Twitter (and save!)
+5. Open the `socialintegration` Logic App and update:
+    1. Search term (trigger)
+    2. Owner name
+    3. App name
+    4. Token from App Center
 
 ### Azure Portal
 
@@ -83,6 +88,13 @@ Start by showing the code for `MakeThumbnailEventGrid`.
 As a bonus, you can show the "events" in storage to display the subscription and related metrics.
 
 ## Demo: Social Media Integration with Logic Apps
+
+1. Navigate to the logic app and explain the steps. Point out how there is no code at all to authenticate with and/or search Twitter. It's just a simple step.
+2. Do not expand the variables and reveal the token secret.
+3. Open the HTTP post and show how it is possible to build URL, headers, and even payload
+4. Tweet
+5. Enable the logic app and run the trigger
+6. Show the push notification
 
 ## Demo: Automatic Image Captioning with Cognitive Services
 
