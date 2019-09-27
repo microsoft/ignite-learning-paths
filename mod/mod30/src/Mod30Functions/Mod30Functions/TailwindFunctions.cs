@@ -13,7 +13,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Azure.EventGrid.Models;
-using Microsoft.VisualBasic.CompilerServices;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
@@ -161,6 +160,27 @@ namespace Mod40Functions
                 log.LogError(ex, "Unexpected error updating description.");
                 return new BadRequestResult();
             }
+        }
+
+        [FunctionName(nameof(GetSASToken))]
+        public static IActionResult GetSASToken(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+           ILogger log)
+        {
+            var account = CloudStorageAccount.Parse(ConnectionString);
+            var client = account.CreateCloudBlobClient();
+            var container = client.GetContainerReference(CONTAINER);
+
+            var blobPolicy = new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-5),
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(20),
+                Permissions = SharedAccessBlobPermissions.Create | SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List
+            };
+
+            var sas = container.GetSharedAccessSignature(blobPolicy);
+
+            return new OkObjectResult(sas);
         }
 
         private static async Task UpdateMetadata(CloudBlockBlob blob, string description)
