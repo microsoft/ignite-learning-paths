@@ -809,7 +809,7 @@
                                 {
                                     "name": "owner_name",
                                     "type": "String",
-                                    "value": "owner_name"
+                                    "value": "Microsoft-CDA"
                                 }
                             ]
                         }
@@ -826,7 +826,7 @@
                                 {
                                     "name": "app_name",
                                     "type": "String",
-                                    "value": "app_name"
+                                    "value": "Tailwind-Traders"
                                 }
                             ]
                         }
