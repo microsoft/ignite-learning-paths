@@ -8,6 +8,8 @@ In order to install the other Azure services that will be used during the demos,
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
+> **IMPORTANT** Note that there can only be two instances of the Azure Database Migration Service per subscription and region. If you hit this limit, you will get an error during the deployment below. If that happens, you will need to delete the whole resource group, and then deploy again using another subscription, or another region.
+
 ## II. In the template page, enter the following information:
 
 - Subscription: Select the subscription in which the resources should be deployed.
