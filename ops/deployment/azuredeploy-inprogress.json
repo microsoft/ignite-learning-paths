@@ -136,7 +136,7 @@
 		},
 		{
 			"condition": "[parameters('deployDevopsProject')]",
-			"name": "linkedTemplate",
+			"name": "linkedTemplateDevOps",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-05-01",
 			"properties": {
@@ -151,7 +151,7 @@
 		  },
 		  {
 			"condition": "[parameters('deployLogicApps')]",
-			"name": "linkedTemplate",
+			"name": "linkedTemplateLogicApps",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-05-01",
 			"properties": {
