@@ -15,7 +15,7 @@
 		"name": "[parameters('org-name')]",
 		"type": "microsoft.visualstudio/account",
 		"apiVersion": "2014-04-01-preview",
-		"location": "[resourceGroup().location]",
+		"location": "centralus",
 		"properties": {
 			"operationType": "Create",
 			"accountName": "[parameters('org-name')]"
