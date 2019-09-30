@@ -20,7 +20,7 @@ In order to install the other Azure services that will be used during the demos,
 
 - Prefix: The **unique prefix** [that you prepared](./01-preparation.md/#prefix) for to render the resources names unique.
 
-> IMPORTANT: Because of some limitations in some services' names, the prefix should be **4 characters long maximum**. You should only use **the letters A-Z, a-z or the digits 0-9** for the prefix.
+> IMPORTANT: Because of some limitations in some services' names, the prefix should be **4 characters long maximum**. You should only use **the letters a-z or the digits 0-9** for the prefix.
 
 - Username: The [username that you prepared](./01-preparation.md/#credentials), that will be used to log into the virtual machines. We recommend sticking to a consistent username and password. For convenience, this field is pre-populated with the value `tailwind` but you can change it if you want.
 
