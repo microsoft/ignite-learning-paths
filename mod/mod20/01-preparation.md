@@ -19,7 +19,7 @@ In order to run the deployment, you will need the following decisions:
 <a id="prefix"></a>
 - A **unique prefix** that will be used to render each resource name unique.
 
-> IMPORTANT: Because of some limitations in some services' names, the prefix should be **4 characters long maximum**. You should only use **the letters A-Z, a-z or the digits 0-9** for the prefix.
+> IMPORTANT: Because of some limitations in some services' names, the prefix should be **4 characters long maximum**. You should only use **the letters a-z or the digits 0-9** for the prefix.
 
 ## Initial deployment
 
