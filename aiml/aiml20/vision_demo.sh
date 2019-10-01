@@ -41,7 +41,7 @@ az cognitiveservices account keys list \
 ## 5. Call the Computer Vision REST API
 # Replace key in the first line below with the key obtained in step 4
 
-curl -H "Ocp-Apim-Subscription-Key: 82e4f7dabcc64a978a17b0a55ac523e1" \
+curl -H "Ocp-Apim-Subscription-Key: YOUR-KEY-HERE" \
       -H "Content-Type: application/json" \
       "https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze?visualFeatures=Categories,Description&details=Landmarks&language=en" \
       -d "{\"url\":\"https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Dummy%20with%20safety%20gear.jpg
@@ -49,7 +49,7 @@ curl -H "Ocp-Apim-Subscription-Key: 82e4f7dabcc64a978a17b0a55ac523e1" \
 
 ## Analyze: A picture of a hard hat
 ## https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Dummy%20with%20safety%20gear.jpg
-curl -H "Ocp-Apim-Subscription-Key: 87a80369996f4ff0a368cdb337ab71a6" \
+curl -H "Ocp-Apim-Subscription-Key: YOUR-KEY-HERE" \
       -H "Content-Type: application/json" \
       "https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze?visualFeatures=Categories,Description&details=Landmarks&language=en" \
       -d "{\"url\":\"https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Hard%20hat%2020111111.jpg\"}"   
