@@ -62,5 +62,6 @@ curl -H "Ocp-Apim-Subscription-Key: $KEY" \
 # trained on thousands of categories can be less effective than simpler models
 # if you know the specific images you want to identify in advance.
 
-# Delete the resource group and associated resources
+# When you're done, you can delete the resource group and associated resources
+# NOTE: we will use this resource group in the Custom Vision demo, as well.
 az group delete --name aiml20-demo

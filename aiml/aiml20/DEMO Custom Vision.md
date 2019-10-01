@@ -205,9 +205,10 @@ Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview?WT.mc_id=msig
 and run these commands from a browser window. (VS Code users can also use the
 [Azure
 Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
-extension to run Cloud Shell in a Terminal window.)
+extension to run Cloud Shell in a Terminal window, and use "Terminal: Run
+Selected Text in Azure Terminal" to copy commands.)
 
-We will cut-and-paste commands from file [vision_demo.sh](vision_demo.sh).
+We will cut-and-paste commands from file [vision_demo.sh](vision_demo.sh)
 
 At the command line on your local machine with Azure CLI installed, or in Azure
 Cloud Shell, run the commands in the section "Create a key". These commands will:
@@ -218,15 +219,76 @@ Cloud Shell, run the commands in the section "Create a key". These commands will
 4. Find the key
 5. Use CURL to analyze two images
 
-TODO: Finish
+## DEMO: Creating a custom model with Custom Vision
 
-### DEMO: Custom Vision
+1. Sign into [Custom Vision](https://customvision.ai) and create a new project.
+   [Follow the instructions
+   here](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier?WT.mc_id=msignitethetour2019-github-aiml20).
 
-TODO:
-Develop new model in Custom Vision
-Export as ONNX file
+1. Your new project should have the following settings:
 
-### DEMO: ONNX in TWT
+- Name: Tools
+- Description: Products sold by Tailwind Traders
+- Resource: aiml20-cs-resource
+- Project Type: classification
+- Classification Types: Multiclass
+- Domains: Retail (compact)
+- Export capabilities: Basic Platforms
+
+1. In the "Tags" tool in the left side, use the "+" button to add the following tags:
+
+- drill
+- hammer
+- pliers
+- screwdriver
+
+
+1. We will now add images for each tag from the corresponding folder in "CV Training Images". Here's how to do it for "drill"
+
+- Click "Add Images" in the top row
+- Browse to CV Training Images / drills
+- Select all files: click one file, then press Control-A
+- Click Open
+- In the "Image Upload" dialog that appears next, select "drill" in "My Tags" and then click "Upload 16 Files"
+- repeat this process for the tags hammer, pliers, screwdriver, hard hat
+
+### Live demo portion
+
+At Ignite Tour, the prior steps were all done ahead of time in preparation. Only
+the remaining steps were done live, to save time.
+
+1. If you haven't already, sign into customvision.ai and open your "tools" project.
+
+1. This project has already been provided with images of drills, hammers, pliers, and screwdrivers. Let's add some images of hard hats as well.
+
+- Click "Add Images" in the top row
+- Browse to CV Training Images / drills
+- Select all files: click one file, then press Control-A
+- Click Open
+- In the "Image Upload" dialog that appears next, select "hard hat" in "My Tags" and then click "Upload 16 Files"
+
+1. Click "Performance" in the top menu bar, and then click the green "Train" button. Choose "Quick Training" and then click "Train"
+
+1. Click on the most recent iteration in the left pane to see the results. You
+   should have 90.9% Precision, 88.2% Recall, and 98.7% AP. These measure the usefulness and the completeness of the model's predictions.
+
+1. Test out the model with a new picture. Click "Quick Test" and "Browse Local
+   Files", and then choose "test images / man in hardhat.jpg". See that it
+   identifies as a hard hat with 99.9% probability. Try the same with "test images / drill.jpg", which is also identified correctly.
+
+Now we will save the model in the ONNX format for integration into the Tailwind
+Traders app.
+
+1. Click Export, and choose "ONNX". Note the other platform-specific formats
+   available as well.
+
+1. Select the version ONNX 1.2, and then click Export. The TWT app expects a
+   file called products.onnx, so we'll use the one that's already saved in the
+   repo.
+
+## Update the ONNX model in the Tailwind Traders model
+
+First, view the exported model in Netron
 
 1. Browse to https://lutzroeder.github.io/netron/, Click Open Model
 
@@ -257,10 +319,3 @@ Next, drop the ONNX file we exported into TWT filesystem
 1. Restart the web server. Return to the "onnx" Web App resource and click "Restart".
 
 Rerun Shop by Photo, upload CV training images / screwdrivers / Big Flat Screwdriver.jpg. Now it works!
-
-
-
-
-
-
-
