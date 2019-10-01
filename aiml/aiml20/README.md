@@ -16,15 +16,17 @@ Azure CLI
 * Cognitive Services Custom Vision: [https://customvision.ai](https://www.customvision.ai/?WT.mc_id=ignitethetour-github-davidsmi)
 * ONNX: https://github.com/onnx/onnx
 * ONNX Runtime: https://github.com/microsoft/onnxruntime
-* Cognitice Services Personalizer: https://aka.ms/personalizer-intro
+* Cognitive Services Personalizer: https://aka.ms/personalizer-intro
 * Reinforcement Learning with Personalizer: https://aka.ms/personalizerdemo
 * Azure pricing: https://aka.ms/cs-pricing 
 * Cognitive Services compliance and privacy: https://aka.ms/az-compliance
+* Cognitive Services in containers: https://aka.ms/cs-containers
 * Microsoft's approach to ethical AI: [https://microsoft.com/AI/our-approach-to-ai](https://www.microsoft.com/AI/our-approach-to-ai?rtc=1&WT.mc_id=msignitethetour2019-github-aiml20)
 * Cognitive Services documentation: https://aka.ms/cs-docs
 * Cognitive Services in Microsoft Learn: https://aka.ms/AIML20MSLearnCollection
 * Microsoft Certified Azure Data Scientist Associate: https://aka.ms/DataScientistCert 
 * Microsoft Certified Azure AI Engineer Associate https://aka.ms/AIEngineerCert
+* Free Azure credits for new subscribers: https://aka.ms/azure-free-credits
 
 ## Pre-demo setup
 
