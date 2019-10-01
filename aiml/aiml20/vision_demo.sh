@@ -31,29 +31,36 @@ az cognitiveservices account create \
 # It will look something like this: c8e5546e8dab4b7a91590b252a9b16fd
 az cognitiveservices account keys list \
     --name aiml20-cs-resource \
-    --resource-group aiml20-demo
+    --resource-group aiml20-demo 
 
-### Send a request with Curl
+### 5. store the key in an environment variable
+# paste in the key you copied above
+KEY="YOUR-KEY-HERE"
 
-## Analyze: A dummy wearing a safety hat
-## https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Dummy%20with%20safety%20gear.jpg
 
-## 5. Call the Computer Vision REST API
-# Replace key in the first line below with the key obtained in step 4
+# If you are not using the westus2 region, check your endpoint in the Azure portal
+# by inspecting "aiml20-cs-resource" in the "aiml20-demo" resource group
+VISIONENDPOINT="https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze"
 
-curl -H "Ocp-Apim-Subscription-Key: YOUR-KEY-HERE" \
+### 6. Analyze test images via API usinh CURL
+# images can be found in "test images" folder
+# man in hardhat.jpg -- this will give the same results as via the Web app
+IMG="https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/test%20images/man%20in%20hardhat.jpg"
+curl -H "Ocp-Apim-Subscription-Key: $KEY" \
       -H "Content-Type: application/json" \
-      "https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze?visualFeatures=Categories,Description&details=Landmarks&language=en" \
-      -d "{\"url\":\"https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Dummy%20with%20safety%20gear.jpg
-\"}"   
+      "$VISIONENDPOINT?visualFeatures=Tags&language=en" \
+      -d "{\"url\":\"$IMG\"}"   
 
-## Analyze: A picture of a hard hat
-## https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Dummy%20with%20safety%20gear.jpg
-curl -H "Ocp-Apim-Subscription-Key: YOUR-KEY-HERE" \
+# drill.jpg
+IMG="https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/test%20images/drill.jpg"
+curl -H "Ocp-Apim-Subscription-Key: $KEY" \
       -H "Content-Type: application/json" \
-      "https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze?visualFeatures=Categories,Description&details=Landmarks&language=en" \
-      -d "{\"url\":\"https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/CV%20training%20images/hard%20hats/Hard%20hat%2020111111.jpg\"}"   
+      "$VISIONENDPOINT?visualFeatures=Tags&language=en" \
+      -d "{\"url\":\"$IMG\"}"   
 
+# In the last example, the Vision API is identifying a drill as a camera! General models
+# trained on thousands of categories can be less effective than simpler models
+# if you know the specific images you want to identify in advance.
 
 # Delete the resource group and associated resources
 az group delete --name aiml20-demo

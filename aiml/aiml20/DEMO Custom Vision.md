@@ -94,6 +94,10 @@ https://tailwind-traders-standalone-onnx.azurewebsites.net/
 
 ## Using Computer Vision via the Web interface
 
+Let's try using computer vision on a picture of a hardware product. If we can
+identify a product that Tailwind Traders sells by name, we can search for that
+name in the catalog for the "Shop by Photo" app.
+
 1. Visit the Computer Vision webpage at
    [https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/](https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/?WT.mc_id=msignitethetour2019-github-aiml20)
 
@@ -101,8 +105,8 @@ https://tailwind-traders-standalone-onnx.azurewebsites.net/
 
 !["Computer Vision: Analyze an Image"](img/Computer%20Vision%20Analyze%20an%20Image.png)
 
-3. Click the "Browse" button, and choose "Yellow Hard Hat.JPG" from the "hard
-   hat" folder in "CV Training Images".
+3. Click the "Browse" button, and choose "man in hardhat.jpg" from the "test
+   images" folder in "CV Training Images".
 
 4. After a moment, the analysis of your image will appear in the right pane. It
    looks like this:
@@ -110,17 +114,17 @@ https://tailwind-traders-standalone-onnx.azurewebsites.net/
 ```
 FEATURE NAME:	VALUE
 
-Objects	[ { "rectangle": { "x": 893, "y": 483, "w": 2995, "h": 2167 }, "object": "headwear", "confidence": 0.676 } ]
+Objects	[ { "rectangle": { "x": 138, "y": 27, "w": 746, "h": 471 }, "object": "headwear", "confidence": 0.616 }, { "rectangle": { "x": 52, "y": 33, "w": 910, "h": 951 }, "object": "person", "confidence": 0.802 } ]
 
-Tags	[ { "name": "clothing", "confidence": 0.9981408 }, { "name": "headdress", "confidence": 0.9976504 }, { "name": "helmet", "confidence": 0.9865049 }, { "name": "indoor", "confidence": 0.9276736 }, { "name": "yellow", "confidence": 0.5328705 } ]
+Tags	[ { "name": "man", "confidence": 0.999212 }, { "name": "headdress", "confidence": 0.99731946 }, { "name": "person", "confidence": 0.995057464 }, { "name": "clothing", "confidence": 0.991814733 }, { "name": "wearing", "confidence": 0.9827137 }, { "name": "hat", "confidence": 0.9691986 }, { "name": "helmet", "confidence": 0.9227209 }, { "name": "headgear", "confidence": 0.840476155 }, { "name": "personal protective equipment", "confidence": 0.8358513 }, { "name": "looking", "confidence": 0.832229853 }, { "name": "hard hat", "confidence": 0.8004248 }, { "name": "human face", "confidence": 0.785058737 }, { "name": "green", "confidence": 0.774940848 }, { "name": "fashion accessory", "confidence": 0.706475437 } ]
 
-Description	{ "tags": [ "clothing", "headdress", "helmet", "indoor", "sitting", "yellow", "table", "small", "dark", "black", "white", "mirror", "sink", "room", "standing" ], "captions": [ { "text": "a yellow helmet on a table", "confidence": 0.465249538 } ] }
+Description	{ "tags": [ "man", "headdress", "person", "clothing", "wearing", "hat", "helmet", "looking", "green", "jacket", "shirt", "standing", "head", "suit", "glasses", "yellow", "white", "large", "phone", "holding" ], "captions": [ { "text": "a man wearing a helmet", "confidence": 0.8976638 } ] }
 
 Image format	"Jpeg"
 
-Image dimensions	2704 x 4064
+Image dimensions	1000 x 1000
 
-Clip art type	1
+Clip art type	0
 
 Line drawing type	0
 
@@ -128,47 +132,47 @@ Black and white	false
 
 Adult content	false
 
-Adult score	0.00263372553
+Adult score	0.0126242451
 
 Racy	false
 
-Racy score	0.00290701375
+Racy score	0.0156497136
 
-Categories	[ { "name": "abstract_shape", "score": 0.21875 }, { "name": "others_", "score": 0.046875 }, { "name": "outdoor_", "score": 0.03515625 } ]
+Categories	[ { "name": "people_", "score": 0.69140625 } ]
 
-Faces	[]
+Faces	[ { "age": 37, "gender": "Male", "faceRectangle": { "top": 419, "left": 363, "width": 398, "height": 398 } } ]
 
-Dominant color background	"Black"
+Dominant color background	"White"
 
-Dominant color foreground	"Yellow"
+Dominant color foreground	"White"
 
-Accent Color	#956801
+Accent Color	#90A526
 ```
 
 (Note, the above analysis may change in the future: the Computer Vision model is
 updated regularly.)
 
-Note that in the first "Objects" result, one object is detected, and its
-location in the image is given. Its classified as "headwear", but for our
-application we'd like it classified as "hard hat". However "hard hat" is not one
-of the object types that Computer Vision currently detects. (We'll address this
-problem with Custom Vision, later.) Also note that a confidence score is given
-for the object classification.
+Note that in the first "Objects" result, two objects "headwear" and "person" are
+detected, and their locations in the image is given. The object we want to
+detect is classified "headwear", but for our application we need a more specific
+classification: "hard hat". However "hard hat" is not one of the object types
+that Computer Vision currently detects. (We'll address this problem with Custom
+Vision, later.) Also note that a confidence score is given for each object
+classification.
 
-The second "Tags" re
-sult gives a list of labels associated with the entire
-image. The tag with the highest confidence (listed first) is "clothing", which
-doesn't help us much. The third tag, "helmet", is better but still not exactly
-what we are looking for.
+The second "Tags" result gives a list of labels associated with the entire
+image. The tag with the highest confidence (listed first) is "man", which
+doesn't help us much. The second tag, "headdress", is not exactly what we are
+looking for either.
 
 The other responses are also interesting, but we won't focus on them for our
 demo. But take a look at what's included:
 
-* A caption for the photo ("a yellow helmet on a table") in the Description field.
+* A caption for the photo ("a man wearing a helmet") in the Description field.
 
 * Image features (is it black and white? a line drawing?)
 
-* Details of any faces detected in the image (none in this case)
+* Details of any faces detected in the image (identified as a 37-year-old male in this case)
 
 * A score for the content of the image: is it "Adult" or "Racy"?
 
@@ -212,6 +216,7 @@ Cloud Shell, run the commands in the section "Create a key". These commands will
 2. Create an Azure Resource Group
 3. Create a Cognitive Service key
 4. Find the key
+5. Use CURL to analyze two images
 
 TODO: Finish
 
