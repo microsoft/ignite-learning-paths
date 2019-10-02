@@ -53,7 +53,7 @@ Scroll to the bottom of the logs to retrieve both the application URL and the co
 ![alt text](./images/connection.jpg)
 
 
-## Runing scale demo
+## Running scale demo
 To run the scaling demo you need to add the publisher 
 ```
 cat <<EOF | kubectl apply -f -
