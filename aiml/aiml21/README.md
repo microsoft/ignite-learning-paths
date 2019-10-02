@@ -7,8 +7,8 @@ In this theatre session we will show the data science process and how to apply i
 Please download all the code and data files in this repository to get started. There is a code and data folder which will contain all information you need to run all demos
 
 **You will need:**
-* Azure Subscription - get a [free trial here](https://azure.microsoft.com/en-gb/free) if you need it
-* [Power BI Desktop (Windows Only)](https://powerbi.microsoft.com/en-us/desktop/) - if you are running on MacOS/Linux you can still demo the functionality from any modern web browser
+* Azure Subscription - get a [free trial here](https://azure.microsoft.com/en-gb/free/?WT.mc_id=msignitethetour2019-github-aiml21) if you need it
+* [Power BI Desktop (Windows Only)](https://powerbi.microsoft.com/en-us/desktop/?WT.mc_id=msignitethetour2019-github-aiml21) - if you are running on MacOS/Linux you can still demo the functionality from any modern web browser
 
 **Setup Instructions:**
 * Use the **Deploy to Azure button** below to create your Azure Machine Learning workspace
@@ -31,7 +31,7 @@ Please download all the code and data files in this repository to get started. T
         * [code/config.json](code/config.json)
     * Open [config.json](code/config.json) and enter your subscription key, resource group and Azure ML Workspace name from the Azure Machine Learning service in the portal and save the file
 
->Learn more about [Notebook VMs here](https://azure.microsoft.com/en-us/blog/three-things-to-know-about-azure-machine-learning-notebook-vm/)
+>Learn more about [Notebook VMs here](https://azure.microsoft.com/en-us/blog/three-things-to-know-about-azure-machine-learning-notebook-vm/?WT.mc_id=msignitethetour2019-github-aiml21)
 
 * Create a **Compute Instance**
     * Select 'Compute' from left pane
@@ -45,7 +45,7 @@ Please download all the code and data files in this repository to get started. T
     * Minimum number of nodes set to 0 (then it will scale down completely and reduce costs)
     * Click 'Create'
 
->Learn more about [Azure Machine Learning Compute here](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets#amlcompute)
+>Learn more about [Azure Machine Learning Compute here](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets#amlcompute/?WT.mc_id=msignitethetour2019-github-aiml21)
 
 * Upload the **Dataset**
     * Select 'Datasets' from left pane
@@ -54,7 +54,7 @@ Please download all the code and data files in this repository to get started. T
     * Wait for the file to upload
     * Select 'Done'
 
->Learn more about [creating datasets here](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-create-register-datasets)
+>Learn more about [creating datasets here](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-create-register-datasets/?WT.mc_id=msignitethetour2019-github-aiml21)
 
 # Delivery of Assets
 
@@ -72,20 +72,20 @@ Please download all the code and data files in this repository to get started. T
 ### Video Demo with Voice Over: [AIML21 - Demo 1 - Explore](https://youtu.be/1Xtmrsfkzfs)
 
 **Instructions:**
-* Sign into your [Azure Portal](https://azure.microsoft.com/en-gb/) and open the **Azure Machine Learning Workspace** you created with the template above
+* Sign into your [Azure Portal](https://azure.microsoft.com/en-gb/?WT.mc_id=msignitethetour2019-github-aiml21) and open the **Azure Machine Learning Workspace** you created with the template above
 * Launch the Preview experience by clicking **'Launch Preview Now'**
 * Open **'Notebook VMs'** from the left pane
 * Select the **'Jupyter'** Link
 * Double click the **user folder**
 * *Log in if needed with your Azure Credentials*
-* Open **Explore.ipynb**
+* Open [**Explore.ipynb**](code/explore.ipynb)
 * Run through all code cells using SHIFT + ENTER
 
 # Demo 2 - Experiment
 
 ### Video Demo with Voice Over: [AIML21 - Demo 2 - Experiment](https://youtu.be/sUKuRBRvo7U)
 
-* Go to [ml.azure.com](https://ml.azure.com/) Azure Machine Learning Preview interface. You can access this via the URL directly and then sign in and select the correct workspace you created in the setup instructions. Or from the Azure Machine Learning Service workspace in the portal selecting the **'Launch Preview now'** button
+* Go to [ml.azure.com](https://ml.azure.com/?WT.mc_id=msignitethetour2019-github-aiml21) Azure Machine Learning Preview interface. You can access this via the URL directly and then sign in and select the correct workspace you created in the setup instructions. Or from the Azure Machine Learning Service workspace in the portal selecting the **'Launch Preview now'** button
 * Select **Automated ML** on the left pane
 * Click **'Create experiment'**
 * Provide an experiment name, example/ aiml21-regression-duration
@@ -132,8 +132,8 @@ Please download all the code and data files in this repository to get started. T
 * Once complete select **Endpoints** on the left pane
 * Select your Azure Container Instance model and review the details
 * Select the browser tab with Jupyter open
-* Open Deploy.ipynb
-* Confirm the config.json file is completed with the correct information from the setup stages
+* Open [**Deploy.ipynb**](code/deploy.ipynb)
+* Confirm the [config.json](code/config.json) file is completed with the correct information from the setup stages
 * Edit the 2nd cell to include the name of your deployed web service
 * Run all cells in notebook and review output
 
@@ -141,7 +141,7 @@ Please download all the code and data files in this repository to get started. T
 
 ### Video Demo with Voice Over: [AIML21 - Demo 4 - Present](https://youtu.be/g7aBaC9s9qQ)
 
-* Open [powerbi.microsoft.com](http://powerbi.microsoft.com)
+* Open [powerbi.microsoft.com](http://powerbi.microsoft.com/?WT.mc_id=msignitethetour2019-github-aiml21)
 * Log in with your workplace credentials
 * Click on Workspaces on the left pane
 * Click Create a workspace
@@ -153,7 +153,7 @@ Please download all the code and data files in this repository to get started. T
 * Click the Publish button
 * Select the workspace name you just created
 * Wait for the report to publish
-* Go back to [powerbi.microsoft.com](http://powerbi.microsoft.com) 
+* Go back to [powerbi.microsoft.com](http://powerbi.microsoft.com/?WT.mc_id=msignitethetour2019-github-aiml21) 
 * Refresh the browser if needed
 * See the report on the left pane in the web browser
 * Click on the report and it will load
@@ -166,16 +166,16 @@ Please download all the code and data files in this repository to get started. T
 
 ### To Save Costs
 
-* Make sure you select shutdown on your Notebook VM whenever not in use
-* When not in use delete the Azure Container Instance in endpoints
+* Make sure you select **shutdown** on your Notebook VM whenever not in use
+* When not in use **delete** the Azure Container Instance in endpoints
 
 # Resources and Continued Learning
 
 **Microsoft Learn:**
-* [Explore Data Science Tools in Azure](https://docs.microsoft.com/en-us/learn/paths/explore-data-science-tools-in-azure/)
-* [Introduction to Python](https://docs.microsoft.com/en-us/learn/modules/intro-to-python/)
-* [Automate the ML model selection with Azure Machine Learning service](https://docs.microsoft.com/en-us/learn/modules/automate-model-selection-with-azure-automl/)
-* [Create and use analytics reports with Power BI](https://docs.microsoft.com/en-us/learn/paths/create-use-analytics-reports-power-bi/)
+* [Explore Data Science Tools in Azure](https://docs.microsoft.com/en-us/learn/paths/explore-data-science-tools-in-azure/?WT.mc_id=msignitethetour2019-github-aiml21)
+* [Introduction to Python](https://docs.microsoft.com/en-us/learn/modules/intro-to-python/?WT.mc_id=msignitethetour2019-github-aiml21)
+* [Automate the ML model selection with Azure Machine Learning service](https://docs.microsoft.com/en-us/learn/modules/automate-model-selection-with-azure-automl/?WT.mc_id=msignitethetour2019-github-aiml21)
+* [Create and use analytics reports with Power BI](https://docs.microsoft.com/en-us/learn/paths/create-use-analytics-reports-power-bi/?WT.mc_id=msignitethetour2019-github-aiml21)
 
 # Feedback Loop
 
