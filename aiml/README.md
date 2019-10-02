@@ -2,7 +2,7 @@
 
 **Welcome to the 'Developers Guide to AI' Learning Path**. 
 
-**Sessions Included in this Learning Path:** AIML10, AIML20, AIML30, AIML40 AIML50 and AIML21
+**Sessions Included in this Learning Path:** [AIML10](aiml10/README.md), [AIML20](aiml20/README.md), [AIML30](aiml30/README.md), [AIML40](aiml40/README.md) [AIML50](aiml50/README.md) and [AIML21](aiml21/README.md)
 
 ## Learning Path Description
 
