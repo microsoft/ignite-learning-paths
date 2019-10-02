@@ -21,6 +21,7 @@ The Tailwind Traders application uses many Azure services. In some cases, if a s
 
 ```
 az provider register --namespace Microsoft.OperationalInsights
+az provider register --namespace Microsoft.Network
 az provider register --namespace Microsoft.DocumentDB
 az provider register --namespace Microsoft.DBforPostgreSQL
 az provider register --namespace Microsoft.OperationsManagement
