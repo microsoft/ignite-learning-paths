@@ -159,9 +159,15 @@ az storage blob upload-batch --destination $BLOB_ENDPOINT --destination profiles
 
 #
 printf "\n***Setting up sclaing backend componets.***\n"
-helm repo add kedacore https://kedacore.azureedge.net/helm
-helm repo update
-helm install kedacore/keda-edge --devel --set logLevel=debug --namespace keda --name keda
+#helm repo add kedacore https://kedacore.azureedge.net/helm
+#helm repo update
+#helm install kedacore/keda-edge --devel --set logLevel=debug --namespace keda --name keda
+# TODO remove after keda issue 83 is solved
+git clone https://github.com/kedacore/keda.git
+git -C keda checkout 6ee8f18
+helm install --name keda ./keda/chart/keda/ -f ./keda/chart/keda/values.yaml 
+
+
 helm install --name rabbitmq --set rabbitmq.username=user,rabbitmq.password=PASSWORD stable/rabbitmq
 
 cat <<EOF | kubectl apply -f -
