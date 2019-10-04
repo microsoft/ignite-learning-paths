@@ -161,7 +161,7 @@ In this demo, an Azure Resource Manager template is examined, updated, and deplo
 
 A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
 
-- The four sections of the tempalte [(paramaters, variabls, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
+- The four sections of the template [(parameters, variables, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
 
 ### Deploy more complex template
 
@@ -193,8 +193,8 @@ az group delete --name <resource group name> --yes --no-wait
 
 Here is a list of related training and documentation.
 
-- [Design for availability and recoverability in Azure](https://docs.microsoft.com/en-us/learn/modules/design-for-availability-and-recoverability-in-azure/)
-- [Create a build pipeline](https://docs.microsoft.com/en-us/learn/modules/create-a-build-pipeline/)
+- [Design for availability and recoverability in Azure](https://docs.microsoft.com/en-us/learn/modules/design-for-availability-and-recoverability-in-azure/?WT_mc_id=msignitethetour2019-slides-ops40)
+- [Create a build pipeline](https://docs.microsoft.com/en-us/learn/modules/create-a-build-pipeline/?WT_mc_id=msignitethetour2019-slides-ops40)
 
 ## Feedback loop
 
