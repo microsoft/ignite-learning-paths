@@ -33,10 +33,41 @@ shown.
 
 ## Deploy the Tailwind Traders website.
 
-Visit the [TailwindTraders-Website](https://github.com/Microsoft/TailwindTraders-Website) Github repository, and click the "Deploy to Azure" button.
+Click the button below. This will deploy
+[TailwindTraders-Website](https://github.com/Microsoft/TailwindTraders-Website)
+from Github, using an [ARM
+template](https://gist.github.com/anthonychu/9ab34d2991fb5c1c0c29faeebbe43a51#file-tailwind-deployments-md)
+to enable the Personalizer integration and ONNX-based Shop by Photo feature.
 
-You will need the homepage of the deployed website; TODO here is how to find
-it.
+[![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://deploy.azure.com/?repository=https://github.com/Microsoft/TailwindTraders-Website/tree/master)
+
+In the form that appears, select the following options:
+
+* Directory: Choose your AAD Directory (there's probably only one option here)
+
+* Subscription: Select the subscription in which to deploy the resources
+
+* Resource Group: resources will be created in the resource group you specify. Suggest selecting "New" and accepting the default name suggested.
+
+* Site Name: This will be used in the site's URL and visible publicly. Safe to accept the default.
+
+* Site Location: The Azure region where the resources will be deployed. You must
+  be able to deploy SQL Database and App Services in that region. (Known working
+  regions include: East US.)
+
+  Note: Since Personalizer is currently only available in WestUS2 and WestEurope, it will be deployed there regardless of what you choose.
+
+* Deployment mode: Choose "standalone"
+
+* SQL Login: twt
+
+* SQL Password: generate a secure one (it must include punctuation and mixed case, but do not use `;`) and use that. You won't need it for our demos, so no need to write it down.
+
+Click Next, then Click Deploy.
+
+Allow at least 25 minutes for the site to deploy.
+
+The website URL will be displayed after the "Setting up Source Control" step, or you can inspect the "App Service" resource.
 
 NOTE: Temporary forks for
 [ONNX](https://github.com/anthonychu/TailwindTraders-Website/tree/add-image-classifier)
