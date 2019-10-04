@@ -2,30 +2,35 @@
 	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"org-name": {
+		"azureDevOpsOrgName": {
 			"type": "string",
 			"metadata": {
 				"description": "Azure DevOps organiztion name."
 			}
+		},
+		"azureDevOpsProject": {
+			"type": "string",
+			"metadata": {
+				"description": "Name of the Azure DevOps Project."
+			}
 		}
-
 	},
 	"variables": {},
 	"resources": [{
-		"name": "[parameters('org-name')]",
+		"name": "[parameters('azureDevOpsOrgName')]",
 		"type": "microsoft.visualstudio/account",
 		"apiVersion": "2014-04-01-preview",
 		"location": "centralus",
 		"properties": {
 			"operationType": "Create",
-			"accountName": "[parameters('org-name')]"
+			"accountName": "[parameters('azureDevOpsOrgName')]"
 		},
 		"resources": [{
-			"name": "[parameters('org-name')]",
+			"name": "[parameters('azureDevOpsProject')]",
 			"type": "project",
 			"apiVersion": "2014-04-01-preview",
 			"dependsOn": [
-				"[concat('microsoft.visualstudio/account/', parameters('org-name'))]"
+				"[concat('microsoft.visualstudio/account/', parameters('azureDevOpsOrgName'))]"
 			],
 			"location": "centralus",
 			"properties": {
