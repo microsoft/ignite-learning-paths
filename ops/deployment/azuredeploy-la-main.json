@@ -231,7 +231,7 @@
 									}
 								},
 								"method": "patch",
-								"path": "[concat('/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/workitems/$@{encodeURIComponent(''Issue'')}')]",
+								"path": "[concat('/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/workitems/$@{encodeURIComponent(''Bug'')}')]",
 								"queries": {
 									"account": "[parameters('azureDevOpsOrgName')]"
 								}
@@ -273,8 +273,7 @@
 							"inputs": {
 								"body": {
 									"userEnteredFields": {
-										"Description": "<a href=\"https://teams.microsoft.com/l/channel/@{body('Create_a_channel')?['id']}/Active%2520Incident%2520@{body('Create_a_work_item')?['id']}?groupId=042fcb78-dd7d-4300-84c2-1515890c1697&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47\">Communications Channel</a>",
-										"MS Teams Channel": "@body('Create_a_channel')?['id']"
+										"Description": "<a href=\"https://teams.microsoft.com/l/channel/@{body('Create_a_channel')?['id']}/Active%2520Incident%2520@{body('Create_a_work_item')?['id']}?groupId=042fcb78-dd7d-4300-84c2-1515890c1697&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47\">Communications Channel</a>"
 									}
 								},
 								"host": {
