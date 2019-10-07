@@ -14,12 +14,6 @@
 				"description": "The service principle password is used when deploying the Azure Kubernetes Service cluster."
 			}
 		},
-		"emailAddress": {
-			"type": "string",
-			"metadata": {
-				"description": "This value will be tagged on the resource group for identification purposes."
-			}
-		},
 		"deployDevopsProject": {
 			"type": "bool",
 			"metadata": {
@@ -54,8 +48,7 @@
 		"containerName": "logs",
 		"deploymentImage": "neilpeterson/itt-bootstrap:1.0",
 		"sourceRepo": "https://github.com/microsoft/ignite-learning-paths.git",
-		"entrypoint": "/ops/deployment/deploy.sh",
-		"sessionCode": "OPS"
+		"entrypoint": "/ops/deployment/deploy.sh"
 	},
 	"resources": [{
 			"type": "Microsoft.ManagedIdentity/userAssignedIdentities",
@@ -126,20 +119,12 @@
 								"secureValue": "[concat(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')))]"
 							},
 							{
-								"name": "SESSION_CODE",
-								"secureValue": "[variables('sessionCode')]"
-							},
-							{
 								"name": "CLIENT_ID",
 								"secureValue": "[parameters('servicePrincipalId')]"
 							},
 							{
 								"name": "SECRET",
 								"secureValue": "[parameters('servicePrincipalSecret')]"
-							},
-							{
-								"name": "USER_ID",
-								"secureValue": "[parameters('emailAddress')]"
 							}
 						]
 					}
