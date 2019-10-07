@@ -1,0 +1,195 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"storageAccountName": {
+			"type": "string",
+			"metadata": {
+				"description": "The name of the storaeg account where the on-call roster is stored."
+			}
+		},
+		"storageAccountKey": {
+			"type": "securestring",
+			"metadata": {
+				"description": "The access key of the storaeg account where the on-call roster is stored."
+			}
+		}
+    },
+	"variables": {
+		"name": "AssignIssue",
+        "location": "[resourceGroup().location]"
+	},
+	"resources": [{
+			"type": "Microsoft.Web/connections",
+			"apiVersion": "2016-06-01",
+			"name": "azuretables",
+			"location": "[variables('location')]",
+			"properties": {
+				"displayName": "oncall",
+				"customParameterValues": {},
+				"api": {
+					"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuretables')]"
+				}
+			}
+		},
+        {
+			"type": "Microsoft.Web/connections",
+			"apiVersion": "2016-06-01",
+			"name": "visualstudioteamservices",
+			"location": "[variables('location')]",
+			"properties": {
+				"displayName": "Azure DevOps",
+				"customParameterValues": {},
+				"api": {
+					"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/visualstudioteamservices')]"
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Logic/workflows",
+			"apiVersion": "2017-07-01",
+			"name": "[variables('name')]",
+			"location": "[variables('location')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/connections', 'azuretables')]"
+			],
+			"properties": {
+				"state": "Enabled",
+				"definition": {
+					"$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+					"contentVersion": "1.0.0.0",
+					"parameters": {
+						"$connections": {
+							"defaultValue": {},
+							"type": "Object"
+						}
+					},
+					"triggers": {
+						"When_a_work_item_is_created": {
+							"recurrence": {
+								"frequency": "Second",
+								"interval": 1
+							},
+							"splitOn": "@triggerBody()?['value']",
+							"type": "ApiConnection",
+							"inputs": {
+								"host": {
+									"connection": {
+										"name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+									}
+								},
+								"method": "get",
+								"path": "/v2/workitemcreated_trigger/@{encodeURIComponent('Serverless Incident Management')}/_apis/wit/wiql",
+								"queries": {
+									"account": "icm-poc",
+									"areaPathComparison": "Equals",
+									"iterationPathComparison": "Equals",
+									"wiql__System_WorkItemType": "Incident"
+								}
+							}
+						}
+					},
+					"actions": {
+						"For_each": {
+							"foreach": "@body('Parse_JSON')",
+							"actions": {
+								"Update_a_work_item": {
+									"runAfter": {},
+									"type": "ApiConnection",
+									"inputs": {
+										"body": {
+											"userEnteredFields": {
+												"Assigned To": "@items('For_each')['email']",
+												"State": "Doing"
+											}
+										},
+										"host": {
+											"connection": {
+												"name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+											}
+										},
+										"method": "patch",
+										"path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}",
+										"queries": {
+											"account": "icm-poc",
+											"project": "Serverless Incident Management"
+										}
+									}
+								}
+							},
+							"runAfter": {
+								"Parse_JSON": [
+									"Succeeded"
+								]
+							},
+							"type": "Foreach"
+						},
+						"Get_entities": {
+							"runAfter": {},
+							"type": "ApiConnection",
+							"inputs": {
+								"host": {
+									"connection": {
+										"name": "@parameters('$connections')['azuretables']['connectionId']"
+									}
+								},
+								"method": "get",
+								"path": "/Tables/@{encodeURIComponent('oncall')}/entities",
+								"queries": {
+									"$filter": "oncall eq true",
+									"$select": "email"
+								}
+							}
+						},
+						"Parse_JSON": {
+							"runAfter": {
+								"Get_entities": [
+									"Succeeded"
+								]
+							},
+							"type": "ParseJson",
+							"inputs": {
+								"content": "@body('Get_entities')?['value']",
+								"schema": {
+									"items": {
+										"properties": {
+											"email": {
+												"type": "string"
+											},
+											"odata.etag": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"odata.etag",
+											"email"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"outputs": {}
+				},
+				"parameters": {
+					"$connections": {
+						"value": {
+							"azuretables": {
+								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/azuretables')]",
+								"connectionName": "azuretables",
+								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuretables')]"
+							},
+							"visualstudioteamservices": {
+								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/visualstudioteamservices')]",
+								"connectionName": "visualstudioteamservices",
+								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/visualstudioteamservices')]"
+							}
+						}
+					}
+				}
+			}
+		}
+	]
+}
