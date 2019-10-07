@@ -14,6 +14,7 @@ The following steps are necessary to prepare for MOD30 demos.
 2. Install [artillery](https://artillery.io/): `npm i -g artillery`
 3. Install [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/?WT.mc_id=msignitethetour2019-github-mod30) with the Azure/cloud workloads (for functions)
 4. (Optional) Install [Storage Explorer](https://docs.microsoft.com/azure/vs-azure-tools-storage-manage-with-storage-explorer?tabs=windows&WT.mc_id=msignitethetour2019-github-mod30)
+5. (Optional) for sharing Android device: [Vysor](http://www.vysor.io/)
 
 ### Deployments
 
@@ -104,7 +105,11 @@ As a bonus, you can show the "events" in storage to display the subscription and
 4. Walk through the various steps and explain how one step feeds into the next with variables
 5. Expand the condition
 6. Add a step to connect with the `UpdateDescription` function _after_ the `Describe Image Content` step
+    1. Choose a Functions action
+    2. Navigate to the functions app and select the `UpdateDescription` function
+    3. Build a payload with `blob` and `description` parameters
+    4. Set values to `url` and `Captions Caption Text` respectively
+    5. Confirm when prompted to add a `For each` around results
 7. Set the `blob` to the URL of the blob and `description` to the generated caption
 8. Save then enable the logic app
 9. Upload a new image and show the automated caption
-
