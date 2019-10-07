@@ -231,7 +231,7 @@
 									}
 								},
 								"method": "patch",
-								"path": "[concat('/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/workitems/$@{encodeURIComponent(''Bug'')}')]",
+								"path": "[concat('/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/workitems/$@{encodeURIComponent(''Task'')}')]",
 								"queries": {
 									"account": "[parameters('azureDevOpsOrgName')]"
 								}
