@@ -109,8 +109,8 @@ az storage blob upload-batch --destination $BLOB_ENDPOINT --destination product-
 az storage blob upload-batch --destination $BLOB_ENDPOINT --destination profiles-list --source $tailwindWebImages/profiles-list --account-name $STORAGE
 
 # Create oncall table
-$storageAccount = Get-AzStorageAccount -ResourceGroupName $azureResourceGroup -Name $STORAGE
-New-AzStorageTable –Name oncall –Context $storageAccount.Context
+pwsh $storageAccount = Get-AzStorageAccount -ResourceGroupName $azureResourceGroup -Name $STORAGE
+pwsh New-AzStorageTable –Name oncall –Context $storageAccount.Context
 
 # Notes
 echo "*************** Connection Information ***************"
