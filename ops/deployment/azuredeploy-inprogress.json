@@ -186,12 +186,9 @@
 		},
 		{
 			"condition": "[parameters('deployLogicApps')]",
-			"name": "linkedTemplateAssignLogicApp",
+			"name": "linkedTemplateStorageAccount",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-05-01",
-			"dependsOn": [
-				"Microsoft.Resources/deployments/linkedTemplateStorageAccount"
-			],
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
