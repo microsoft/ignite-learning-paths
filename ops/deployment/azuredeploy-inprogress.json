@@ -159,7 +159,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-la-main.json"
+					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-logic-apps.json"
 				},
 				"parameters": {
 					"azureDevOpsOrgName": {
@@ -167,42 +167,6 @@
 					},
 					"azureDevOpsProject": {
 						"value": "[parameters('azureDevOpsProject')]"
-					}
-				}
-			}
-		},
-		{
-			"condition": "[parameters('deployLogicApps')]",
-			"name": "linkedTemplateStorageAccount",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-05-01",
-			"properties": {
-				"mode": "Incremental",
-				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-storage.json"
-				},
-				"parameters": {}
-			}
-		},
-		{
-			"condition": "[parameters('deployLogicApps')]",
-			"name": "linkedTemplateLogicappAssign",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-05-01",
-			"dependsOn": [
-				"Microsoft.Resources/deployments/linkedTemplateStorageAccount"
-			],
-			"properties": {
-				"mode": "Incremental",
-				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-la-assign.json"
-				},
-				"parameters": {
-					"storageAccountName": {
-						"value": "[reference('linkedTemplateStorageAccount').outputs.storageAccountName.value]"
-					},
-					"storageAccountKey": {
-						"value": "[reference('linkedTemplateStorageAccount').outputs.storageAccountKey.value]"
 					}
 				}
 			}
