@@ -109,8 +109,7 @@ az storage blob upload-batch --destination $BLOB_ENDPOINT --destination product-
 az storage blob upload-batch --destination $BLOB_ENDPOINT --destination profiles-list --source $tailwindWebImages/profiles-list --account-name $STORAGE
 
 # Create oncall table
-pwsh $storageAccount = Get-AzStorageAccount -ResourceGroupName $azureResourceGroup -Name $STORAGE
-pwsh New-AzStorageTable –Name oncall –Context $storageAccount.Context
+pwsh ignite-learning-paths/ops/deployment/storage.ps1 -azureResourceGroup $azureResourceGroup -storageAccountName $STORAGE
 
 # Notes
 echo "*************** Connection Information ***************"
