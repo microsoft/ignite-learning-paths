@@ -14,28 +14,10 @@
 				"description": "The service principle password is used when deploying the Azure Kubernetes Service cluster."
 			}
 		},
-		"deployDevopsProject": {
-			"type": "bool",
-			"metadata": {
-				"description": "Depoly and Azure DevOps orginization and project."
-			}
-		},
-		"deployLogicApps": {
-			"type": "bool",
-			"metadata": {
-				"description": "Depoly logic apps."
-			}
-		},
 		"azureDevOpsOrgName": {
 			"type": "string",
 			"metadata": {
-				"description": "Azure DevOps organiztion name."
-			}
-		},
-		"azureDevOpsProject": {
-			"type": "string",
-			"metadata": {
-				"description": "Name of the Azure DevOps Project."
+				"description": "The service principle password is used when deploying the Azure Kubernetes Service cluster."
 			}
 		}
 	},
@@ -48,7 +30,7 @@
 		"containerName": "logs",
 		"deploymentImage": "neilpeterson/itt-bootstrap:1.0",
 		"sourceRepo": "https://github.com/microsoft/ignite-learning-paths.git",
-		"entrypoint": "/ops/deployment/deploy.sh"
+		"entrypoint": "/ops/deployment/deploy-inprogress.sh"
 	},
 	"resources": [{
 			"type": "Microsoft.ManagedIdentity/userAssignedIdentities",
@@ -132,7 +114,6 @@
 			}
 		},
 		{
-			"condition": "[parameters('deployDevopsProject')]",
 			"name": "linkedTemplateDevOps",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-05-01",
@@ -146,13 +127,12 @@
 						"value": "[parameters('azureDevOpsOrgName')]"
 					},
 					"azureDevOpsProject": {
-						"value": "[parameters('azureDevOpsProject')]"
+						"value": "[parameters('azureDevOpsOrgName')]"
 					}
 				}
 			}
 		},
 		{
-			"condition": "[parameters('deployLogicApps')]",
 			"name": "linkedTemplateLogicApps",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-05-01",
@@ -166,7 +146,7 @@
 						"value": "[parameters('azureDevOpsOrgName')]"
 					},
 					"azureDevOpsProject": {
-						"value": "[parameters('azureDevOpsProject')]"
+						"value": "[parameters('azureDevOpsOrgName')]"
 					}
 				}
 			}

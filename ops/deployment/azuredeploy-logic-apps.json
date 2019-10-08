@@ -40,7 +40,7 @@
 			"name": "teams",
 			"location": "[variables('location')]",
 			"properties": {
-				"displayName": "jahand@microsoft.com",
+				"displayName": "TeamsConnection",
 				"customParameterValues": {},
 				"api": {
 					"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/teams')]"
