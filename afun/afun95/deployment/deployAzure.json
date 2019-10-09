@@ -11,7 +11,7 @@
         },
         "GitHubBranch": {
            "type": "string",
-           "defaultValue": "afun95",
+           "defaultValue": "master",
            "metadata": {
                 "description": "Name of the branch to use when deploying (Default = master)."
             }
