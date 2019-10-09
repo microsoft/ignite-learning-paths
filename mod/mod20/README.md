@@ -12,11 +12,9 @@ You can see the [outline for this session here](./00-outline.md).
 
 The [Powerpoint slides are available online here](https://microsoft.sharepoint.com/:p:/t/CloudDevAdvocacy/EV37sX0MXLtAgtPPYj8lEwYBF6BaxEvB6mDGS5T4-t72zA?e=yjAxyg).
 
-> Note that you will need some permissions to view these slides.
+> Note that you will need access to this Microsoft Teams channel to view these slides.
 
-There is a [recording of a dry run for this session here](https://msit.microsoftstream.com/video/564c9557-4737-4f18-9ddd-1b11e9a19996).
-
-> Note that at this time the recording is only available to Microsoft employees.
+There are also a number of videos to help you get ready. [Click here to see the video page!](./00A-videos.md)
 
 ## Demos deployment and preparation
 
