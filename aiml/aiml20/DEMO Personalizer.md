@@ -15,7 +15,7 @@ Recommended section.
 4. Refresh the page (you may need to do this a couple of times). Observe that
    the layout changes.
 
-The Personaizer service is tracking the anonymous visitors and recording the
+The Personalizer service is tracking the anonymous visitors and recording the
 time of day, day of week, and browser OS used when clicking on categories. 
 The "reward" is whether or not the large, featured section was clicked. 
 
