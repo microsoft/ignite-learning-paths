@@ -73,6 +73,10 @@ stages:
 
     steps:
 
+    - task: CmdLine@2
+      inputs:
+        script: 'ls /home/vsts/work/1/drop'
+
     - task: AzureCLI@1
       displayName: 'AZ ACR Login'
       inputs:
