@@ -73,10 +73,6 @@ stages:
 
     steps:
 
-    - task: CmdLine@2
-      inputs:
-        script: 'ls /home/vsts/work/1/drop'
-
     - task: AzureCLI@1
       displayName: 'AZ ACR Login'
       inputs:
@@ -106,6 +102,10 @@ stages:
       name: Hosted Ubuntu 1604
 
     steps:
+
+    - task: CmdLine@2
+      inputs:
+        script: 'ls /home/vsts/work/1/drop'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifacts'
