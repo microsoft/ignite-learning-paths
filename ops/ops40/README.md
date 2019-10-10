@@ -205,10 +205,6 @@ az group deployment create --resource-group tailwind-production --template-file 
 
 Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
 
-## Demo 3 - Azure Resource Change API
-
-TODO
-
 ## Teardown instructions
 
 When done the demo environment can be deleted using the following command:
