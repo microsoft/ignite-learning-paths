@@ -135,7 +135,7 @@ stages:
           - task: AzureCLI@1
             displayName: Deploy Pre-Production
             inputs:
-              azureSubscription: 'nepeters-azure'
+              azureSubscription: $(azureSubscription)
               scriptLocation: 'inlineScript'
               inlineScript: |
                 az extension add -n application-insights
@@ -172,7 +172,7 @@ stages:
           - task: AzureCLI@1
             displayName: Deploy Production
             inputs:
-              azureSubscription: 'nepeters-azure'
+              azureSubscription: $(azureSubscription)
               scriptLocation: 'inlineScript'
               inlineScript: |
                 az extension add -n application-insights
