@@ -103,10 +103,6 @@ stages:
 
     steps:
 
-    - task: CmdLine@2
-      inputs:
-        script: 'ls /home/vsts/work/1/drop'
-
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifacts'
       inputs:
@@ -128,6 +124,10 @@ stages:
           - download: current
             artifact: drop
             patterns: '**/*'
+
+          - task: CmdLine@2
+            inputs:
+              script: 'ls /home/vsts/work/1/drop'
 
           - task: HelmDeploy@0
             displayName: 'helm init --client-only'
