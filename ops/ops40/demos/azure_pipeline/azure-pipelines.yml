@@ -10,7 +10,7 @@ pr:
 variables:
 
   # Azure
-  azureSubscription: nepeters-azure
+  azureSubscription: azure-service-connection
 
   # AKS Container Registry
   containerRegistryName: ttacrjxqr5ntey3ut6
