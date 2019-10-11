@@ -16,18 +16,18 @@ variables:
   azureSubscription: azure-service-connection
 
   # AKS Container Registry
-  containerRegistryName: ttacrdywxrnf2tqxbo
-  containerRegistryFqdn: ttacrdywxrnf2tqxbo.azurecr.io
+  containerRegistryName: ttacrnlpxgslfgqs44
+  containerRegistryFqdn: ttacrnlpxgslfgqs44.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: OPS40-DEMO-011
-  aks-cluster-pre-prod: tailwindtradersaksdywxrnf2tqxbo
-  ingress-pre-prod: 90d4205c916540c69400.eastus.aksapp.io
+  aks-cluster-rg-pre-prod: OPS40-DEMO-033
+  aks-cluster-pre-prod: tailwindtradersaksnlpxgslfgqs44
+  ingress-pre-prod: 76aa977a67e246f6b625.eastus2.aksapp.io
 
   # Production
-  aks-cluster-rg: OPS40-DEMO-011
-  aks-cluster: tailwindtradersaksdywxrnf2tqxbo
-  ingress: 90d4205c916540c69400.eastus.aksapp.io
+  aks-cluster-rg: OPS40-DEMO-033
+  aks-cluster: tailwindtradersaksnlpxgslfgqs44
+  ingress: 76aa977a67e246f6b625.eastus2.aksapp.io
 
 stages:
 
