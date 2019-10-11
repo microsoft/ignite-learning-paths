@@ -13,7 +13,7 @@ programatically, using curl.
 
 The problem that motivates this talk is that the Shop by Photo tool in the
 Tailwind Traders website isn't correctly identifying products. It's useful to
-run this section in [ONNX Deployment](DEMO%20ONNX%20deployment.md) at this point
+run this section in [ONNX Deployment](DEMO%20ONNX%20deployment.md#defining-the-problem-shop-by-photo-doesnt-work-right) at this point
 to set the scene.
 
 ## Using Computer Vision via the Web interface
