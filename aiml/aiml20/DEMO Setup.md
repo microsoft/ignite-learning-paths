@@ -43,36 +43,55 @@ to enable the Personalizer integration and ONNX-based Shop by Photo feature. ([M
 
 In the form that appears, select the following options:
 
-* Directory: Choose your AAD Directory (there's probably only one option here)
-
 * Subscription: Select the subscription in which to deploy the resources
 
-* Resource Group: resources will be created in the resource group you specify. Suggest selecting "New" and accepting the default name suggested.
+* Resource Group: resources will be created in the resource group you specify.
+  It's best to select "New" and giving a resurce group name you'll remember. When
+  you're done, you can delete this resource group to shut down the site and
+  delete all associated resources.
 
-* Site Name: This will be used in the site's URL and visible publicly. Safe to accept the default.
-
-* Site Location: The Azure region where the resources will be deployed. You must
+* Location: The Azure region where the resources will be deployed. You must
   be able to deploy SQL Database and App Services in that region. (Known working
-  regions include: East US.)
+  regions include: East US, West US 2.)
 
   Note: Since Personalizer is currently only available in WestUS2 and WestEurope, it will be deployed there regardless of what you choose.
 
-* Deployment mode: Choose "standalone"
+* Site Name: This will be used in the site's URL and visible publicly, and must
+  be globally unique. 
 
-* SQL Login: twt
+* Site Location: Enter the short version of "Location" above, e.g. `westus2`
 
-* SQL Password: generate a secure one (it must include punctuation and mixed case, but do not use `;`) and use that. You won't need it for our demos, so no need to write it down.
+* Deployment mode: Choose `standalone`
 
-Click Next, then Click Deploy.
+* SQL Login: Enter `twt`
 
-Allow at least 25 minutes for the site to deploy.
+* SQL Password: generate and use a secure password (it must include punctuation
+  and mixed case, but do not use `;`). You won't need it for our demos, so no
+  need to write it down.
+
+* Enable Personalizer: choose `true`
+
+* Repo URL: accept the default, `https://github.com/microsoft/TailwindTraders-Website`
+
+* Branch: accept the default, `master`
+
+Check "I agree to the terms and condtions" and click "Purchase".
+
+Allow at least 25 minutes for the site to deploy. 
+
+The deployed website URL will be of the form SITENAME.azurewebsites.net (using the Site Name you provided above), or you can find it as follows:
+
+* click "Go To Resource" under "Next Steps"
+
+* Click the "App Service" resource
+
+* Look at the "URL" value displayed in the right pane
 
 The website URL will be displayed after the "Setting up Source Control" step, or you can inspect the "App Service" resource.
 
-NOTE: Temporary forks for
+(NOTE: A temporary fork for
 [ONNX](https://github.com/anthonychu/TailwindTraders-Website/tree/add-image-classifier)
-and [Personalizer](https://github.com/limotley/TailwindTraders-Website) demos
-are needed for now.
+is needed for now.)
 
 ## Configure Visual Studio Code
 
