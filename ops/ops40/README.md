@@ -33,6 +33,8 @@ Navigate to the new Azure DevOps orginization and select pipelines.
 
 If prompted, select to enable the new unified YAML pipeline experiance.
 
+![Pipeline Run URL with Build ID](./images/multistage.png)
+
 ...
 
 **Part 2:** Pipeline Overview
