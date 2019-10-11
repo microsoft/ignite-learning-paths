@@ -1,0 +1,386 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"adminUsername": {
+			"type": "string",
+			"minLength": 1,
+			"metadata": {
+				"description": "Admin user name for VM, Azure SQL Database, and Azure Cosmos DB."
+			}
+		},
+		"adminPassword": {
+			"type": "securestring",
+			"metadata": {
+				"description": "Password for VM, Azure SQL Database, and Azure Cosmos DB."
+			}
+		},
+		"numberOfInstances": {
+			"type": "int",
+			"minValue": 1,
+			"defaultValue": 1,
+			"metadata": {
+				"description": "Number of VM instances to be created behind load balancer."
+			}
+		}
+	},
+	"variables": {
+		"vmName": "tailwind",
+		"vmSize": "Standard_D1_v2",
+		"imagePublisher": "Canonical",
+		"imageOffer": "UbuntuServer",
+		"ubuntuOSVersion": "18.04-LTS",
+		"availabilitySetName": "AvalibilitySet",
+		"virtualNetworkName": "VirtualNetwork",
+		"vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+		"subnetName": "MusicSubnet",
+		"subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
+		"networkInterfaceName": "NetworkInterface",
+		"publicIpAddressName": "PublicIp",
+		"ipConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/LoadBalancerFrontEnd')]",
+		"loadBalancerName": "LoadBalancer",
+		"loadBalencerRule": "HTTP",
+		"lbBackEndPool": "lbBackEndPool",
+		"lbId": "[resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName'))]",
+		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/',variables('lbBackEndPool'))]",
+		"lbProbeID": "[concat(variables('lbID'),'/probes/lbprobe')]",
+		"networkSecurityGroup": "NetworkSecurityGroup",
+		"sqlServerName": "[concat('sql', uniqueString(resourceGroup().id))]",
+		"cosmosAccountName": "tailwind-",
+		"cosmosAccountNameUnique": "[toLower(concat(variables('cosmosAccountName'), uniqueString(resourceGroup().id)))]",
+        "databaseName": "tailwind-sql",
+        "databaseEdition": "Basic",
+        "databaseCollation": "SQL_Latin1_General_CP1_CI_AS",
+        "databaseServiceObjectiveName": "Basic",
+        "transparentDataEncryption": "Enabled"
+	},
+
+	"resources": [{
+			"apiVersion": "2016-03-30",
+			"type": "Microsoft.Network/networkSecurityGroups",
+			"name": "[variables('networkSecurityGroup')]",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"securityRules": [{
+						"name": "http",
+						"properties": {
+							"description": "http endpoint",
+							"protocol": "Tcp",
+							"sourcePortRange": "*",
+							"destinationPortRange": "80",
+							"sourceAddressPrefix": "*",
+							"destinationAddressPrefix": "*",
+							"access": "Allow",
+							"priority": 100,
+							"direction": "Inbound"
+						}
+					},
+					{
+						"name": "ssh",
+						"properties": {
+							"description": "ssh endpoint",
+							"protocol": "Tcp",
+							"sourcePortRange": "*",
+							"destinationPortRange": "22",
+							"sourceAddressPrefix": "*",
+							"destinationAddressPrefix": "*",
+							"access": "Allow",
+							"priority": 200,
+							"direction": "Inbound"
+						}
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "2015-06-15",
+			"type": "Microsoft.Network/publicIPAddresses",
+			"name": "[variables('publicIpAddressName')]",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"publicIPAllocationMethod": "Dynamic"
+			}
+		},
+		{
+			"apiVersion": "2015-06-15",
+			"type": "Microsoft.Network/virtualNetworks",
+			"name": "[variables('virtualNetworkName')]",
+			"location": "[resourceGroup().location]",
+			"dependsOn": [
+				"[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroup'))]"
+			],
+			"properties": {
+				"addressSpace": {
+					"addressPrefixes": [
+						"10.0.0.0/24"
+					]
+				},
+				"subnets": [{
+					"name": "[variables('subnetName')]",
+					"properties": {
+						"addressPrefix": "10.0.0.0/24",
+						"networkSecurityGroup": {
+							"id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroup'))]"
+						}
+					}
+				}]
+			}
+		},
+		{
+			"apiVersion": "2015-06-15",
+			"type": "Microsoft.Network/networkInterfaces",
+			"name": "[concat(variables('networkInterfaceName'), copyindex())]",
+			"location": "[resourceGroup().location]",
+			"copy": {
+				"name": "nicLoop",
+				"count": "[parameters('numberOfInstances')]"
+			},
+			"dependsOn": [
+				"[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+				"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]",
+				"[concat('Microsoft.Network/publicIPAddresses/', variables('publicIpAddressName'))]",
+				"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatRules/', 'SSH-VM', copyIndex())]"
+			],
+			"properties": {
+				"ipConfigurations": [{
+					"name": "ipconfig",
+					"properties": {
+						"privateIPAllocationMethod": "Dynamic",
+						"subnet": {
+							"id": "[variables('subnetRef')]"
+						},
+						"loadBalancerBackendAddressPools": [{
+							"id": "[variables('lbPoolID')]"
+						}],
+						"loadBalancerInboundNatRules": [{
+							"id": "[concat(variables('lbID'),'/inboundNatRules/SSH-VM', copyIndex())]"
+						}]
+					}
+				}]
+			}
+		},
+		{
+			"apiVersion": "2015-06-15",
+			"type": "Microsoft.Network/loadBalancers",
+			"name": "[variables('loadBalancerName')]",
+			"location": "[resourceGroup().location]",
+			"dependsOn": [
+				"[variables('vnetId')]",
+				"[variables('publicIpAddressName')]"
+			],
+			"properties": {
+				"frontendIPConfigurations": [{
+					"properties": {
+						"publicIPAddress": {
+							"id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpAddressName'))]"
+						}
+					},
+					"name": "LoadBalancerFrontend"
+				}],
+				"backendAddressPools": [{
+					"name": "[variables('lbBackEndPool')]"
+				}],
+				"loadBalancingRules": [{
+					"name": "[variables('loadBalencerRule')]",
+					"properties": {
+						"frontendIPConfiguration": {
+							"id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/frontendIPConfigurations/LoadBalancerFrontend')]"
+						},
+						"backendAddressPool": {
+							"id": "[variables('lbPoolID')]"
+						},
+						"protocol": "Tcp",
+						"frontendPort": 80,
+						"backendPort": 80,
+						"enableFloatingIP": false,
+						"idleTimeoutInMinutes": 5,
+						"probe": {
+							"id": "[variables('lbProbeID')]"
+						}
+					}
+				}],
+				"probes": [{
+					"properties": {
+						"protocol": "Tcp",
+						"port": 80,
+						"intervalInSeconds": 15,
+						"numberOfProbes": 2
+					},
+					"name": "lbprobe"
+				}]
+			}
+		},
+		{
+			"apiVersion": "2018-11-01",
+			"type": "Microsoft.Network/loadBalancers/inboundNatRules",
+			"name": "[concat(variables('loadBalancerName'), '/', 'SSH-VM', copyIndex())]",
+			"location": "[resourceGroup().location]",
+			"copy": {
+				"name": "lbNatLoop",
+				"count": "[parameters('numberOfInstances')]"
+			},
+			"dependsOn": [
+				"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]"
+			],
+			"properties": {
+				"frontendIPConfiguration": {
+					"id": "[variables('ipConfigID')]"
+				},
+				"protocol": "tcp",
+				"frontendPort": "[copyIndex(5000)]",
+				"backendPort": 22,
+				"enableFloatingIP": false
+			}
+		},
+		{
+			"apiVersion": "2019-03-01",
+			"type": "Microsoft.Compute/virtualMachines",
+			"name": "[concat(variables('vmName'),copyindex())]",
+			"location": "[resourceGroup().location]",
+			"copy": {
+				"name": "virtualMachineLoop",
+				"count": "[parameters('numberOfInstances')]"
+			},
+			"dependsOn": [
+                "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]",
+				"nicLoop"
+			],
+			"properties": {
+				"availabilitySet": {
+					"id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"
+				},
+				"hardwareProfile": {
+					"vmSize": "[variables('vmSize')]"
+				},
+				"osProfile": {
+					"computerName": "[concat(variables('vmName'),copyindex())]",
+					"adminUsername": "[parameters('adminUsername')]",
+					"adminPassword": "[parameters('adminPassword')]",
+					"linuxConfiguration": {
+						"disablePasswordAuthentication": false
+					}
+				},
+				"storageProfile": {
+					"imageReference": {
+						"publisher": "[variables('imagePublisher')]",
+						"offer": "[variables('imageOffer')]",
+						"sku": "[variables('ubuntuOSVersion')]",
+						"version": "latest"
+					},
+					"osDisk": {
+						"createOption": "FromImage"
+					}
+				},
+				"networkProfile": {
+					"networkInterfaces": [{
+						"id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('networkInterfaceName'), copyindex()))]"
+					}]
+				}
+			},
+			"resources": [{
+				"apiVersion": "2019-03-01",
+				"type": "extensions",
+				"name": "config-app",
+				"location": "[resourceGroup().location]",
+				"dependsOn": [
+					"[concat('Microsoft.Compute/virtualMachines/', concat(variables('vmName'),copyindex()))]",
+					"[concat('Microsoft.DocumentDB/databaseAccounts/', variables('cosmosAccountNameUnique'))]",
+					"[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+				],
+				"properties": {
+					"publisher": "Microsoft.Azure.Extensions",
+					"type": "CustomScript",
+					"typeHandlerVersion": "2.0",
+					"autoUpgradeMinorVersion": true,
+					"settings": {
+						"fileUris": [
+							"https://raw.githubusercontent.com/neilpeterson/tailwind-reference-deployment/master/deployment-artifacts-standalone-vm/config-linux.sh"
+						]
+					},
+					"protectedSettings": {
+						"commandToExecute": "[concat('sudo sh config-linux.sh ',variables('sqlServerName'), ' ', parameters('adminUsername'), ' ', parameters('adminPassword'), ' ', variables('cosmosAccountNameUnique'), ' ' , listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', variables('cosmosAccountNameUnique')), '2015-04-08').primaryMasterKey)]"
+					}
+				}
+			}]
+		},
+		{
+			"apiVersion": "2018-10-01",
+			"type": "Microsoft.Compute/availabilitySets",
+			"name": "[variables('availabilitySetName')]",
+			"location": "[resourceGroup().location]",
+			"dependsOn": [],
+			"properties": {
+				"platformUpdateDomainCount": 5,
+				"platformFaultDomainCount": 3
+			},
+			"sku": {
+				"name": "Aligned"
+			}
+		},
+		{
+			"apiVersion": "2015-05-01-preview",
+			"type": "Microsoft.Sql/servers",
+			"name": "[variables('sqlServerName')]",
+			"location": "[resourceGroup().location]",
+
+			"dependsOn": [],
+			"properties": {
+				"administratorLogin": "[parameters('adminUsername')]",
+				"administratorLoginPassword": "[parameters('adminPassword')]"
+			},
+			"resources": [
+                {
+				"apiVersion": "2015-05-01-preview",
+				"type": "firewallrules",
+				"name": "firewall-allow-azure",
+				"location": "[resourceGroup().location]",
+				"dependsOn": [
+					"[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+				],
+				"properties": {
+					"startIpAddress": "0.0.0.0",
+					"endIpAddress": "0.0.0.0"
+				}
+            },
+            {
+                "name": "[variables('databaseName')]",
+                "type": "databases",
+                "apiVersion": "2017-10-01-preview",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                  "edition": "[variables('databaseEdition')]",
+                  "collation": "[variables('databaseCollation')]",
+                  "requestedServiceObjectiveName": "[variables('databaseServiceObjectiveName')]"
+                },
+                "dependsOn": [
+                  "[variables('sqlServerName')]"
+                ],
+                "resources": [
+                  {
+                    "comments": "Transparent Data Encryption",
+                    "name": "current",
+                    "type": "transparentDataEncryption",
+                    "apiVersion": "2014-04-01-preview",
+                    "properties": {
+                      "status": "[variables('transparentDataEncryption')]"
+                    },
+                    "dependsOn": [
+                      "[variables('databaseName')]"
+                    ]
+                  }
+                ]
+              }
+        ]
+		},
+        {
+            "apiVersion": "2016-03-31",
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "kind": "MongoDB",
+            "name": "[variables('cosmosAccountNameUnique')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "databaseAccountOfferType": "Standard"
+            }
+          }
+	]
+}
