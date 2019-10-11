@@ -4,40 +4,6 @@ Infrastructure and software delivery methods have a direct and material impact o
 
 In this session, we will see how continuous delivery pipelines have helped Tailwind Traders and the rest of the industry deploy tested software to production environments to increase reliability. We’ll also explore modern methods for environment provisioning using infrastructure as code. As a result of attending this session, you will gain practical information on automated deployment and provisioning solutions using Azure-based technology.
 
-## Demo environment deployment
-
-The following deployment produces the Tailwind application + and Azure DevOps instance for the OPS40 demos. You need two of these deployment for OPS40, one pre-production and the other a production environment.
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
- <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
-
-Once completed, fork the following repo to your own GitHub account.
-
-https://github.com/microsoft/TailwindTraders-Backend
-
-Clone the repo to your development system and add the [azure-pipelines.yml](demos/azure_pipeline/azure-pipelines.yml) file to the `/Source/Services/Tailwind.Traders.Cart.Api` directory.
-
-Update the `azure-pipeline.yml' file with the appropritae variabel values (AKS cluster and ACR Registry). To find the AKS values run:
-
-```
-az aks list -o table
-```
-
-To find the ingress value, once connected to the AKS cluster, run:
-
-```
-kubectl get ingress
-```
-
-To find the ACR values run:
-
-```
-az acr list -o table
-```
-
-Finally, run the pipeline to validate functionality
-
 ## Delivery assets
 
 The following asset can be used for delivering this talk:
@@ -45,9 +11,31 @@ The following asset can be used for delivering this talk:
 - [PowerPoint deck]()
 - [Demonstration videos]()
 
+## Demo environment deployment
+
+The following deployment produces the Tailwind application + and Azure DevOps instance for the OPS40 demos.
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
+ <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
+Once completed, fork this repo into your own GitHub account.
+
+https://github.com/microsoft/ignite-learning-paths.git
+
+Clone your fork to your development system and update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments.
+
 ## Demo 1 - Azure DevOps
 
-**Part 1:** Pipeline Overview
+**Part 1:** Create Pipeline
+
+Navigate to the new Azure DevOps orginization and select pipelines.
+
+If prompted, select to enable the new unified YAML pipeline experiance.
+
+...
+
+**Part 2:** Pipeline Overview
 
 Open up the cart pipeline, and detail the following:
 
@@ -63,7 +51,7 @@ Open up the cart pipeline, and detail the following:
 
 **Part 2:** Production Reconciliation
 
-Show how production can be reconciled .via build ID (helm release version and container image version).
+At this point, hopefully the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
 Get the latest build id, this can be seen in the last runs URL.
 
