@@ -27,13 +27,31 @@ Clone your fork to your development system and update the values in the [/ops/op
 
 ## Demo 1 - Azure DevOps
 
-**Part 1:** Create Pipeline
+**Part 1:** Create Azure Service Connection
 
-Navigate to the new Azure DevOps orginization and select pipelines.
+Navigate to the new Azure DevOps organization, and then the new DevOps project.
 
-If prompted, select to enable the new unified YAML pipeline experiance.
+Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+
+Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+
+**Part 2:** Create Pipeline
+
+Select **Pipelines** from the left hand Azure DevOps menu.
+
+If prompted, select **Try it!** to enable the new unified YAML pipeline experience.
 
 ![Pipeline Run URL with Build ID](./images/multistage.png)
+
+Select **Create Pipeline**.
+
+Select **GitHub YAML** and then select the Ignite Tour Demos forked repo. You should have created this repo during set up.
+
+Select **Existing Azure Pipelines YAML file** for the project type.
+
+Browse the formed repository and select the **azure-pipelines.yml** file.
+
+Select **Continue** to create the pipeline.
 
 ...
 
@@ -53,7 +71,7 @@ Open up the cart pipeline, and detail the following:
 
 **Part 2:** Production Reconciliation
 
-At this point, hopefully the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
+At this point, hopefully, the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
 Get the latest build id, this can be seen in the last runs URL.
 
