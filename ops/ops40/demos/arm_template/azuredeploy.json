@@ -17,10 +17,23 @@
 		"sqlServerAdministratorLoginPassword": "Password2020!",
 		"aksVersion": "1.14.5",
 		"pgversion": "10",
-		"components_app_insights_name": "tt-app-insights"
+		"components_app_insights_name": "tt-app-insights",
+		"storageAccountName": "[concat('demo', uniquestring(resourceGroup().id))]",
+		"storageAccountType": "Standard_LRS"
 
 	},
 	"resources": [{
+			"type": "Microsoft.Storage/storageAccounts",
+			"name": "[variables('storageAccountName')]",
+			"location": "[resourceGroup().location]",
+			"apiVersion": "2017-10-01",
+			"sku": {
+				"name": "[variables('storageAccountType')]"
+			},
+			"kind": "StorageV2",
+			"properties": {}
+		},
+		{
 			"type": "microsoft.insights/components",
 			"apiVersion": "2015-05-01",
 			"name": "[variables('components_app_insights_name')]",
