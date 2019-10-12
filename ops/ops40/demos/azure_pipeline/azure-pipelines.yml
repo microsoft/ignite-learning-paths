@@ -50,12 +50,12 @@ stages:
         script: |
           Find-Module pester | Install-Module -Force
 
-    - task: CmdLine@2
-      inputs:
-        script: |
-          ls ./ops/deployment
+    # - task: CmdLine@2
+    #   inputs:
+    #     script: |
+    #       ls ./ops/deployment
         
-        # pwsh get-process
+    #     # pwsh get-process
 
     - task: AzureCLI@1
       displayName: Generate values file for test
@@ -63,7 +63,7 @@ stages:
         azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
         inlineScript: |
-          pwsh ./ops/deployment/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate ops/deployment/helm-values/gvalues.template -outputFile ./values.yaml
+          pwsh ./ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate ops/deployment/helm-values/gvalues.template -outputFile ./values.yaml
 
     - task: PowerShell@2
       displayName: Parse host name
