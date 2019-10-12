@@ -115,10 +115,10 @@ Add the following stage to the pipeline, click save, which will start a new run.
 ```
 - stage: test
   jobs:
-  - job:
+  - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbxy4tce6fzj25s.documents.azure.com:443/
+      hostDB: https://ttshoppingdbbwabnsh2peots.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -135,10 +135,10 @@ Add the following stage to the pipeline, click save, which will start a new run.
     - task: AzureCLI@1
       displayName: Generate values file for test
       inputs:
-        azureSubscription: 'nepeters-azure'
+        azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
         inlineScript: |
-          pwsh Deploy/Generate-Config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate Deploy/helm/gvalues.template -outputFile ./values.yaml
+          pwsh ./ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate ops/deployment/helm-values/gvalues.template -outputFile ./values.yaml
 
     - task: PowerShell@2
       displayName: Parse host name
@@ -152,7 +152,7 @@ Add the following stage to the pipeline, click save, which will start a new run.
       displayName: Run Pester tests
       inputs:
         targetType: 'inline'
-        script: 'invoke-pester -Script @{ Path = ''./tests/''; Parameters = @{ hostName = ''$(hostDB)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
+        script: 'invoke-pester -Script @{ Path = ''./ops/ops40/demos/azure_pipeline/tests/''; Parameters = @{ hostName = ''$(hostDB)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
 
     - task: PublishTestResults@2
       displayName: Publish test results
