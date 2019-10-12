@@ -36,7 +36,7 @@ stages:
   - job:
 
     variables:
-      hostDB: https://ttshoppingdbxy4tce6fzj25s.documents.azure.com:443/
+      hostDB: https://ttshoppingdbbwabnsh2peots.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -49,13 +49,6 @@ stages:
         targetType: 'inline'
         script: |
           Find-Module pester | Install-Module -Force
-
-    # - task: CmdLine@2
-    #   inputs:
-    #     script: |
-    #       ls ./ops/deployment
-        
-    #     # pwsh get-process
 
     - task: AzureCLI@1
       displayName: Generate values file for test
