@@ -50,6 +50,13 @@ stages:
         script: |
           Find-Module pester | Install-Module -Force
 
+    - task: CmdLine@2
+      inputs:
+        script: |
+          ls ./ops/deployment
+        
+        # pwsh get-process
+
     - task: AzureCLI@1
       displayName: Generate values file for test
       inputs:
