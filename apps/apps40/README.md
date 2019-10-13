@@ -90,6 +90,26 @@ kubectl get pods -o wide
 
 In the image above you can see that we are scaling the pods to virtual node on ACI dynamically. 
 
+To cleanup the scaling demo use the following 
+```
+cat <<EOF | kubectl delete -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rabbitmq-publish
+spec:
+  template:
+    spec:
+      containers:
+      - name: rabbitmq-client
+        image: jeffhollan/rabbitmq-client:dev
+        imagePullPolicy: Always
+        command: ["send",  "amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672", "300"]
+      restartPolicy: Never
+  backoffLimit: 4
+EOF 
+```
+
 ## Network policy
 For the networking policy demo we will need to open two terminals. The first we will pretend to be a rouge service in the default namespace.
 The second we will apply the network policy. 
