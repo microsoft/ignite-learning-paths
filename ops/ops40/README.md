@@ -27,37 +27,37 @@ Clone your fork to your development system and update the values in the [/ops/op
 
 ## Demo 1 - Azure DevOps
 
-**Part 1:** Create Azure Service Connection
+**Create Azure Service Connection**
 
-Navigate to the new Azure DevOps organization, and then the new DevOps project.
+1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
 
-Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
 
-Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
 
-**Part 2:** Create Pipeline
+**Create Pipeline**
 
-Select **Pipelines** from the left hand Azure DevOps menu.
+1. Select **Pipelines** from the left hand Azure DevOps menu.
 
-If prompted, select **Try it!** to enable the new unified YAML pipeline experience.
+2. If prompted, select **Try it!** to enable the new unified YAML pipeline experience.
 
 ![Pipeline Run URL with Build ID](./images/multistage.png)
 
-Select **Create Pipeline**.
+3. Select **Create Pipeline**.
 
-Select **GitHub YAML** and then select the Ignite Tour Demos forked repo. You should have created this repo during set up.
+4. Select **GitHub YAML** and then select the Ignite Tour Demos forked repo. You should have created this repo during set up.
 
-Select **Existing Azure Pipelines YAML file** for the project type.
+5. Select **Existing Azure Pipelines YAML file** for the project type.
 
-Browse the formed repository and select the **azure-pipelines.yml** file.
+6. Browse the repository and select the **azure-pipelines.yml** file.
 
-Select **Continue** to create the pipeline.
+7. Select **Continue** to create the pipeline.
 
-...
+8. Click **Run** to save and run the pipeline.
 
-**Part 2:** Pipeline Overview
+**Pipeline Overview**
 
-Open up the cart pipeline, and detail the following:
+1. Open up the cart pipeline, and detail the following items:
 
 - [Stages](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml)
 - [Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
@@ -69,15 +69,15 @@ Open up the cart pipeline, and detail the following:
 - [Conditions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml)
 - [Tasks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml)
 
-**Part 2:** Production Reconciliation
+**Production Reconciliation**
 
 At this point, hopefully, the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
-Get the latest build id, this can be seen in the last runs URL.
+1. Get the latest build id, this can be seen in the last runs URL.
 
 ![Pipeline Run URL with Build ID](./images/buildid.png)
 
-Navigate back to the pipeline and show how the built-in `Build.BuildId` variable can be used as a task value.
+2. Navigate back to the pipeline and show how the built-in `Build.BuildId` variable can be used as a task value.
 
 ```
 - task: HelmDeploy@0
@@ -88,7 +88,7 @@ Navigate back to the pipeline and show how the built-in `Build.BuildId` variable
     arguments: '--version $(Build.BuildId)'
 ```
 
-Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
+3. Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
 
 ```
 $ helm list
@@ -97,7 +97,7 @@ NAME                    REVISION        UPDATED                         STATUS  
 my-tt-cart              2               Wed Sep 18 21:18:46 2019        DEPLOYED        cart-api-1818                   default
 ```
 
-Return a list of pods to get the name of the cart pod.
+4. Return a list of pods to get the name of the cart pod.
 
 ```
 $ kubectl get pods
@@ -115,7 +115,7 @@ my-tt-webbff-67849c78b7-qhvlg                               1/1     Running   0 
 web-6b56cc7d7c-w7t9x                                        1/1     Running   0          15h
 ```
 
-Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
+5. Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
 
 ```
 $ kubectl describe pod my-tt-cart-cart-api-77db6f9f58-wqs7p
@@ -126,9 +126,9 @@ Containers:
     Image:          ttacr5iny4v2wygm3k.azurecr.io/cart.api:1818
 ```
 
-**Part 2:** Add Unit Test
+**Add Unit Test**
 
-Add the following stage to the pipeline, click save, which will start a new run.
+1. Add the following stage to the pipeline, click save, which will start a new run.
 
 ```
 - stage: test
@@ -180,7 +180,7 @@ Add the following stage to the pipeline, click save, which will start a new run.
         failTaskOnFailedTests: true
 ```
 
-While the run is in progress show the following.
+2. While the run is in progress show the following.
 
 - Pipeline logs
 - [Azure Pipeline YAML reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema)
