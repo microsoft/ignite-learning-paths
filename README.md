@@ -1,12 +1,12 @@
 # Ignite Learning Paths
 
-- [Building Applications for the Cloud](./apps)
-- [Developers Guide to AI](./aiml)
-- [Azure Fundamentals](./afun)
-- [Managing Cloud Operations](./mco)
-- [Modernizing Data, Applications, and APIs to the Cloud](./mod)
-- [Migrating your Server Infrastructure](./msi)
-- [Improving Your Reliability through Modern Operations Practices](./ops)
+- [APPS - Building Applications for the Cloud](./apps)
+- [AIML - Developers Guide to AI](./aiml)
+- [AFUN - Azure Fundamentals](./afun)
+- [MCO - Managing Cloud Operations](./mco)
+- [MOD - Modernizing Data, Applications, and APIs to the Cloud](./mod)
+- [MSI - Migrating your Server Infrastructure](./msi)
+- [OPS - Improving Your Reliability through Modern Operations Practices](./ops)
 
 ## Contributing
 
