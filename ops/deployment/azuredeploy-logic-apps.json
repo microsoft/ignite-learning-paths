@@ -237,7 +237,7 @@
 							"type": "ApiConnection",
 							"inputs": {
 								"body": {
-									"displayName": "📟 Incident -  @{body('Create_a_work_item')?['id']} (@{rand(1, 30000)})"
+									"displayName": "📟 Incident -  @{body('Create_a_work_item')?['id']}"
 								},
 								"host": {
 									"connection": {
@@ -295,14 +295,16 @@
 						},
 						"Update_a_work_item": {
 							"runAfter": {
-								"Response": [
+								"Create_a_channel": [
 									"Succeeded"
 								]
 							},
 							"type": "ApiConnection",
 							"inputs": {
 								"body": {
-									"title": " @{triggerBody()?['alertContext']?['AlertType']}- Severity: @{triggerBody()?['alertContext']?['SeverityDescription']} "
+									"userEnteredFields": {
+										"Description": "<a href=\"https://teams.microsoft.com/l/channel/@{body('Create_a_channel')?['id']}/Active%2520Incident%2520@{body('Create_a_work_item')?['id']}?groupId=042fcb78-dd7d-4300-84c2-1515890c1697&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47\">Communications Channel</a>"
+									}
 								},
 								"host": {
 									"connection": {
@@ -381,17 +383,20 @@
 									"wiql__System_WorkItemType": "Issue"
 								}
 							}
-						},
+						}
+					},
+					"actions": {
 						"For_each": {
 							"foreach": "@body('Parse_JSON')",
 							"actions": {
-								"Update_a_work_item_2": {
+								"Update_a_work_item": {
 									"runAfter": {},
 									"type": "ApiConnection",
 									"inputs": {
 										"body": {
 											"userEnteredFields": {
-												"Assigned To": "@items('For_each')['email']"
+												"Assigned To": "@items('For_each')['email']",
+												"State": "Doing"
 											}
 										},
 										"host": {
@@ -400,9 +405,10 @@
 											}
 										},
 										"method": "patch",
-										"path": "/_apis/wit/workitems/@{encodeURIComponent(body('Create_a_work_item')?['fields']?['System_Id'])}",
+										"path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}",
 										"queries": {
-											"account": "[parameters('azureDevOpsOrgName')]"
+											"account": "[parameters('azureDevOpsOrgName')]",
+											"project": "[parameters('azureDevOpsProject')]"
 										}
 									}
 								}
@@ -415,11 +421,7 @@
 							"type": "Foreach"
 						},
 						"Get_entities": {
-							"runAfter": {
-								"Update_a_work_item": [
-									"Succeeded"
-								]
-							},
+							"runAfter": {},
 							"type": "ApiConnection",
 							"inputs": {
 								"host": {
@@ -461,67 +463,6 @@
 										"type": "object"
 									},
 									"type": "array"
-								}
-							}
-						},
-						"Post_a_message_as_the_Flow_bot_to_a_channel": {
-							"runAfter": {
-								"For_each": [
-									"Succeeded"
-								]
-							},
-							"type": "ApiConnection",
-							"inputs": {
-								"body": {
-									"messageBody": "[concat('<img src=\"https://thumbs.gfycat.com/DelayedVacantDassie-max-1mb.gif\" alt=\"Alert\" height=\"42\" width=\"42\"> <br />\n\n<a href=\"https://', parameters('azureDevOpsOrgName'), '.visualstudio.com/', parameters('azureDevOpsProject'), '/_workitems/edit/@{body(''Update_a_work_item'')?[''id'']}/\">Incident @{body(''Update_a_work_item'')?[''id'']}</a><br />\n<br />\n\n@{triggerBody()?[''alertContext'']?[''AlertType'']} : @{triggerBody()?[''alertContext'']?[''SeverityDescription'']}<br />\n<br />\n\nTroubleshooting Guide Coming. Please Standby...<br />')]",
-									"recipient": {
-										"channelId": "@body('Create_a_channel')?['id']"
-									}
-								},
-								"host": {
-									"connection": {
-										"name": "@parameters('$connections')['teams']['connectionId']"
-									}
-								},
-								"method": "post",
-								"path": "/flowbot/actions/notification/recipienttypes/channel",
-								"queries": {
-									"groupId": "5053167b-f5fb-4b5d-95b1-e256b1bcfcdb"
-								}
-							}
-						},
-						"Response": {
-							"runAfter": {},
-							"type": "Response",
-							"kind": "Http",
-							"inputs": {
-								"body": "Azure Logic Apps will take it from here.",
-								"statusCode": 200
-							}
-						},
-						"Update_a_work_item": {
-							"runAfter": {
-								"Create_a_channel": [
-									"Succeeded"
-								]
-							},
-							"type": "ApiConnection",
-							"inputs": {
-								"body": {
-									"userEnteredFields": {
-										"Description": "<a href=\"https://teams.microsoft.com/l/channel/@{body('Create_a_channel')?['id']}/Active%2520Incident%2520@{body('Create_a_work_item')?['id']}?groupId=042fcb78-dd7d-4300-84c2-1515890c1697&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47\">Communications Channel</a>"
-									}
-								},
-								"host": {
-									"connection": {
-										"name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
-									}
-								},
-								"method": "patch",
-								"path": "/_apis/wit/workitems/@{encodeURIComponent(body('Create_a_work_item')?['id'])}",
-								"queries": {
-									"account": "[parameters('azureDevOpsOrgName')]",
-									"project": "[parameters('azureDevOpsProject')]"
 								}
 							}
 						}
@@ -693,10 +634,10 @@
 								"connectionName": "visualstudioteamservices",
 								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/visualstudioteamservices')]"
 							}
-						}
-					}
-				}
-			}
-		}
+                        }
+                    }
+                }
+            }
+        }
 	]
 }
