@@ -29,6 +29,8 @@
 	},
 	"variables": {
 		"name": "ops20main",
+		"assignLogicAppName": "ops20Assign",
+		"attachWorkbookAppName": "ops20AttachWorkbook",
 		"location": "[resourceGroup().location]"
 	},
 	"resources": [{
@@ -66,7 +68,7 @@
 				"displayName": "oncall",
 				"parameterValues": {
 					"storageaccount": "[parameters('storageAccountName')]",
-					"sharedkey": "[parameters('storageAccountKey')]"
+          			"sharedkey": "[parameters('storageAccountKey')]"
 				},
 				"api": {
 					"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuretables')]"
@@ -247,6 +249,51 @@
 							}
 						},
 						"Create_a_work_item": {
+							"runAfter": {},
+							"type": "ApiConnection",
+							"inputs": {
+								"body": {
+									"title": " @{triggerBody()?['alertContext']?['AlertType']}- Severity: @{triggerBody()?['alertContext']?['SeverityDescription']}"
+								},
+								"host": {
+									"connection": {
+										"name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+									}
+								},
+								"method": "patch",
+								"path": "[concat('/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/workitems/$@{encodeURIComponent(''Issue'')}')]",
+								"queries": {
+									"account": "[parameters('azureDevOpsOrgName')]"
+								}
+							}
+						},
+						"Post_a_message_as_the_Flow_bot_to_a_channel": {
+							"runAfter": {
+								"Update_a_work_item": [
+									"Succeeded"
+								]
+							},
+							"type": "ApiConnection",
+							"inputs": {
+								"body": {
+									"messageBody": "<img src=\"https://thumbs.gfycat.com/DelayedVacantDassie-max-1mb.gif\" alt=\"Alert\" height=\"42\" width=\"42\"> <br />\n\nIncident: @{body('Update_a_work_item')?['id']}<br />\n\n@{triggerBody()?['alertContext']?['AlertType']} : @{triggerBody()?['alertContext']?['SeverityDescription']}<br />\n<br />\nTroubleshooting Guide Coming. Please Standby...📋<br />\n\n",
+									"recipient": {
+										"channelId": "@body('Create_a_channel')?['id']"
+									}
+								},
+								"host": {
+									"connection": {
+										"name": "@parameters('$connections')['teams']['connectionId']"
+									}
+								},
+								"method": "post",
+								"path": "/flowbot/actions/notification/recipienttypes/channel",
+								"queries": {
+									"groupId": "5053167b-f5fb-4b5d-95b1-e256b1bcfcdb"
+								}
+							}
+						},
+						"Update_a_work_item": {
 							"runAfter": {
 								"Response": [
 									"Succeeded"
@@ -263,9 +310,75 @@
 									}
 								},
 								"method": "patch",
-								"path": "/@{encodeURIComponent('OPS40-DEMO-055')}/_apis/wit/workitems/$@{encodeURIComponent('Issue')}",
+								"path": "/_apis/wit/workitems/@{encodeURIComponent(body('Create_a_work_item')?['id'])}",
 								"queries": {
-									"account": "[parameters('azureDevOpsOrgName')]"
+									"account": "[parameters('azureDevOpsOrgName')]",
+									"project": "[parameters('azureDevOpsProject')]"
+								}
+							}
+						}
+					},
+					"outputs": {}
+				},
+				"parameters": {
+					"$connections": {
+						"value": {
+							"teams": {
+								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/teams')]",
+								"connectionName": "teams",
+								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/teams')]"
+							},
+							"visualstudioteamservices": {
+								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/visualstudioteamservices')]",
+								"connectionName": "visualstudioteamservices",
+								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/visualstudioteamservices')]"
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Logic/workflows",
+			"apiVersion": "2017-07-01",
+			"name": "[variables('assignLogicAppName')]",
+			"location": "[variables('location')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/connections', 'azuretables')]",
+				"[resourceId('Microsoft.Web/connections', 'visualstudioteamservices')]"
+			],
+			"properties": {
+				"state": "Enabled",
+				"definition": {
+					"$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+					"contentVersion": "1.0.0.0",
+					"parameters": {
+						"$connections": {
+							"defaultValue": {},
+							"type": "Object"
+						}
+					},
+					"triggers": {
+						"When_a_work_item_is_created": {
+							"recurrence": {
+								"frequency": "Second",
+								"interval": 1
+							},
+							"splitOn": "@triggerBody()?['value']",
+							"type": "ApiConnection",
+							"inputs": {
+								"host": {
+									"connection": {
+										"name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+									}
+								},
+								"method": "get",
+								"path": "[concat('/v2/workitemcreated_trigger/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/wiql')]",
+								"queries": {
+									"account": "[parameters('azureDevOpsOrgName')]",
+									"areaPathComparison": "Equals",
+									"iterationPathComparison": "Equals",
+									"wiql__System_WorkItemType": "Issue"
 								}
 							}
 						},
@@ -418,6 +531,153 @@
 				"parameters": {
 					"$connections": {
 						"value": {
+							"azuretables": {
+								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/azuretables')]",
+								"connectionName": "azuretables",
+								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuretables')]"
+							},
+							"visualstudioteamservices": {
+								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/visualstudioteamservices')]",
+								"connectionName": "visualstudioteamservices",
+								"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/visualstudioteamservices')]"
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[variables('attachWorkbookAppName')]",
+			"location": "[variables('location')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/connections', 'azuretables')]",
+				"[resourceId('Microsoft.Web/connections', 'visualstudioteamservices')]",
+				"[resourceId('Microsoft.Web/connections', 'teams')]"
+			],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_a_work_item_is_updated": {
+                            "recurrence": {
+                                "frequency": "Second",
+                                "interval": 1
+                            },
+                            "splitOn": "@triggerBody()?['value']",
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "[concat('/v2/workitemupdated_trigger/@{encodeURIComponent(''', parameters('azureDevOpsProject'), ''')}/_apis/wit/wiql')]",
+                                "queries": {
+                                    "account": "[parameters('azureDevOpsOrgName')]",
+                                    "areaPathComparison": "Equals",
+                                    "iterationPathComparison": "Equals",
+                                    "wiql__System_WorkItemType": "Issue"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "For_each": {
+                            "foreach": "@body('Parse_JSON')",
+                            "actions": {
+                                "Post_a_message_as_the_Flow_bot_to_a_channel": {
+                                    "runAfter": {},
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "body": {
+                                            "messageBody": "<a href=\"@{items('For_each')['workbook']}\">@{triggerBody()?['fields']?['Custom_AlertRuleName']} Trouble Shooting Guide</a> 🎁\n<br /> \nDon't forget to update the <a href=\"https://tailwindstatus.z22.web.core.windows.net/\">Status Page</a>",
+                                            "recipient": {
+                                                "channelId": "@triggerBody()?['fields']?['Custom_MSTeamsChannel']"
+                                            }
+                                        },
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['teams']['connectionId']"
+                                            }
+                                        },
+                                        "method": "post",
+                                        "path": "/flowbot/actions/notification/recipienttypes/channel",
+                                        "queries": {
+                                            "groupId": "5053167b-f5fb-4b5d-95b1-e256b1bcfcdb"
+                                        }
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Parse_JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "Get_entities": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "/Tables/@{encodeURIComponent('workbooks')}/entities",
+                                "queries": {
+                                    "$filter": "severity eq 1",
+                                    "$select": "workbook"
+                                }
+                            }
+                        },
+                        "Parse_JSON": {
+                            "runAfter": {
+                                "Get_entities": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('Get_entities')?['value']",
+                                "schema": {
+                                    "items": {
+                                        "properties": {
+                                            "odata.etag": {
+                                                "type": "string"
+                                            },
+                                            "workbook": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "odata.etag",
+                                            "workbook"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
 							"teams": {
 								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/teams')]",
 								"connectionName": "teams",
