@@ -29,11 +29,8 @@
 	},
 	"variables": {
 		"name": "ops20main",
-<<<<<<< HEAD
 		"assignLogicAppName": "ops20Assign",
 		"attachWorkbookAppName": "ops20AttachWorkbook",
-=======
->>>>>>> upstream/master
 		"location": "[resourceGroup().location]"
 	},
 	"resources": [{
@@ -71,11 +68,7 @@
 				"displayName": "oncall",
 				"parameterValues": {
 					"storageaccount": "[parameters('storageAccountName')]",
-<<<<<<< HEAD
           			"sharedkey": "[parameters('storageAccountKey')]"
-=======
-					"sharedkey": "[parameters('storageAccountKey')]"
->>>>>>> upstream/master
 				},
 				"api": {
 					"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuretables')]"
@@ -256,7 +249,6 @@
 							}
 						},
 						"Create_a_work_item": {
-<<<<<<< HEAD
 							"runAfter": {},
 							"type": "ApiConnection",
 							"inputs": {
@@ -302,8 +294,6 @@
 							}
 						},
 						"Update_a_work_item": {
-=======
->>>>>>> upstream/master
 							"runAfter": {
 								"Response": [
 									"Succeeded"
@@ -320,7 +310,6 @@
 									}
 								},
 								"method": "patch",
-<<<<<<< HEAD
 								"path": "/_apis/wit/workitems/@{encodeURIComponent(body('Create_a_work_item')?['id'])}",
 								"queries": {
 									"account": "[parameters('azureDevOpsOrgName')]",
@@ -390,11 +379,6 @@
 									"areaPathComparison": "Equals",
 									"iterationPathComparison": "Equals",
 									"wiql__System_WorkItemType": "Issue"
-=======
-								"path": "/@{encodeURIComponent('OPS40-DEMO-055')}/_apis/wit/workitems/$@{encodeURIComponent('Issue')}",
-								"queries": {
-									"account": "[parameters('azureDevOpsOrgName')]"
->>>>>>> upstream/master
 								}
 							}
 						},
@@ -547,7 +531,6 @@
 				"parameters": {
 					"$connections": {
 						"value": {
-<<<<<<< HEAD
 							"azuretables": {
 								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/azuretables')]",
 								"connectionName": "azuretables",
@@ -695,8 +678,6 @@
                 "parameters": {
                     "$connections": {
                         "value": {
-=======
->>>>>>> upstream/master
 							"teams": {
 								"connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/teams')]",
 								"connectionName": "teams",
