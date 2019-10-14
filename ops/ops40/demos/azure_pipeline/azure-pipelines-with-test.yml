@@ -5,9 +5,7 @@ trigger:
     - master
   paths:
     include:
-    - 'Deploy/helm/cart-api'
-    - 'Source/Services/Tailwind.Traders.Cart.Api'
-    - 'tests'
+    - 'ops/ops40'
 
 pr:
 - master
@@ -15,21 +13,21 @@ pr:
 variables:
 
   # Azure
-  azureSubscription: nepeters-azure
+  azureSubscription: azure-service-connection
 
   # AKS Container Registry
-  containerRegistryName: ttacr5iny4v2wygm3k
-  containerRegistryFqdn: ttacr5iny4v2wygm3k.azurecr.io
+  containerRegistryName: ttacrbwabnsh2peots
+  containerRegistryFqdn: ttacrbwabnsh2peots.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: tailwind-pre-prod
-  aks-cluster-pre-prod: tailwindtradersaksxy4tce6fzj25s
-  ingress-pre-prod: eebb69f354cc48ab822e.eastus.aksapp.io
+  aks-cluster-rg-pre-prod: OPS40-DEMO-044
+  aks-cluster-pre-prod: tailwindtradersaksbwabnsh2peots
+  ingress-pre-prod: 59394250b6104cc18c6b.eastus.aksapp.io
 
   # Production
-  aks-cluster-rg: tailwind-production
-  aks-cluster: tailwindtradersaks5iny4v2wygm3k
-  ingress: 2458101c8e2346919d2e.eastus.aksapp.io
+  aks-cluster-rg: OPS40-DEMO-044
+  aks-cluster: tailwindtradersaksbwabnsh2peots
+  ingress: 59394250b6104cc18c6b.eastus.aksapp.io
 
 stages:
 
@@ -38,7 +36,7 @@ stages:
   - job:
 
     variables:
-      hostDB: https://ttshoppingdbxy4tce6fzj25s.documents.azure.com:443/
+      hostDB: https://ttshoppingdbbwabnsh2peots.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -55,10 +53,10 @@ stages:
     - task: AzureCLI@1
       displayName: Generate values file for test
       inputs:
-        azureSubscription: 'nepeters-azure'
+        azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
         inlineScript: |
-          pwsh Deploy/Generate-Config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate Deploy/helm/gvalues.template -outputFile ./values.yaml
+          pwsh ./ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate ops/deployment/helm-values/gvalues.template -outputFile ./values.yaml
 
     - task: PowerShell@2
       displayName: Parse host name
@@ -72,7 +70,7 @@ stages:
       displayName: Run Pester tests
       inputs:
         targetType: 'inline'
-        script: 'invoke-pester -Script @{ Path = ''./tests/''; Parameters = @{ webSite = ''$(webSite)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
+        script: 'invoke-pester -Script @{ Path = ''./ops/ops40/demos/azure_pipeline/tests/''; Parameters = @{ hostName = ''$(hostDB)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
 
     - task: PublishTestResults@2
       displayName: Publish test results
@@ -109,7 +107,7 @@ stages:
       displayName: 'helm package (tt-cart)'
       inputs:
         command: package
-        chartPath: 'Deploy/helm/cart-api'
+        chartPath: 'ops/ops40/demos/tailwind-cart-api/cart-api'
         arguments: '--version $(Build.BuildId)'
 
     - task: AzureCLI@1
@@ -137,7 +135,7 @@ stages:
       displayName: 'docker build (tt-cart)'
       inputs:
         script: |
-          cd Source/Services/Tailwind.Traders.Cart.Api
+          cd ops/ops40/demos/tailwind-cart-api/Tailwind.Traders.Cart.Api
           docker build -t $(containerRegistryFqdn)/cart.api:$(Build.BuildId) .
 
     - task: CmdLine@2
@@ -188,15 +186,15 @@ stages:
           - task: AzureCLI@1
             displayName: Deploy Pre-Production
             inputs:
-              azureSubscription: 'nepeters-azure'
+              azureSubscription: $(azureSubscription)
               scriptLocation: 'inlineScript'
               inlineScript: |
                 az extension add -n application-insights
                 az acr login --name $(containerRegistryName)
                 az acr helm repo add --name $(containerRegistryName)
                 az aks get-credentials --name $(aks-cluster-pre-prod) --resource-group $(aks-cluster-rg-pre-prod) --admin
-                pwsh /home/vsts/work/1/drop/Deploy/Generate-Config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/Deploy/helm/gvalues.template -outputFile values.yaml
-                kubectl delete configmap cfg-my-tt-cart-cart-api
+                pwsh /home/vsts/work/1/drop/ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/ops/deployment/helm-values/gvalues.template -outputFile values.yaml
+                kubectl delete configmap cfg-my-tt-cart
                 helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress-pre-prod)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)
 
 - stage: release_production
@@ -225,13 +223,13 @@ stages:
           - task: AzureCLI@1
             displayName: Deploy Production
             inputs:
-              azureSubscription: 'nepeters-azure'
+              azureSubscription: $(azureSubscription)
               scriptLocation: 'inlineScript'
               inlineScript: |
                 az extension add -n application-insights
                 az acr login --name $(containerRegistryName)
                 az acr helm repo add --name $(containerRegistryName)
                 az aks get-credentials --name $(aks-cluster) --resource-group $(aks-cluster-rg) --admin
-                pwsh /home/vsts/work/1/drop/Deploy/Generate-Config.ps1 -resourceGroup $(aks-cluster-rg) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/Deploy/helm/gvalues.template -outputFile values.yaml
+                pwsh /home/vsts/work/1/drop/ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/ops/deployment/helm-values/gvalues.template -outputFile values.yaml
                 kubectl delete configmap cfg-my-tt-cart-cart-api
-                helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)
+                helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress-pre-prod)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)
