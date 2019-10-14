@@ -5,7 +5,7 @@ trigger:
     - master
   paths:
     include:
-    - 'ops/ops40'
+    - 'ops/ops40/*'
 
 pr:
 - master
