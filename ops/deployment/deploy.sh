@@ -104,7 +104,7 @@ export EMAIL=$EMAIL
 apt-get update -y
 apt-get -y install python3-pip
 pip3 install azure.cosmosdb.table
-python3 microsoft/ignite-learning-paths/ops/deployment/azure-table.py
+python3 ignite-learning-paths/ops/deployment/helm-values/azure-table.py
 
 # Notes
 echo "*************** Connection Information ***************"
