@@ -66,7 +66,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/ops/deployment/master/deployment-ops-full/azuredeploy-tailwind.json"
+					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-tailwind.json"
 				},
 				"parameters": {
 					"servicePrincipalId": {
@@ -85,7 +85,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/ops/deployment/master/deployment-ops-full/azuredeploy-azd.json"
+					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-azd.json"
 				},
 				"parameters": {
 					"azureDevOpsOrgName": {
@@ -107,7 +107,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/ops/deployment/master/deployment-ops-full/azuredeploy-logic-apps.json"
+					"uri": "https://github.com/microsoft/ignite-learning-paths/blob/master/ops/deployment/azuredeploy-logic-apps-two.json"
 				},
 				"parameters": {
 					"azureDevOpsOrgName": {
@@ -135,7 +135,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/ops/deployment/master/deployment-ops-full/azuredeploy-status.json"
+					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-status.json"
 				},
 				"parameters": {
 					"siteName": {
