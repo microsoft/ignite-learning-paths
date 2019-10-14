@@ -1,12 +1,14 @@
 trigger:
-  batch: true
+
   branches:
     include:
     - master
-
   paths:
-    exclude:
-    - README.md
+    include:
+    - 'ops/ops40'
+
+pr:
+- master
 
 variables:
 
