@@ -57,7 +57,7 @@ Clone your fork to your development system and update the values in the [/ops/op
 
 **Pipeline Overview**
 
-While pipeline is running, explain stgaes and jobs while looking at the pipeline overview.
+While the pipeline is running, explain stages and jobs while looking at the pipeline overview.
 
 ![Pipeline Run URL with Build ID](./images/stages.png)
 
@@ -92,7 +92,7 @@ At this point, hopefully, the pre-production deployment has completed. Show how 
     arguments: '--version $(Build.BuildId)'
 ```
 
-3. Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
+3. Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build-id.
 
 ```
 $ helm list
@@ -140,7 +140,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbuxjbocklruj6c.documents.azure.com:443/
+      hostDB: https://ttshoppingdb624n5a5m5vkgq.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -184,8 +184,9 @@ Containers:
         failTaskOnFailedTests: true
 ```
 
-2. While the run is in progress show the following.
+2. The test takes a few minutes to run. Use this time to show off these other features and things.
 
+- [Environments and manual approvals](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
 - Pipeline logs
 - [Azure Pipeline YAML reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema)
 
@@ -197,25 +198,25 @@ Once the testing stage has completed, show the test results.
 
 In this demo, an Azure Resource Manager template is examined, updated, and deployed.
 
-### Examine a simple template
+**Examine a simple template**
 
 A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
 
 - The four sections of the template [(parameters, variables, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
 
-### Deploy more complex template
+**Deploy more complex template**
 
 A more complex template named `azuredeploy.json` can also be found in the demos directory.
 
-First, show the already created Tailwind Traders resources in the Azure portal.
+1. First, show the already created Tailwind Traders resources in the Azure portal. Make note that only a single storage account exists.
 
-Deploy the template with the following command making sure that the resource group names match.
+2. Deploy the template with the following command making sure that the resource group names match.
 
 ```
 az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
-Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
+3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
 
 ## Teardown instructions
 
@@ -224,6 +225,8 @@ When done the demo environment can be deleted using the following command:
 ```
 az group delete --name <resource group name> --yes --no-wait
 ```
+
+The Azure DevOps organization also needs to be deleted. This can be done from the settings for the organization.
 
 ## Resources and Continue Learning
 
