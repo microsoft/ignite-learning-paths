@@ -4,40 +4,6 @@ Infrastructure and software delivery methods have a direct and material impact o
 
 In this session, we will see how continuous delivery pipelines have helped Tailwind Traders and the rest of the industry deploy tested software to production environments to increase reliability. We’ll also explore modern methods for environment provisioning using infrastructure as code. As a result of attending this session, you will gain practical information on automated deployment and provisioning solutions using Azure-based technology.
 
-## Demo environment deployment
-
-The following deployment produces the Tailwind application + and Azure DevOps instance for the OPS40 demos. You need two of these deployment for OPS40, one pre-production and the other a production environment.
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
- <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
-
-Once completed, fork the following repo to your own GitHub account.
-
-https://github.com/microsoft/TailwindTraders-Backend
-
-Clone the repo to your development system and add the [azure-pipelines.yml](demos/azure_pipeline/azure-pipelines.yml) file to the `/Source/Services/Tailwind.Traders.Cart.Api` directory.
-
-Update the `azure-pipeline.yml' file with the appropritae variabel values (AKS cluster and ACR Registry). To find the AKS values run:
-
-```
-az aks list -o table
-```
-
-To find the ingress value, once connected to the AKS cluster, run:
-
-```
-kubectl get ingress
-```
-
-To find the ACR values run:
-
-```
-az acr list -o table
-```
-
-Finally, run the pipeline to validate functionality
-
 ## Delivery assets
 
 The following asset can be used for delivering this talk:
@@ -45,11 +11,53 @@ The following asset can be used for delivering this talk:
 - [PowerPoint deck]()
 - [Demonstration videos]()
 
+## Demo environment deployment
+
+The following deployment produces the Tailwind application + and Azure DevOps instance for the OPS40 demos.
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
+ <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
+Once completed, fork this repo into your own GitHub account.
+
+https://github.com/microsoft/ignite-learning-paths.git
+
+Clone your fork to your development system and update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments.
+
 ## Demo 1 - Azure DevOps
 
-**Part 1:** Pipeline Overview
+**Create Azure Service Connection**
 
-Open up the cart pipeline, and detail the following:
+- Navigate to the new Azure DevOps organization, and then the new DevOps project.
+
+- Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+
+- Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+
+**Create Pipeline**
+
+- Select **Pipelines** from the left hand Azure DevOps menu.
+
+- If prompted, select **Try it!** to enable the new unified YAML pipeline experience.
+
+![Pipeline Run URL with Build ID](./images/multistage.png)
+
+ - Select **Create Pipeline**.
+
+- Select **GitHub YAML** and then select the Ignite Tour Demos forked repo. You should have created this repo during set up.
+
+- Select **Existing Azure Pipelines YAML file** for the project type.
+
+- Browse the repository and select the **azure-pipelines.yml** file.
+
+- Select **Continue** to create the pipeline.
+
+- Click **Run** to save and run the pipeline.
+
+**Pipeline Overview**
+
+- Open up the cart pipeline, and detail the following items:
 
 - [Stages](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml)
 - [Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
@@ -61,15 +69,15 @@ Open up the cart pipeline, and detail the following:
 - [Conditions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml)
 - [Tasks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml)
 
-**Part 2:** Production Reconciliation
+**Production Reconciliation**
 
-Show how production can be reconciled .via build ID (helm release version and container image version).
+At this point, hopefully, the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
-Get the latest build id, this can be seen in the last runs URL.
+- Get the latest build id, this can be seen in the last runs URL.
 
 ![Pipeline Run URL with Build ID](./images/buildid.png)
 
-Navigate back to the pipeline and show how the built-in `Build.BuildId` variable can be used as a task value.
+- Navigate back to the pipeline and show how the built-in `Build.BuildId` variable can be used as a task value.
 
 ```
 - task: HelmDeploy@0
@@ -80,7 +88,7 @@ Navigate back to the pipeline and show how the built-in `Build.BuildId` variable
     arguments: '--version $(Build.BuildId)'
 ```
 
-Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
+- Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
 
 ```
 $ helm list
@@ -89,7 +97,7 @@ NAME                    REVISION        UPDATED                         STATUS  
 my-tt-cart              2               Wed Sep 18 21:18:46 2019        DEPLOYED        cart-api-1818                   default
 ```
 
-Return a list of pods to get the name of the cart pod.
+- Return a list of pods to get the name of the cart pod.
 
 ```
 $ kubectl get pods
@@ -107,7 +115,7 @@ my-tt-webbff-67849c78b7-qhvlg                               1/1     Running   0 
 web-6b56cc7d7c-w7t9x                                        1/1     Running   0          15h
 ```
 
-Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
+- Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
 
 ```
 $ kubectl describe pod my-tt-cart-cart-api-77db6f9f58-wqs7p
@@ -118,17 +126,17 @@ Containers:
     Image:          ttacr5iny4v2wygm3k.azurecr.io/cart.api:1818
 ```
 
-**Part 2:** Add Unit Test
+**Add Unit Test**
 
-Add the following stage to the pipeline, click save, which will start a new run.
+- Add the following stage to the pipeline, click save, which will start a new run.
 
 ```
 - stage: test
   jobs:
-  - job:
+  - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbxy4tce6fzj25s.documents.azure.com:443/
+      hostDB: https://ttshoppingdbbwabnsh2peots.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -145,10 +153,10 @@ Add the following stage to the pipeline, click save, which will start a new run.
     - task: AzureCLI@1
       displayName: Generate values file for test
       inputs:
-        azureSubscription: 'nepeters-azure'
+        azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
         inlineScript: |
-          pwsh Deploy/Generate-Config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate Deploy/helm/gvalues.template -outputFile ./values.yaml
+          pwsh ./ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate ops/deployment/helm-values/gvalues.template -outputFile ./values.yaml
 
     - task: PowerShell@2
       displayName: Parse host name
@@ -162,7 +170,7 @@ Add the following stage to the pipeline, click save, which will start a new run.
       displayName: Run Pester tests
       inputs:
         targetType: 'inline'
-        script: 'invoke-pester -Script @{ Path = ''./tests/''; Parameters = @{ hostName = ''$(hostDB)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
+        script: 'invoke-pester -Script @{ Path = ''./ops/ops40/demos/azure_pipeline/tests/''; Parameters = @{ hostName = ''$(hostDB)'' }} -OutputFile "./test-results.xml" -OutputFormat ''NUnitXML'''
 
     - task: PublishTestResults@2
       displayName: Publish test results
@@ -172,7 +180,7 @@ Add the following stage to the pipeline, click save, which will start a new run.
         failTaskOnFailedTests: true
 ```
 
-While the run is in progress show the following.
+- While the run is in progress show the following.
 
 - Pipeline logs
 - [Azure Pipeline YAML reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema)
