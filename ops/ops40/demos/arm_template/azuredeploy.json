@@ -20,7 +20,6 @@
 		"components_app_insights_name": "tt-app-insights",
 		"storageAccountName": "[concat('demo', uniquestring(resourceGroup().id))]",
 		"storageAccountType": "Standard_LRS"
-
 	},
 	"resources": [{
 			"type": "Microsoft.Storage/storageAccounts",

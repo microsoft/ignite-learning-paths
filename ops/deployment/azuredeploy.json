@@ -107,7 +107,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-logic-apps-two.json"
+					"uri": "https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/ops/deployment/azuredeploy-logic-apps.json"
 				},
 				"parameters": {
 					"azureDevOpsOrgName": {
