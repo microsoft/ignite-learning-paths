@@ -61,7 +61,7 @@ While the pipeline is running, explain stages and jobs while looking at the pipe
 
 ![Pipeline Run URL with Build ID](./images/stages.png)
 
-- Open up the pipeline YAML, and detail the following items:
+Open up the pipeline YAML, and detail the following items:
 
 - [Stages](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml)
 - [Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
@@ -190,7 +190,7 @@ Containers:
 - Pipeline logs
 - [Azure Pipeline YAML reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema)
 
-Once the testing stage has completed, show the test results.
+3. Once the testing stage has completed, show the test results.
 
 ![Azure Pipeline test results](./images/tests.png)
 
