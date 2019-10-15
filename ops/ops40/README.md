@@ -25,6 +25,47 @@ https://github.com/microsoft/ignite-learning-paths.git
 
 Clone your fork to your development system and update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments.
 
+**Optional:** If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
+
+Edit the configmap for the TWT cart api:
+
+```
+kubectl edit configmap cfg-my-tt-cart
+```
+
+Update the `HOST` value so that it is not valid. In the following example, I have removed `https` from the URL. Once done save the configmap.
+
+```
+HOST: ://ttshoppingdbt6grppp3eluvk.documents.azure.com:443/
+```
+
+Next, the cart pod needs to be restarted, which will take in the new value and effectively break the Tailwind cart.
+
+Return a list of pods
+
+```
+$ kubectl get pods
+
+NAME                                                        READY   STATUS    RESTARTS   AGE
+my-tt-cart-7cd4cbd744-j6ngl                                 1/1     Running   0          18m
+my-tt-coupon-tt-coupons-85c96964fc-4r9zn                    1/1     Running   0          19m
+my-tt-image-classifier-7d6d97875f-f8sjp                     1/1     Running   0          18m
+my-tt-login-7f88cff49-5d876                                 1/1     Running   0          19m
+my-tt-mobilebff-67dcb9f988-w6xjr                            1/1     Running   0          18m
+my-tt-popular-product-tt-popularproducts-67dfcc8b67-qx5fg   1/1     Running   0          19m
+my-tt-product-tt-products-d9c54d955-z8nf4                   1/1     Running   0          19m
+my-tt-profile-5c57bf89b4-zjqdf                              1/1     Running   0          19m
+my-tt-stock-6b969dd459-zptrz                                1/1     Running   0          19m
+my-tt-webbff-67849c78b7-bjd5n                               1/1     Running   0          18m
+web-6b56cc7d7c-ws7v4                                        1/1     Running   0          18m
+```
+
+Delete the `my-tt-cart` pod:
+
+```
+kubectl delete pod my-tt-cart-7cd4cbd744-j6ngl
+```
+
 ## Demo 1 - Azure DevOps
 
 **Create Azure Service Connection**
