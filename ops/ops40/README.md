@@ -29,35 +29,39 @@ Clone your fork to your development system and update the values in the [/ops/op
 
 **Create Azure Service Connection**
 
-- Navigate to the new Azure DevOps organization, and then the new DevOps project.
+1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
 
-- Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
 
-- Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
 
 **Create Pipeline**
 
-- Select **Pipelines** from the left hand Azure DevOps menu.
+1. Select **Pipelines** from the left hand Azure DevOps menu.
 
-- If prompted, select **Try it!** to enable the new unified YAML pipeline experience.
+2. If prompted, select **Try it!** to enable the new unified YAML pipeline experience.
 
 ![Pipeline Run URL with Build ID](./images/multistage.png)
 
- - Select **Create Pipeline**.
+3. Select **Create Pipeline**.
 
-- Select **GitHub YAML** and then select the Ignite Tour Demos forked repo. You should have created this repo during set up.
+4. Select **GitHub YAML** and then select the **ignite-learning-paths** repo fork. You should have created this repo during set up.
 
-- Select **Existing Azure Pipelines YAML file** for the project type.
+5. Select **Existing Azure Pipelines YAML file** for the project type.
 
-- Browse the repository and select the **azure-pipelines.yml** file.
+6. Browse the repository and select the **azure-pipelines.yml** file.
 
-- Select **Continue** to create the pipeline.
+7. Select **Continue** to create the pipeline.
 
-- Click **Run** to save and run the pipeline.
+8. Click **Run** to save and run the pipeline.
 
 **Pipeline Overview**
 
-- Open up the cart pipeline, and detail the following items:
+While the pipeline is running, explain stages and jobs while looking at the pipeline overview.
+
+![Pipeline Run URL with Build ID](./images/stages.png)
+
+- Open up the pipeline YAML, and detail the following items:
 
 - [Stages](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml)
 - [Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml)
@@ -73,11 +77,11 @@ Clone your fork to your development system and update the values in the [/ops/op
 
 At this point, hopefully, the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
-- Get the latest build id, this can be seen in the last runs URL.
+1. Get the latest build id, this can be seen in the last runs URL.
 
 ![Pipeline Run URL with Build ID](./images/buildid.png)
 
-- Navigate back to the pipeline and show how the built-in `Build.BuildId` variable can be used as a task value.
+2. Navigate back to the pipeline YAML and show how the built-in `Build.BuildId` variable can be used as a task value.
 
 ```
 - task: HelmDeploy@0
@@ -88,16 +92,16 @@ At this point, hopefully, the pre-production deployment has completed. Show how 
     arguments: '--version $(Build.BuildId)'
 ```
 
-- Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build id.
+3. Return a list of helm release, and show that the chart used to release the `CHART` has a version that matches the build-id.
 
 ```
 $ helm list
 
 NAME                    REVISION        UPDATED                         STATUS          CHART                           NAMESPACE
-my-tt-cart              2               Wed Sep 18 21:18:46 2019        DEPLOYED        cart-api-1818                   default
+my-tt-cart              3               Mon Oct 14 13:14:25 2019        DEPLOYED        cart-api-1                      default
 ```
 
-- Return a list of pods to get the name of the cart pod.
+4. Return a list of pods to get the name of the cart pod.
 
 ```
 $ kubectl get pods
@@ -115,7 +119,7 @@ my-tt-webbff-67849c78b7-qhvlg                               1/1     Running   0 
 web-6b56cc7d7c-w7t9x                                        1/1     Running   0          15h
 ```
 
-- Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
+5. Describe the cart pod to see the Docker image used to start it. Note that the image version matches the Build ID.
 
 ```
 $ kubectl describe pod my-tt-cart-cart-api-77db6f9f58-wqs7p
@@ -128,7 +132,7 @@ Containers:
 
 **Add Unit Test**
 
-- Add the following stage to the pipeline, click save, which will start a new run.
+1. Add the following stage to the pipeline, click **Save**, which will start a new run.
 
 ```
 - stage: test
@@ -136,7 +140,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbbwabnsh2peots.documents.azure.com:443/
+      hostDB: https://ttshoppingdb624n5a5m5vkgq.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -180,8 +184,9 @@ Containers:
         failTaskOnFailedTests: true
 ```
 
-- While the run is in progress show the following.
+2. The test takes a few minutes to run. Use this time to show off these other features and things.
 
+- [Environments and manual approvals](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
 - Pipeline logs
 - [Azure Pipeline YAML reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema)
 
@@ -193,25 +198,25 @@ Once the testing stage has completed, show the test results.
 
 In this demo, an Azure Resource Manager template is examined, updated, and deployed.
 
-### Examine a simple template
+**Examine a simple template**
 
 A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
 
 - The four sections of the template [(parameters, variables, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
 
-### Deploy more complex template
+**Deploy more complex template**
 
 A more complex template named `azuredeploy.json` can also be found in the demos directory.
 
-First, show the already created Tailwind Traders resources in the Azure portal.
+1. First, show the already created Tailwind Traders resources in the Azure portal. Make note that only a single storage account exists.
 
-Deploy the template with the following command making sure that the resource group names match.
+2. Deploy the template with the following command making sure that the resource group names match.
 
 ```
 az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
-Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
+3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
 
 ## Teardown instructions
 
@@ -220,6 +225,8 @@ When done the demo environment can be deleted using the following command:
 ```
 az group delete --name <resource group name> --yes --no-wait
 ```
+
+The Azure DevOps organization also needs to be deleted. This can be done from the settings for the organization.
 
 ## Resources and Continue Learning
 
