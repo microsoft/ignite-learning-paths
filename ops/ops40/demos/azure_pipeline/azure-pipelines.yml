@@ -30,7 +30,6 @@ variables:
   ingress: 69ce4b68372148458ca4.eastus2.aksapp.io
 
 stages:
-
 - stage: test
   jobs:
   - job: tests
