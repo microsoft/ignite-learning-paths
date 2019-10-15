@@ -19,13 +19,20 @@ The following deployment produces the Tailwind application + and Azure DevOps in
  <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-Once completed, fork this repo into your own GitHub account.
+Once completed, fork this repo into your own GitHub account and clone to your development system.
 
 https://github.com/microsoft/ignite-learning-paths.git
 
-Clone your fork to your development system and update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments.
+Update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments. The following commands can be used to find these values.
 
-**Optional:** If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
+```
+az acr list -o table
+az aks list -o table
+```
+
+**Optional: Break Tailwind Traders**
+
+If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
 
 Edit the configmap for the TWT cart api:
 
