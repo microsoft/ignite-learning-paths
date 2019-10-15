@@ -8,8 +8,8 @@ In this session, we will see how continuous delivery pipelines have helped Tailw
 
 The following asset can be used for delivering this talk:
 
-- [PowerPoint deck]()
-- [Demonstration videos]()
+- [PowerPoint deck](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
+- [Demonstration videos](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/video/demos/)
 
 ## Demo environment deployment
 

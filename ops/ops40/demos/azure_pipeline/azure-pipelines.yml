@@ -3,9 +3,6 @@ trigger:
   branches:
     include:
     - master
-  paths:
-    include:
-    - 'ops/*'
 
 pr:
 - master
