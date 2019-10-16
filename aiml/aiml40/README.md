@@ -11,15 +11,18 @@ In this session, we will explore the complete path of integrating text analysis 
 
 The following asset can be used for delivering this talk:
 
-- [PowerPoint deck]()
-- [Demonstration videos]()
+- [PowerPoint deck](https://globaleventcdn.blob.core.windows.net/assets/aiml/aiml40/AIML40_Taking_Models_to_the_Next_Level_with_Azure_Machine_Learning_Best_Practices.pptx)
+- Demonstration videos:
+ * Demo 1 - [Cognitive Services Text Analytics(https://youtu.be/QJxjm5BirOA)
+ * Demo 2 - [Automated Machine Learning](https://youtu.be/qrstXN6TLZk)
+ * Demo 3 - [Azure Machine Learning SDK and Hyperdrive](https://youtu.be/sccNTPO3PwU)
 
 ## Overview of Demonstrations
 
 In this presentation, the following demonstrations are made:
 
 1. Using [Cognitive Services Text Analytics](https://azure.microsoft.com/services/cognitive-services/text-analytics/?wt.mc_id=msignitethetour2019-github-aiml40) to find out the sentiment of a restaurant review
-2. Using [Azure AutoML](https://docs.microsoft.com/azure/machine-learning/service/concept-automated-ml/?wt.mc_id=msignitethetour2019-github-aiml40) to build a text classifier almost with no code
+2. Using [Azure Automated ML](https://docs.microsoft.com/azure/machine-learning/service/concept-automated-ml/?wt.mc_id=msignitethetour2019-github-aiml40) to build a text classifier almost with no code
 3. Using [Azure Machine Learning Service](https://azure.microsoft.com/services/machine-learning-service/?wt.mc_id=msignitethetour2019-github-aiml40) to train Aspect-Based Sentiment Analysis model on Azure Cluster.
 
 ## Starting Fast
