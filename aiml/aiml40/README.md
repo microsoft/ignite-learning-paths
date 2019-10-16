@@ -53,20 +53,6 @@ az ml workspace create -w absa_space -g absa
 
 You would also need to know your subscription id, which can be obtained by running `az account list`.
 
-#### Uploading data to the workspace
-
-In our demo, we use two datasets:
-* A dataset for AutoML demo (still in consideration) <!-- TODO -->
-* [Tripadvisor Dataset](https://github.com/NervanaSystems/nlp-architect/blob/master/datasets/absa/tripadvisor_co_uk-travel_restaurant_reviews_sample_2000_train.csv) from NLP Architect
-
-To follow AutoML Demo, please upload the dataset to your workspace. You can do it manually through [Azure ML Portal](http://ml.azure.com/?wt.mc_id=msignitethetour2019-github-aiml40), or use the provided file `upload_dataset.py` (csv file should be in the current directory, and you should substitute `[subscription_id]` according to your subscription):
-
-```shell
-python upload_dataset.py -s [subscription_id] -w absa_space -g absa -f dataset.csv
-```
-
-The Tripadvisor dataset would be uploaded to datastore by the demo code.
-
 #### Using the Azure ML Demo Code
 
 You can execute demo code from any Jupyter Notebook Environment. You can:
