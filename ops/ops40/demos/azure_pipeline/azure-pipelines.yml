@@ -16,7 +16,7 @@ variables:
   # Azure
   azureSubscription: azure-service-connection
 
-  # AKS Container Registry
+  # Container Registry
   containerRegistryName: ttacr3foq5lrw6qvde
   containerRegistryFqdn: ttacr3foq5lrw6qvde.azurecr.io
 
