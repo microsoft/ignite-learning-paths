@@ -33,15 +33,65 @@ shown.
 
 ## Deploy the Tailwind Traders website.
 
-Visit the [TailwindTraders-Website](https://github.com/Microsoft/TailwindTraders-Website) Github repository, and click the "Deploy to Azure" button.
+Click the button below. This will deploy
+[TailwindTraders-Website](https://github.com/Microsoft/TailwindTraders-Website)
+from Github, using an ARM
+template
+to enable the Personalizer integration and ONNX-based Shop by Photo feature. ([More details about this deployment](https://github.com/microsoft/TailwindTraders-Website/blob/master/Source/Tailwind.Traders.Web/Standalone/README.md).)
 
-You will need the homepage of the deployed website; TODO here is how to find
-it.
+[![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://portal.azure.com/?feature.customportal=false#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Website%2Fmaster%2Fazuredeploy.json)
 
-NOTE: Temporary forks for
+In the form that appears, select the following options:
+
+* Subscription: Select the subscription in which to deploy the resources
+
+* Resource Group: resources will be created in the resource group you specify.
+  It's best to select "New" and giving a resurce group name you'll remember. When
+  you're done, you can delete this resource group to shut down the site and
+  delete all associated resources.
+
+* Location: The Azure region where the resources will be deployed. You must
+  be able to deploy SQL Database and App Services in that region. (Known working
+  regions include: East US, West US 2.)
+
+  Note: Since Personalizer is currently only available in WestUS2 and WestEurope, it will be deployed there regardless of what you choose.
+
+* Site Name: This will be used in the site's URL and visible publicly, and must
+  be globally unique. 
+
+* Site Location: Enter the short version of "Location" above, e.g. `westus2`
+
+* Deployment mode: Choose `standalone`
+
+* SQL Login: Enter `twt`
+
+* SQL Password: generate and use a secure password (it must include punctuation
+  and mixed case, but do not use `;`). You won't need it for our demos, so no
+  need to write it down.
+
+* Enable Personalizer: choose `true`
+
+* Repo URL: accept the default, `https://github.com/microsoft/TailwindTraders-Website`
+
+* Branch: accept the default, `master`
+
+Check "I agree to the terms and condtions" and click "Purchase".
+
+Allow at least 25 minutes for the site to deploy. 
+
+The deployed website URL will be of the form SITENAME.azurewebsites.net (using the Site Name you provided above), or you can find it as follows:
+
+* click "Go To Resource" under "Next Steps"
+
+* Click the "App Service" resource
+
+* Look at the "URL" value displayed in the right pane
+
+The website URL will be displayed after the "Setting up Source Control" step, or you can inspect the "App Service" resource.
+
+(NOTE: A temporary fork for
 [ONNX](https://github.com/anthonychu/TailwindTraders-Website/tree/add-image-classifier)
-and [Personalizer](https://github.com/limotley/TailwindTraders-Website) demos
-are needed for now.
+is needed for now.)
 
 ## Configure Visual Studio Code
 
