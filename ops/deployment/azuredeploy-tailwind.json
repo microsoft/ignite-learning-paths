@@ -1,7 +1,14 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
-	"parameters": {},
+	"parameters": {
+		"servicePrincipalId": {
+			"type": "string"
+		},
+		"servicePrincipalSecret": {
+			"type": "securestring"
+		}
+	},
 	"variables": {
 		"acr_name": "[concat('ttacr',uniqueString(resourceGroup().id))]",
 		"storage_name": "[concat('ttstorage',uniqueString(resourceGroup().id))]",
@@ -17,22 +24,10 @@
 		"sqlServerAdministratorLoginPassword": "Password2020!",
 		"aksVersion": "1.14.5",
 		"pgversion": "10",
-		"components_app_insights_name": "tt-app-insights",
-		"storageAccountName": "[concat('demo', uniquestring(resourceGroup().id))]",
-		"storageAccountType": "Standard_LRS"
+		"components_app_insights_name": "tt-app-insights"
+
 	},
 	"resources": [{
-			"type": "Microsoft.Storage/storageAccounts",
-			"name": "[variables('storageAccountName')]",
-			"location": "[resourceGroup().location]",
-			"apiVersion": "2017-10-01",
-			"sku": {
-				"name": "[variables('storageAccountType')]"
-			},
-			"kind": "StorageV2",
-			"properties": {}
-		},
-		{
 			"type": "microsoft.insights/components",
 			"apiVersion": "2015-05-01",
 			"name": "[variables('components_app_insights_name')]",
@@ -70,6 +65,47 @@
 				"supportsHttpsTrafficOnly": false
 			},
 			"dependsOn": []
+		},
+		{
+			"type": "Microsoft.ContainerService/managedClusters",
+			"name": "[variables('aks_name')]",
+			"apiVersion": "2019-02-01",
+			"location": "[resourceGroup().location]",
+			"tags": {},
+			"properties": {
+				"kubernetesVersion": "[variables('aksVersion')]",
+				"enableRBAC": true,
+				"dnsPrefix": "[variables('aks_name')]",
+				"addonProfiles": {
+					"httpApplicationRouting": {
+						"enabled": true
+					},
+					"omsagent": {
+						"enabled": true,
+						"config": {
+							"logAnalyticsWorkspaceResourceID": "[variables('omsWorkspaceId')]"
+						}
+					}
+				},
+				"agentPoolProfiles": [{
+					"name": "agentpool",
+					"count": 2,
+					"vmSize": "Standard_DS2_v2",
+					"osType": "Linux",
+					"osDiskSizeGB": 0,
+					"storageProfile": "ManagedDisks"
+				}],
+				"servicePrincipalProfile": {
+					"ClientId": "[parameters('servicePrincipalId')]",
+					"Secret": "[parameters('servicePrincipalSecret')]"
+				},
+				"networkProfile": {
+					"networkPlugin": "kubenet"
+				}
+			},
+			"dependsOn": [
+				"[concat('Microsoft.Resources/deployments/', 'WorkspaceDeployment')]"
+			]
 		},
 		{
 			"type": "Microsoft.Web/sites",

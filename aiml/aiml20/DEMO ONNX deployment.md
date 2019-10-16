@@ -1,4 +1,4 @@
-# DEMO: Onnx Deployment
+# DEMO: ONNX Deployment
 
 In this demo, we take the ONNX file we exported in the [Custom
 Vision](DEMO%20Custom%20Vision.md) demo, and deploy it to the Tailwind Traders website.
@@ -53,7 +53,7 @@ https://tailwind-traders-standalone-onnx.azurewebsites.net/
 
 1. Oh no! It identifies it as a hammer as well. We'll fix that later, but first, let's understand why it failed.
 
-## Update the ONNX model in the Tailwind Traders model
+## Update the ONNX model in the Tailwind Traders website
 
 First, view the exported model in Netron:
 
