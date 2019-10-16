@@ -4,6 +4,10 @@ trigger:
     include:
     - master
 
+  paths:
+    include:
+    - ops/*
+
 pr:
 - master
 
@@ -13,18 +17,18 @@ variables:
   azureSubscription: azure-service-connection
 
   # AKS Container Registry
-  containerRegistryName: ttacrt6grppp3eluvk
-  containerRegistryFqdn: ttacrt6grppp3eluvk.azurecr.io
+  containerRegistryName: ttacr3foq5lrw6qvde
+  containerRegistryFqdn: ttacr3foq5lrw6qvde.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: ops40-ttt-demo-001
-  aks-cluster-pre-prod: tailwindtradersakst6grppp3eluvk
-  ingress-pre-prod: 69ce4b68372148458ca4.eastus2.aksapp.io
+  aks-cluster-rg-pre-prod: ops40-path-test
+  aks-cluster-pre-prod: tailwindtradersaks3foq5lrw6qvde
+  ingress-pre-prod: daa3338bb82e4d528f2c.eastus2.aksapp.io
 
   # Production
-  aks-cluster-rg: ops40-ttt-demo-001
-  aks-cluster: tailwindtradersakst6grppp3eluvk
-  ingress: 69ce4b68372148458ca4.eastus2.aksapp.io
+  aks-cluster-rg: ops40-path-test
+  aks-cluster: tailwindtradersaks3foq5lrw6qvde
+  ingress: daa3338bb82e4d528f2c.eastus2.aksapp.io
 
 stages:
 
