@@ -21,11 +21,10 @@ Once the deployment is completed you should have:
 > Note: There is two Azure function, but we only need one. The other, with *funcbck66tmf* in the name was created as backup for the presenter.
 
 ![All Resources][allResources]
-...
-![allResources1][allResources1]
-
 
 ### Demo 1 - Logic App Demo
+
+In this demo, we will see an Azure Logic App triggered by an HTTP Get command creating a file in a OneDrive folder with dynamic content base on parameter received via the HTTP call.
 
 Navigate to the Azure Portal (portal.azure.com). Open the Resource Group deployed previously (ex: AFUN95demo). Select the Azure Logic App. On the Azure Logic App blade, click the **Logic app designer** from the left panel. Alternatively you can also click **Edit** in the top menu. 
 
@@ -63,27 +62,20 @@ Voila! Of course you can do more complex workflow with Azure Logic App, to learn
 
 In this demo we will show how easy it is to create a new JavaScript Azure Function. We will do it from the Portal.
 
-- Switch to: Browser Tab - Portal Azure - Dashboard/ home
-- click the "+" sign on the top left corner and select Function App
-- Fill the creation form
-    * **Resource Group**: create a new one
-    * **Hosting plan:** Consumption Plan. 
-      > Explain the difference between *Consumption Plan* pay for the time you run vs. *App Service Plan* where it's a monthly fee because the resources are always there.. but can be share with other services (ex: other function, website)
-    * **Runtime:** Node.js 
-    * ⚠ Don't click create show the script/ ARM template that could be generated... We will come back to this in the third demo.
+Navigate to the Azure Portal (portal.azure.com), and click the "+" sign on the top left corner, select **Function App**.
 
+> ⚠ Don't click create button this is just to see the few information we need to get started.
 
-Just like on TV show you already have one created.
+See that you can create or use an existing **Resource Group**. You can select your type of **OS**, **Location**, **Runtime**, and how you **Consumption Plan**.  Just like on TV shows, we already have an Azure Function App created.
 
-- Switch to: Browser Tab - Portal Azure - Function App (with out any Functions)
-- Quick tour of the screen, very short... show the tag Platform feature mention there tons of information over there... but we don;t need it.
-- Click the "+" beside Function to create a new Function
-- Mention there is many different ways to create Function, We will use VS Code in the next one, but right now let's do it In-Portal
-- click **In-Portal**, and the Continue button
-- click More templates
-- show all template, briefly mention scenario where it could be use.
-- For this demo let's do an HTTP trigger, Click on HTTP trigger.
-- Rename HttpTrigger1, and change the *Authorization level* to `Anonymous`
+Open the Resource Group deployed previously (ex: AFUN95demo). Click on the Function App that contains the work 'function' (ex: afun95demo**function**66tmf).
+
+A Function App is like a container with multiple functions. Click the "**+**" beside Function to create our first Function. There is many different ways to create Function, but right now let's do it In-Portal; click **In-Portal**, and the **Continue** button. Click **More templates**
+
+There is many different template, one of each occasion. For this demo let's do an HTTP trigger, Click on **HTTP trigger**.  Change the name for `SimpleHttpTrigger`, and the *Authorization level* to `Anonymous`.
+
+> The name MUST be set to `SimpleHttpTrigger` for demo3 to be successful.
+
 - Examine the code... it's expecting a parameter name... return Hello 
 - Let's test it In the portal
     * Expand the **Test** panel on the right
@@ -123,7 +115,6 @@ Visits the [Trained Presenters](https://github.com/microsoft/ignite-learning-pat
 
 
 [allResources]: assets/all-afun95-resources.png
-[allResources1]: assets/all-afun95-resources.png
 [deployafun95]: assets/deployafun95.png
 [azurelogicappurl]: assets/azurelogicappurl.png
 [addResponse]: assets/addResponse.png
