@@ -10,6 +10,10 @@ Tailwind Traders is curious about the concept behind “serverless” computing 
 
 ## Demo Setup
 
+[![Deploy to Azure](https://img.shields.io/badge/Deploy%20To-Azure-blue?logo=microsoft-azure)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure.json)
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffboucher%2Fignite-learning-paths%2Fmaster%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure.json" target="_blank"><img src="https://azuredeploy.net/deploybutton.png"/></a>
+
 The following steps are necessary to prepare for AFUN95 demos.
 
 - Until the magic button is done we need to do a few steps manually
@@ -36,7 +40,7 @@ The following steps are necessary to prepare for AFUN95 demos.
 Some Simple Logic App will be already deployed. We will need add an action and try it.
 something like trigger on new file in One Drive and do something.
 
-### Demo 2 - Javascript Function Demo
+### Demo 2 - JavaScript Function Demo
 
 In this demo we will show how easy it is to create a new JavaScript Azure Function. We will do it from the Portal.
 
@@ -85,11 +89,9 @@ Let's now deploy the same Azure Function from GitHub
 - Commit
 - Click the following button. Let's deploy we will explain how it works while it's deploying.
 
-[![Deploy to Azure](https://img.shields.io/badge/Deploy%20To-Azure-blue?logo=microsoft-azure)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure.json)
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffboucher%2Fignite-learning-paths%2Fmaster%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure-afun95-demo3.json" target="_blank"><img src="https://azuredeploy.net/deploybutton.png"/></a>
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffboucher%2Fignite-learning-paths%2Fmaster%2Fafun%2Fafun95%2Fdeployment%2FdeployAzure.json" target="_blank"><img src="https://azuredeploy.net/deploybutton.png"/></a>
-
-- Open the ARM template in `adeployment/deployAzure.json`
+- Open the ARM template in `deployment/deployAzure-afun95-demo3.json`
 - Examine the template (MORE TO COME)
 - Once deployment is done open the code...
 
