@@ -122,8 +122,8 @@ Visits the [Trained Presenters](https://github.com/microsoft/ignite-learning-pat
 
 
 
-[allResources]: ../assets/all-afun95-resources.png
-[allResources1]: afun/afun95/assets/all-afun95-resources.png
-[deployafun95]: ../assets/deployafun95.png
-[azurelogicappurl]: ../assets/azurelogicappurl.png
-[addResponse]: ../assets/addResponse.png
+[allResources]: assets/all-afun95-resources.png
+[allResources1]: assets/all-afun95-resources.png
+[deployafun95]: assets/deployafun95.png
+[azurelogicappurl]: assets/azurelogicappurl.png
+[addResponse]: assets/addResponse.png
