@@ -14,6 +14,7 @@ using Xamarin.Essentials;
 using Plugin.Toasts;
 using Plugin.XSnack;
 using System.Threading.Tasks;
+using Microsoft.AppCenter.Distribute;
 
 namespace TailwindTraders.Mobile
 {
@@ -40,14 +41,14 @@ namespace TailwindTraders.Mobile
             // Handle when your app starts
             AppCenter.Start($"ios={AppCenterConstants.iOSAppSecret};" +
                   $"android={AppCenterConstants.AndroidAppSecret}",
-                  typeof(Analytics), typeof(Crashes), typeof(Push));
+                  typeof(Analytics), typeof(Crashes), typeof(Push), typeof(Distribute));
            
             // Check to see if app crashed during last run
             if (await Crashes.HasCrashedInLastSessionAsync())
             {
                 var report = await Crashes.GetLastSessionCrashReportAsync();
 
-                Crashes.TrackError(report.Exception, new Dictionary<string, string> { { "RecoverFromCrash", "true" } });
+                Crashes.TrackError(new Exception(report.StackTrace), new Dictionary<string, string> { { "RecoverFromCrash", "true" } });
             }
         }
 

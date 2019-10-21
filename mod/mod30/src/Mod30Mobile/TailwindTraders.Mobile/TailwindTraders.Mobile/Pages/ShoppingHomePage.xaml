@@ -50,6 +50,7 @@
 
                                 <ffimageloading:CachedImage Grid.Row="0" Grid.Column="0"
                                     Source="{Binding ImageName}" Aspect="AspectFill" />
+                                
                                 <Button Text="{Binding CategoryName}" Grid.Row="0" Grid.Column="0" 
                                     HorizontalOptions="Center" VerticalOptions="Center"
                                     CornerRadius="24" HeightRequest="48"

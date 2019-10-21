@@ -44,7 +44,6 @@ namespace TailwindTraders.Mobile.ViewModels
             NavigateToProductCategoryCommand = new Command<string>(async (code) => await ExecuteNavigateToProductCategoryCommand(code));
             TakePhotoCommand = new Command(async () => await ExecuteTakePhotoCommand());
 
-
             RecommendedCategories = new ObservableCollection<RecommendedProductCategory>();
             PopularProducts = new ObservableCollection<Product>();
             PreviouslySeenProducts = new ObservableCollection<Product>();

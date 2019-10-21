@@ -278,7 +278,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.851321-pre3" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="Plugin.XSnack">
       <Version>1.0.17</Version>
@@ -293,16 +293,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\header.imageset\" />
-    <Folder Include="Assets.xcassets\recommended_bathrooms.imageset\" />
-    <Folder Include="Assets.xcassets\recommended_hinges.imageset\" />
-    <Folder Include="Assets.xcassets\recommended_lighting.imageset\" />
-    <Folder Include="Assets.xcassets\recommended_plants.imageset\" />
-    <Folder Include="Assets.xcassets\recommended_powertools.imageset\" />
     <Folder Include="Assets.xcassets\logo_header_b.imageset\" />
     <Folder Include="Assets.xcassets\logo_horizontal_b.imageset\" />
     <Folder Include="Assets.xcassets\logo_microsoft_w.imageset\" />
     <Folder Include="Assets.xcassets\logo_vertical_w.imageset\" />
     <Folder Include="Assets.xcassets\photo.imageset\" />
+    <Folder Include="Assets.xcassets\recommended_bathrooms.imageset\" />
+    <Folder Include="Assets.xcassets\recommended_hinges.imageset\" />
+    <Folder Include="Assets.xcassets\recommended_lighting.imageset\" />
+    <Folder Include="Assets.xcassets\recommended_plants.imageset\" />
+    <Folder Include="Assets.xcassets\recommended_powertools.imageset\" />
     <Folder Include="Assets.xcassets\splash_screen.imageset\" />
   </ItemGroup>
   <ItemGroup>
