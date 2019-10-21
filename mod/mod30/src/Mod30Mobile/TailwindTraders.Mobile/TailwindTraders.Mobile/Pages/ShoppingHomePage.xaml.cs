@@ -24,8 +24,8 @@ namespace TailwindTraders.Mobile.Pages
 
             if (!(BindingContext is ShoppingHomeViewModel vm))
                 return;
-           
-            //await vm.LoadData();
+
+            await vm.LoadData();
 
         }
     }

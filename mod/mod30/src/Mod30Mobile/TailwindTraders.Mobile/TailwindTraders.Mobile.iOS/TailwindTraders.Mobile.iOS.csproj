@@ -254,6 +254,9 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes">
       <Version>2.4.0-preview</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Distribute">
+      <Version>2.4.0-preview</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Push">
       <Version>2.4.0-preview</Version>
     </PackageReference>

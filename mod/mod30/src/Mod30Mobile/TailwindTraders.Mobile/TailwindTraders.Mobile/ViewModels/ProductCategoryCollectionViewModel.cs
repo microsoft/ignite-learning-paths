@@ -42,7 +42,6 @@ namespace TailwindTraders.Mobile.ViewModels
 
             Title = allProducts.Types.FirstOrDefault(t => t.Code == CategoryCode)?.Name;
 
-            Products = null;
             Products = new ObservableCollection<Product>(allProducts.Products);
 
             IsBusy = false;
