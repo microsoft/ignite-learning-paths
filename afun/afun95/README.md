@@ -56,11 +56,13 @@ Now Press Enter.
 
 You should see the response we created: `The file test.txt was created`. Now open the destination folder in OneDrive and open that `test.txt` file...
 
-Voila! Of course you can do more complex workflow with Azure Logic App, to learn more visit [the Azure Logic Apps documentation](https://docs.microsoft.com/en-us/azure/logic-apps/).
+Voila! Of course you can do more complex workflow with Azure Logic App, to learn more visit [the Azure Logic Apps documentation](https://docs.microsoft.com/en-us/azure/logic-apps/?WT.mc_id=msignitethetour2019-github-afun95).
 
 ### Demo 2 - JavaScript Function Demo
 
 In this demo we will show how easy it is to create a new JavaScript Azure Function. We will do it from the Portal.
+
+#### How to Create a Function App
 
 Navigate to the Azure Portal (portal.azure.com), and click the "+" sign on the top left corner, select **Function App**.
 
@@ -68,26 +70,43 @@ Navigate to the Azure Portal (portal.azure.com), and click the "+" sign on the t
 
 See that you can create or use an existing **Resource Group**. You can select your type of **OS**, **Location**, **Runtime**, and how you **Consumption Plan**.  Just like on TV shows, we already have an Azure Function App created.
 
+#### Create our first Azure Function
+
 Open the Resource Group deployed previously (ex: AFUN95demo). Click on the Function App that contains the work 'function' (ex: afun95demo**function**66tmf).
 
 A Function App is like a container with multiple functions. Click the "**+**" beside Function to create our first Function. There is many different ways to create Function, but right now let's do it In-Portal; click **In-Portal**, and the **Continue** button. Click **More templates**
 
-There is many different template, one of each occasion. For this demo let's do an HTTP trigger, Click on **HTTP trigger**.  Change the name for `SimpleHttpTrigger`, and the *Authorization level* to `Anonymous`.
+There is many different template, one of each occasion. For this demo let's do an HTTP trigger, Click on **HTTP trigger**.  Change the name for `SimpleHttpTrigger`, and the *Authorization level* to `Anonymous`. Of course in a real situation we would probably use different configuration, but in this demo context those will be just perfect.
 
-> The name MUST be set to `SimpleHttpTrigger` for demo3 to be successful.
+> Using the name `SimpleHttpTrigger` will simplify things for demo3. However is you decide, you can change it.
 
-- Examine the code... it's expecting a parameter name... return Hello 
-- Let's test it In the portal
+#### Let's Examine the code
+
+As you can see at line 4 the function is expecting a parameter `name`
+
+```javascript
+   if (req.query.name || (req.body && req.body.name)) {
+```
+If you pass it it return a greeting message, otherwise it response with a message explaining that you should pass a parameter.
+
+#### Executing the Azure Function 
+
+To get started, let's test the Azure Function directly from the Azure portal. 
     * Expand the **Test** panel on the right
-    * Click the Run button, read the answer
-    * Delete the Request body to see the error message, Click the Run button
-    * Notice the error message... 
-- Because we are in JavaScript we can change the code. Change `Hello ` by `Hello Ignite I'm `
-- Click on **</> Get function URL**  
-- Copy-Paste the URL in a new Browser tab, notice the error message.
-- Add `?name=YOUR_BANE to the url
-- Wave at the audience you successfully finish your second demo.
+    * Click the Run button, read the answer. It's working! 
+    * Now delete the Request body to see the error message. Click the Run button... Notice the error message.
 
+#### Update the Azure Function     
+
+Because the Azure Function is in JavaScript we can edit it directly in the portal. Change `Hello ` by `Hello Ignite I'm `. And click the **Save** button. 
+
+Click on **</> Get function URL**, at the right of the buttons
+
+![Part of the portal to get the Function Url][functionUrl]
+
+Copy-Paste the URL in a new Browser tab, notice the error message. This is there is no parameter. When we test the Function earlier we pass the parameter in the body. Let's pass it via the querystring this time. Add `?name=YOUR_BANE` at the end of the URL, and hit Enter.
+
+Creating, updating and using Azure Function is that easy. You are now ready to create your own! Visit [Azure Functions](https://azure.microsoft.com/en-us/services/functions/?WT.mc_id=msignitethetour2019-github-afun95) web pages to get more details, different scenarios.
 
 
 ### Demo 3 - Deploying from GitHub Demo
@@ -118,3 +137,6 @@ Visits the [Trained Presenters](https://github.com/microsoft/ignite-learning-pat
 [deployafun95]: assets/deployafun95.png
 [azurelogicappurl]: assets/azurelogicappurl.png
 [addResponse]: assets/addResponse.png
+[functionUrl]: assets/functionUrl.png
+
+
