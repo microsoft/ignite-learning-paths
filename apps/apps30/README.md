@@ -238,4 +238,4 @@ ApiUrlShoppingCart=/api/v1
 
 You've now learned how to move an application a little further in your moderinzation journey.  You're removing your need to manually manage systems and adding scale based on needs, not what you bought a long time ago.  
 
-stick around for the MOD40 and learn how you can take your next step in containers on Azure and work with Kubernetes.
+stick around for the apps40 and learn how you can take your next step in containers on Azure and work with Kubernetes.
