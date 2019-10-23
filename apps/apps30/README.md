@@ -203,7 +203,7 @@ az acr build --subscription  "Ignite The Tour" --registry igniteapps30acr --imag
 12. Create web app
 
 ```
-az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-nameigniteapps30acr.azurecr.io/twtapp:v1
+az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-name igniteapps30acr.azurecr.io/twtapp:v1
 ```
 
 13. Navigate to App Settings in portal
