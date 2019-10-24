@@ -2,67 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "vmSku": {
-        "type": "string",
-        "defaultValue": "Standard_A1",
-        "metadata": {
-          "description": "Size of VMs in the VM Scale Set."
-        }
-      },
-      "ubuntuOSVersion": {
-        "type": "string",
-        "defaultValue": "16.04-LTS",
-        "allowedValues": [
-          "14.04.4-LTS",
-          "16.04-LTS"
-        ],
-        "metadata": {
-          "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version. Allowed values are: 15.10, 14.04.4-LTS."
-        }
-      },
-      "vmssName": {
+      "storageAccountName": {
         "type": "string",
         "metadata": {
-          "description": "String used as a base for naming resources. Must be 3-61 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
-        },
-        "maxLength": 61
-      },
-      "instanceCount": {
-        "type": "int",
-        "metadata": {
-          "description": "Number of VM instances (100 or less)."
-        },
-        "maxValue": 100
-      },
-      "adminUsername": {
-        "type": "string",
-        "metadata": {
-          "description": "Admin username on all VMs."
-        }
-      },
-      "authenticationType": {
-        "type": "string",
-        "defaultValue": "sshPublicKey",
-        "allowedValues": [
-          "sshPublicKey",
-          "password"
-        ],
-        "metadata": {
-          "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
-        }
-      },
-      "adminPasswordOrKey": {
-        "type": "securestring",
-        "metadata": {
-          "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+          "description": "The name of the Azure storage account"
         }
       }
     },
     "variables": {
-      "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
-      "longNamingInfix": "[toLower(parameters('vmssName'))]",
+      "authenticationType" : "sshPublicKey",
+      "namingInfix": "[toLower(substring(concat('twtnet', uniqueString(resourceGroup().id)), 0, 9))]",
       "addressPrefix": "10.0.0.0/16",
-      "subnetPrefix": "10.0.0.0/24",
+      "subnetPrefix": "10.15.0.0/24",
       "virtualNetworkName": "[concat(variables('namingInfix'), 'vnet')]",
       "subnetName": "[concat(variables('namingInfix'), 'subnet')]",
       "nicName": "[concat(variables('namingInfix'), 'nic')]",
@@ -70,21 +21,19 @@
       "osType": {
         "publisher": "Canonical",
         "offer": "UbuntuServer",
-        "sku": "[parameters('ubuntuOSVersion')]",
+        "sku": "16.04-LTS",
         "version": "latest"
       },
       "imageReference": "[variables('osType')]",
-      "computeApiVersion": "2017-03-30",
-      "networkApiVersion": "2017-04-01",
-      "storageApiVersion": "2015-06-15",
-      "insightsApiVersion": "2015-04-01",
+      "adminUsername": "twtuser",
+      "adminPasswordOrKey": "twtpassword",
       "linuxConfiguration": {
         "disablePasswordAuthentication": true,
         "ssh": {
           "publicKeys": [
             {
-              "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
-              "keyData": "[parameters('adminPasswordOrKey')]"
+              "path": "[concat('/home/', variables('adminUsername'), '/.ssh/authorized_keys')]",
+              "keyData": "[variables('adminPasswordOrKey')]"
             }
           ]
         }
@@ -121,9 +70,9 @@
           "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
         ],
         "sku": {
-          "name": "[parameters('vmSku')]",
+          "name": "Standard_A1",
           "tier": "Standard",
-          "capacity": "[parameters('instanceCount')]"
+          "capacity": 2
         },
         "properties": {
           "overprovision": "true",
@@ -140,9 +89,9 @@
             },
             "osProfile": {
               "computerNamePrefix": "[variables('namingInfix')]",
-              "adminUsername": "[parameters('adminUsername')]",
-              "adminPassword": "[parameters('adminPasswordOrKey')]",
-              "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
+              "adminUsername": "[variables('adminUsername')]",
+              "adminPassword": "[variables('adminPasswordOrKey')]",
+              "linuxConfiguration": "[if(equals(variables('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
             },
             "networkProfile": {
               "networkInterfaceConfigurations": [
@@ -174,8 +123,8 @@
         "location": "[resourceGroup().location]",
         "dependsOn": [
           "[concat('Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
-          "[concat('Microsoft.Storage/storageAccounts/', variables('namingInfix'))]",
-          "[concat('Microsoft.Storage/storageAccounts/', variables('namingInfix'), '/services/queue/queues/', variables('namingInfix'))]"
+          "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+          "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'), '/services/queue/queues/twtqueue')]"
         ],
         "properties": {
           "name": "autoscalewad",

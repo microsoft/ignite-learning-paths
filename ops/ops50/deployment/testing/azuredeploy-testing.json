@@ -17,6 +17,25 @@
 				},
 				"parameters": {}
 			}
+		},
+		{
+			"name": "linkedTemplateScaleset",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-05-01",
+            "dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'linkedTemplateQueue')]"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-scaleset.json"
+				},
+				"parameters": {
+					"storageAccountName": {
+						"value": "[reference('linkedTemplateQueue').outputs.storageAccountName.value]"
+					}
+				}
+			}
 		}
 	],
 	"outputs": {}
