@@ -1,24 +1,7 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
-	"parameters": {
-		"sqlServerAdministratorLogin": {
-			"type": "string",
-			"defaultvalue": "sqladmin"
-		},
-		"sqlServerAdministratorLoginPassword": {
-			"defaultValue": "Password2020!",
-			"type": "securestring"
-		},
-		"pgversion": {
-			"defaultValue": "10",
-			"type": "string"
-		},
-		"components_app_insights_name": {
-			"defaultValue": "tt-app-insights",
-			"type": "string"
-		}
-	},
+	"parameters": {},
 	"variables": {
 		"acr_name": "[concat('ttacr',uniqueString(resourceGroup().id))]",
 		"storage_name": "[concat('ttstorage',uniqueString(resourceGroup().id))]",
@@ -30,7 +13,13 @@
 		"shopping_cosmosdb_name": "[concat('ttshoppingdb',uniqueString(resourceGroup().id))]",
 		"workspaceName": "[concat('ttoms', uniqueString(resourceGroup().id))]",
 		"omsWorkspaceId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
-		"storageAccountName": "[toLower(concat('twtdemo', uniqueString(resourceGroup().id)))]"
+		"sqlServerAdministratorLogin": "sqladmin",
+		"sqlServerAdministratorLoginPassword": "Password2020!",
+		"aksVersion": "1.14.5",
+		"pgversion": "10",
+		"components_app_insights_name": "tt-app-insights",
+		"storageAccountName": "[concat('demo', uniquestring(resourceGroup().id))]",
+		"storageAccountType": "Standard_LRS"
 	},
 	"resources": [{
 			"type": "Microsoft.Storage/storageAccounts",
@@ -38,7 +27,7 @@
 			"location": "[resourceGroup().location]",
 			"apiVersion": "2017-10-01",
 			"sku": {
-				"name": "Standard_LRS"
+				"name": "[variables('storageAccountType')]"
 			},
 			"kind": "StorageV2",
 			"properties": {}
@@ -46,7 +35,7 @@
 		{
 			"type": "microsoft.insights/components",
 			"apiVersion": "2015-05-01",
-			"name": "[parameters('components_app_insights_name')]",
+			"name": "[variables('components_app_insights_name')]",
 			"location": "eastus",
 			"kind": "web",
 			"properties": {
@@ -126,9 +115,9 @@
 			"location": "[resourceGroup().location]",
 			"name": "[variables('pg_name')]",
 			"properties": {
-				"version": "[parameters('pgversion')]",
-				"administratorLogin": "[parameters('sqlServerAdministratorLogin')]",
-				"administratorLoginPassword": "[parameters('sqlServerAdministratorLoginPassword')]",
+				"version": "[variables('pgversion')]",
+				"administratorLogin": "[variables('sqlServerAdministratorLogin')]",
+				"administratorLoginPassword": "[variables('sqlServerAdministratorLoginPassword')]",
 				"storageProfile": {
 					"storageMB": "5120",
 					"backupRetentionDays": "7",
@@ -149,8 +138,8 @@
 			"apiVersion": "2015-05-01-preview",
 			"location": "[resourceGroup().location]",
 			"properties": {
-				"administratorLogin": "[parameters('sqlServerAdministratorLogin')]",
-				"administratorLoginPassword": "[parameters('sqlServerAdministratorLoginPassword')]",
+				"administratorLogin": "[variables('sqlServerAdministratorLogin')]",
+				"administratorLoginPassword": "[variables('sqlServerAdministratorLoginPassword')]",
 				"version": "12.0"
 			},
 			"resources": [{
@@ -354,29 +343,13 @@
 		}
 	],
 	"outputs": {
-		"acr": {
+		"storageAccountName": {
 			"type": "string",
-			"value": "[variables('acr_name')]"
+			"value": "[variables('storage_name')]"
 		},
-		"aks": {
+		"storageAccountKey": {
 			"type": "string",
-			"value": "[variables('aks_name')]"
-		},
-		"function": {
-			"type": "string",
-			"value": "[variables('function_name')]"
-		},
-		"sqlserver": {
-			"type": "string",
-			"value": "[variables('sqlserver_name')]"
-		},
-		"cuoponsdb": {
-			"type": "string",
-			"value": "[variables('cuopons_cosmosdb_name')]"
-		},
-		"shoppingdb": {
-			"type": "string",
-			"value": "[variables('shopping_cosmosdb_name')]"
+			"value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storage_name')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
 		}
 	}
 }

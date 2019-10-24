@@ -334,4 +334,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
-".\mod\mod20\commands.md" 
+".\mod\mod20\commands.md"
+
+# Other
+.vscode/*
+mod/mod30/src/Mod30Mobile/TailwindTraders.Mobile/TailwindTraders.Mobile.Android/google-services.json
