@@ -117,7 +117,7 @@
       {
         "type": "Microsoft.Insights/autoscaleSettings",
         "apiVersion": "2015-04-01",
-        "name": "autoscalewad",
+        "name": "[concat(variables('namingInfix'), 'autoscalewad')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
           "[concat('Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]"
