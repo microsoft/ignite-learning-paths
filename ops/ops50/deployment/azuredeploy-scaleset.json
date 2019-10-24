@@ -123,7 +123,7 @@
           "[concat('Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]"
         ],
         "properties": {
-          "name": "autoscalewad",
+          "name": "[concat(variables('namingInfix'), 'autoscalewad')]",
           "targetResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
           "enabled": true,
           "profiles": [
