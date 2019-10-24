@@ -41,6 +41,31 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('primaryAppServicePlan'))]"
       ]
+    },
+    {
+      "apiVersion": "2018-02-01",
+      "type": "Microsoft.Web/serverfarms",
+      "kind": "app",
+      "name": "[variables('secondaryAppServicePlan')]",
+      "location": "westeurope",
+      "properties": {},
+      "dependsOn": [],
+      "sku": {
+        "name": "S1"
+      }
+    },
+    {
+      "apiVersion": "2018-11-01",
+      "type": "Microsoft.Web/sites",
+      "kind": "app",
+      "name": "[variables('secondaryAppService')]",
+      "location": "westeurope",
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('secondaryAppServicePlan'))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('secondaryAppServicePlan'))]"
+      ]
     }  
 
     ]
