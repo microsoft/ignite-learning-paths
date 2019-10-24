@@ -28,15 +28,7 @@
       "adminUsername": "twtuser",
       "adminPasswordOrKey": "twtpassword",
       "linuxConfiguration": {
-        "disablePasswordAuthentication": true,
-        "ssh": {
-          "publicKeys": [
-            {
-              "path": "[concat('/home/', variables('adminUsername'), '/.ssh/authorized_keys')]",
-              "keyData": "[variables('adminPasswordOrKey')]"
-            }
-          ]
-        }
+        "disablePasswordAuthentication": false
       }
     },
     "resources": [
