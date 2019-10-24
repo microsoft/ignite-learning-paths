@@ -22,7 +22,7 @@
 		"omsWorkspaceId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
 		"sqlServerAdministratorLogin": "sqladmin",
 		"sqlServerAdministratorLoginPassword": "Password2020!",
-		"aksVersion": "1.14.5",
+		"aksVersion": "1.14.7",
 		"pgversion": "10",
 		"components_app_insights_name": "tt-app-insights"
 
