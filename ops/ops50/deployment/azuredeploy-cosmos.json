@@ -1,0 +1,94 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+	},
+	"variables": {
+        "DbPrefix" : "[toLower(substring(concat('twtdb', uniqueString(resourceGroup().id)), 0, 9))]",
+		"accountName": "[concat(variables('DbPrefix'), 'acc')]",
+        "databaseName": "[concat(variables('DbPrefix'), 'db')]",
+        "containerName" : "[concat(variables('DbPrefix'), 'con')]",
+        "throughput": 1000
+    },
+		
+	"resources": 
+	[
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "apiVersion": "2015-04-08",
+            "name": "[variables('accountName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "kind": "GlobalDocumentDB",
+            "properties": {
+                "consistencyPolicy": {
+                "defaultConsistencyLevel": "Eventual",
+                "maxStalenessPrefix": 1,
+                "maxIntervalInSeconds": 5
+                },
+                "locations": [
+                {
+                    "locationName": "[resourceGroup().location]",
+                    "failoverPriority": 0
+                }
+                ],
+                "databaseAccountOfferType": "Standard",
+                "enableAutomaticFailover": true,
+                "enableMultipleWriteLocations": true
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/apis/databases",
+            "name": "[concat(variables('accountName'), '/sql/', variables('databaseName'))]",
+            "apiVersion": "2016-03-31",
+            "dependsOn": [ "[resourceId('Microsoft.DocumentDB/databaseAccounts/', variables('accountName'))]" ],
+            "properties":{
+                "resource":{
+                    "id": "[variables('databaseName')]"
+                },
+                "options": { "throughput": "[variables('throughput')]" }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDb/databaseAccounts/apis/databases/containers",
+            "name": "[concat(variables('accountName'), '/sql/', variables('databaseName'), '/', variables('container1Name'))]",
+            "apiVersion": "2016-03-31",
+            "dependsOn": [ "[resourceId('Microsoft.DocumentDB/databaseAccounts/apis/databases', variables('accountName'), 'sql', variables('databaseName'))]" ],
+            "properties":
+            {
+                "resource":{
+                    "id":  "[variables('containerName')]",
+                    "partitionKey": {
+                        "paths": [
+                        "/MyPartitionKey1"
+                        ],
+                        "kind": "Hash"
+                    },
+                    "indexingPolicy": {
+                        "indexingMode": "consistent",
+                        "includedPaths": [{
+                                "path": "/*",
+                                "indexes": [
+                                    {
+                                        "kind": "Range",
+                                        "dataType": "number",
+                                        "precision": -1
+                                    },
+                                    {
+                                        "kind": "Range",
+                                        "dataType": "string",
+                                        "precision": -1
+                                    }
+                                ]
+                            }
+                        ],
+                        "excludedPaths": [{
+                                "path": "/MyPathToNotIndex/*"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+	]
+}

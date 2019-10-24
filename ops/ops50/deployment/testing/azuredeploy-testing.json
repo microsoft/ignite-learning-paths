@@ -36,6 +36,18 @@
 					}
 				}
 			}
+		},
+		{
+			"name": "linkedTemplateCosmos",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-05-01",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-cosmos.json?poo=poo"
+				},
+				"parameters": {}
+			}
 		}
 	],
 	"outputs": {}
