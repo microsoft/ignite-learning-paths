@@ -68,5 +68,15 @@
       ]
     }  
 
-    ]
+    ],
+    "outputs": {
+		"secondaryWebAppName": {
+			"type": "string",
+			"value": "[variables('secondaryAppService')]"
+		},
+		"primaryWebAppName": {
+			"type": "string",
+			"value": "[variables('primaryAppService')]"
+		}
+	}
 }

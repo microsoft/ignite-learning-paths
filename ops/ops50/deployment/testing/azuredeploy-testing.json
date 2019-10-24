@@ -76,6 +76,31 @@
 					}
 				}
 			}
+		},
+		{
+			"name": "linkedTemplateFrontdoor",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-05-01",
+            "dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'linkedTemplateWebApps')]"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-frontdoor.json?poo=poo"
+				},
+				"parameters": {
+					"primaryWebAppName": {
+						"value": "[reference('linkedTemplateWebapps').outputs.primaryWebAppName.value]"
+					},
+					"secondaryWebAppName": {
+						"value": "[reference('linkedTemplateWebapps').outputs.secondaryWebAppName.value]"
+					},
+					"prefix" : {
+						"value" : "[variables('prefix')]"
+					}
+				}
+			}
 		}
 	],
 	"outputs": {}
