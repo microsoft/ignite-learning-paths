@@ -13,7 +13,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-queue.json"
+					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-queue.json?poo=poo"
 				},
 				"parameters": {}
 			}
@@ -28,7 +28,7 @@
 			"properties": {
 				"mode": "Incremental",
 				"templateLink": {
-					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-scaleset.json"
+					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-scaleset.json?poo=poo"
 				},
 				"parameters": {
 					"storageAccountName": {
