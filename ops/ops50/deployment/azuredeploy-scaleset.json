@@ -26,7 +26,7 @@
       },
       "imageReference": "[variables('osType')]",
       "adminUsername": "twtuser",
-      "adminPasswordOrKey": "twtpassword",
+      "adminPasswordOrKey": "TwTpass45!",
       "linuxConfiguration": {
         "disablePasswordAuthentication": false
       }
