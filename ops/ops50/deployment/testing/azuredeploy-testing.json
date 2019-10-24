@@ -4,6 +4,7 @@
 	"parameters": {
 	},
 	"variables": {
+		"prefix" : "[toLower(substring(concat('twtdb', uniqueString(resourceGroup().id)), 0, 9))]",
 	},
 	"resources": [
         {
@@ -15,7 +16,11 @@
 				"templateLink": {
 					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-queue.json?poo=poo"
 				},
-				"parameters": {}
+				"parameters": {
+					"prefix" : {
+						"value" : "[variables('prefix')]"
+					}
+				}
 			}
 		},
 		{
@@ -33,6 +38,9 @@
 				"parameters": {
 					"storageAccountName": {
 						"value": "[reference('linkedTemplateQueue').outputs.storageAccountName.value]"
+					},
+					"prefix" : {
+						"value" : "[variables('prefix')]"
 					}
 				}
 			}
@@ -46,7 +54,27 @@
 				"templateLink": {
 					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-cosmos.json?poo=poo"
 				},
-				"parameters": {}
+				"parameters": {
+					"prefix" : {
+						"value" : "[variables('prefix')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "linkedTemplateWebApps",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-05-01",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "https://raw.githubusercontent.com/deanobalino/ignite-learning-paths/OPS50_debryen/ops/ops50/deployment/azuredeploy-webapps.json?poo=poo"
+				},
+				"parameters": {
+					"prefix" : {
+						"value" : "[variables('prefix')]"
+					}
+				}
 			}
 		}
 	],

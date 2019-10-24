@@ -2,12 +2,17 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
+        "prefix" : {
+            "type" : "string",
+            "metadata": {
+                "description": "unique prefix passed in from parent template"
+            }
+        }
 	},
 	"variables": {
-        "DbPrefix" : "[toLower(substring(concat('twtdb', uniqueString(resourceGroup().id)), 0, 9))]",
-		"accountName": "[concat(variables('DbPrefix'), 'acc')]",
-        "databaseName": "[concat(variables('DbPrefix'), 'db')]",
-        "containerName" : "[concat(variables('DbPrefix'), 'con')]",
+        "accountName": "[concat(parameters('prefix'), 'acc')]",
+        "databaseName": "[concat(parameters('prefix'), 'db')]",
+        "containerName" : "[concat(parameters('prefix'), 'con')]",
         "throughput": 1000
     },
 		

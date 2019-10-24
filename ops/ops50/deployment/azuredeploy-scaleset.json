@@ -7,11 +7,17 @@
         "metadata": {
           "description": "The name of the Azure storage account"
         }
-      }
+      },
+      "prefix" : {
+            "type" : "string",
+            "metadata": {
+                "description": "unique prefix passed in from parent template"
+            }
+        }
     },
     "variables": {
       "authenticationType" : "sshPublicKey",
-      "namingInfix": "[toLower(substring(concat('twtnet', uniqueString(resourceGroup().id)), 0, 9))]",
+      "namingInfix": "[parameters('prefix')]",
       "addressPrefix": "10.0.0.0/16",
       "subnetPrefix": "10.0.0.0/24",
       "virtualNetworkName": "[concat(variables('namingInfix'), 'vnet')]",

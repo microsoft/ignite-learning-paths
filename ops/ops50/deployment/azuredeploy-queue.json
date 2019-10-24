@@ -2,9 +2,15 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
+		"prefix" : {
+            "type" : "string",
+            "metadata": {
+                "description": "unique prefix passed in from parent template"
+            }
+        }
 	},
 	"variables": {
-		"storage_name": "[concat('ttstorage',uniqueString(resourceGroup().id))]",
+		"storage_name": "[concat('storage',parameters('prefix'))]",
         "queue_name": "twtqueue",
         "aciName": "bootstrap-container",
 		"rgname": "[resourceGroup().name]",
