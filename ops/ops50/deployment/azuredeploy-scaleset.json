@@ -141,7 +141,7 @@
                   "metricTrigger": {
                     "metricName": "ApproximateMessageCount",
                     "metricNamespace": "",
-                    "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', variables('namingInfix'), '/services/queue/queues/', variables('namingInfix'))]",
+                    "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('storageAccountName'), '/services/queue/queues/twtqueue')]",
                     "timeGrain": "PT1M",
                     "statistic": "Sum",
                     "timeWindow": "PT10M",
