@@ -203,7 +203,7 @@ az acr build --subscription  "Ignite The Tour" --registry igniteapps30acr --imag
 12. Create web app
 
 ```
-az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-nameigniteapps30acr.azurecr.io/twtapp:v1
+az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-name igniteapps30acr.azurecr.io/twtapp:v1
 ```
 
 13. Navigate to App Settings in portal
@@ -238,4 +238,4 @@ ApiUrlShoppingCart=/api/v1
 
 You've now learned how to move an application a little further in your moderinzation journey.  You're removing your need to manually manage systems and adding scale based on needs, not what you bought a long time ago.  
 
-stick around for the MOD40 and learn how you can take your next step in containers on Azure and work with Kubernetes.
+stick around for the apps40 and learn how you can take your next step in containers on Azure and work with Kubernetes.
