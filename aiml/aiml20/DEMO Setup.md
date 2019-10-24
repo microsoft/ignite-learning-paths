@@ -3,6 +3,10 @@
 These tasks were performed ahead of time for the AIML20 presentation. Follow
 these same steps to prepare for the remaining demo scripts.
 
+## Clone the repository to your local machine
+
+You will need the contents of https://github.com/microsoft/ignite-learning-paths/tree/master/aiml/aiml20 on your local machine. The easiest way to do this is to visit the [Ignite Learning Paths repository](https://github.com/microsoft/ignite-learning-paths) and click the "Clone or download" button. We will refer to files relative to the `aiml/aiml20` folder.
+
 ## Sign up for an Azure Subscription
 
 If you don't already have an Azure subscription, you can [sign up
@@ -23,7 +27,7 @@ shown.
 
  If you've run the demos before, delete these resource groups if they exist:
  
- - aiml20-demo
+ - `aiml20-demo`
 
  You can use the Azure Portal, or run this command in the Azure CLI:
 
@@ -46,20 +50,23 @@ In the form that appears, select the following options:
 * Subscription: Select the subscription in which to deploy the resources
 
 * Resource Group: resources will be created in the resource group you specify.
-  It's best to select "New" and giving a resurce group name you'll remember. When
+  We recommend choosing "New" and entering the name `aiml20-demo`. When
   you're done, you can delete this resource group to shut down the site and
   delete all associated resources.
 
 * Location: The Azure region where the resources will be deployed. You must
-  be able to deploy SQL Database and App Services in that region. (Known working
-  regions include: East US, West US 2.)
+  be able to deploy SQL Database and App Services in that region. 
 
   Note: Since Personalizer is currently only available in WestUS2 and WestEurope, it will be deployed there regardless of what you choose.
 
 * Site Name: This will be used in the site's URL and visible publicly, and must
-  be globally unique. 
+  be globally unique. To avoid clashes, choose `aiml20-xy` replacing `xy` with your initials, but we will refer to this name as just `aiml20` in these scripts. (If you
+  choose a name that is in use, you will get "Conflict" errors during the
+  deployment.)
 
-* Site Location: Enter the short version of "Location" above, e.g. `westus2`
+* Site Location: Enter the short version of "Location" above, e.g. `westus2`.
+  (You can get a list of short names in the Azure CLI with: `az account
+  list-locations -o table`).
 
 * Deployment mode: Choose `standalone`
 
@@ -77,7 +84,7 @@ In the form that appears, select the following options:
 
 Check "I agree to the terms and condtions" and click "Purchase".
 
-Allow at least 25 minutes for the site to deploy. 
+Allow at least 15 minutes for the site to deploy. 
 
 The deployed website URL will be of the form SITENAME.azurewebsites.net (using the Site Name you provided above), or you can find it as follows:
 
@@ -89,15 +96,15 @@ The deployed website URL will be of the form SITENAME.azurewebsites.net (using t
 
 The website URL will be displayed after the "Setting up Source Control" step, or you can inspect the "App Service" resource.
 
-(NOTE: A temporary fork for
-[ONNX](https://github.com/anthonychu/TailwindTraders-Website/tree/add-image-classifier)
-is needed for now.)
+### Install the "Simple" ONNX model
+
+Follow the instructions in [DEMO ONNX deployment.md](DEMO%20ONNX%20deployment.md#load-the-simple-onnx-model) under the heading "Load the Simple ONNX model". This will degrade the "Shop by Photo" tool in the app to only recognize hammers and drills.
 
 ## Configure Visual Studio Code
 
 Install the extension [Azure
 Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account).
-(On Windows, you will also need to [install node.js](https://nodejs.org/).) Log
+(On Windows, you will also need to [install node.js](https://nodejs.org/).) In VS Code, log
 into Azure with the "Azure: Sign In" command (use Control-Shift-P to open the
 Command Palette). To run Azure CLI commands from a script in VS Code, use
 "Terminal: Run Selected Text in Azure Terminal" to copy commands.)
@@ -111,14 +118,12 @@ and run these commands from a browser window.
 
 ## Prepare Visual Studio for demo
 
-- Open vision_demo.sh
+- Open `vision_demo.sh`
 - launch a Cloud Shell with "Azure: Open Bash In Cloud Shell". (If you prefer, you can use the Azure CLI locally.)   
 
 ## Open browser pages ready to demo.
 
-* The Tailwind Trader app deployment(s):
-    * ONNX: https://tailwind-traders-standalone-onnx.azurewebsites.net/
-    * Personalizer: https://tailwindtraderss3wx6j2hv652e.azurewebsites.net/
+* The deployed Tailwind Trader app 
 * https://portal.azure.com (browse to resources)  
 * https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/
 * https://customvision.ai
