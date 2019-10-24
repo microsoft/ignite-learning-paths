@@ -13,7 +13,7 @@
       "authenticationType" : "sshPublicKey",
       "namingInfix": "[toLower(substring(concat('twtnet', uniqueString(resourceGroup().id)), 0, 9))]",
       "addressPrefix": "10.0.0.0/16",
-      "subnetPrefix": "10.15.0.0/24",
+      "subnetPrefix": "10.0.0.0/24",
       "virtualNetworkName": "[concat(variables('namingInfix'), 'vnet')]",
       "subnetName": "[concat(variables('namingInfix'), 'subnet')]",
       "nicName": "[concat(variables('namingInfix'), 'nic')]",
