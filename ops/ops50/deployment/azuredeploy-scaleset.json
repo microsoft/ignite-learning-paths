@@ -122,9 +122,7 @@
         "name": "autoscalewad",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-          "[concat('Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
-          "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-          "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'), '/services/queue/queues/twtqueue')]"
+          "[concat('Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]"
         ],
         "properties": {
           "name": "autoscalewad",
