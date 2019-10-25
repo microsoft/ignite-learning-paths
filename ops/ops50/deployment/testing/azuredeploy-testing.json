@@ -116,6 +116,8 @@
 				},
 				"parameters": {
 					"prefix" : {
+
+						
 						"value" : "[variables('prefix')]"
 					},
 					"cosmosAccountKey": {

@@ -64,7 +64,7 @@
         "name": "[variables('namingInfix')]",
         "location": "[resourceGroup().location]",
         "apiVersion": "2017-03-30",
-        "zones": ["1", "2"],
+        "zones": ["1", "2", "3"],
         "dependsOn": [
           "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
         ],
