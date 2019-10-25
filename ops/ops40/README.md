@@ -8,7 +8,7 @@ In this session, we will see how continuous delivery pipelines have helped Tailw
 
 The following asset can be used for delivering this talk:
 
-- [PowerPoint deck with embeded demo videos](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
+- [PowerPoint deck](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
 
 ## Demo environment deployment
 
@@ -28,6 +28,8 @@ Update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](
 az acr list -o table
 az aks list -o table
 ```
+
+Once done, push the updates back to GitHub. This file is used in demo 1 when creating an Azure Pipeline.
 
 **Optional: Break Tailwind Traders**
 
@@ -187,7 +189,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbt6grppp3eluvk.documents.azure.com:443/
+      hostDB: https://ttshoppingdbomilfggi3gb4k.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
