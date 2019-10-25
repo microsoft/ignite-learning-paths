@@ -121,9 +121,14 @@
                     "outputs": {},
                     "parameters": {
                         "$connections": {
-                            "defaultValue": {},
-                            "type": "Object"
-                        }
+						"value": {
+                            "documentdb": {
+                                "connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/documentdb')]",
+                                "connectionName": "documentdb",
+                                "id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/documentdb')]"
+                            }
+						}
+					}
                     },
                     "triggers": {
                         "Recurrence": {
@@ -134,17 +139,6 @@
                             "type": "Recurrence"
                         }
                     }
-				},
-				"parameters": {
-					"$connections": {
-						"value": {
-                            "documentdb": {
-                                "connectionId": "[concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/documentdb')]",
-                                "connectionName": "documentdb",
-                                "id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/documentdb')]"
-                            }
-						}
-					}
 				}
 			}
 		}
