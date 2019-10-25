@@ -97,9 +97,6 @@
         }
 	],
     "outputs": {
-		"foo": {
-			"type": "string",
-			"value": "foo"
-		}
+		
 	}
 }
