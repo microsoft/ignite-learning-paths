@@ -120,10 +120,11 @@
                                 "forwardingProtocol": "HttpsOnly",
                                 "backendPool": {
                                     "id": "[resourceId('Microsoft.Network/frontDoors/backendPools', variables('frontDoorName'), 'app-service-pool')]"
+                                },
+                                "CacheConfiguration": {
+                                    "queryParameterStripDirective": "StripNone"
                                 }
-                            },
-                            "CacheConfiguration": {
-                                "queryParameterStripDirective": "StripNone"                            }
+                            }
                         }
                     }
                 ]
