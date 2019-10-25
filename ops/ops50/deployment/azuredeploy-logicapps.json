@@ -127,7 +127,8 @@
                                 "connectionName": "documentdb",
                                 "id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/documentdb')]"
                             }
-						}
+						},
+                        "type": "Object"
 					}
                     },
                     "triggers": {
