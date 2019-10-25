@@ -2,16 +2,16 @@
 set -e
 
 # Credentials
-azureResourceGroup=igniteapps30
-adminUser=twtadmin
-adminPassword=twtapps30pD
-subname=cd400f31-6f94-40ab-863a-673192a3c0d0
+azureResourceGroup=
+adminUser=
+adminPassword=
+subname=
 location=eastus
 
 # DB Name
 
-cosmosdbname=apps30twtnosql
-sqldbname=apps30twtsql
+cosmosdbname=
+sqldbname=
 
 # Create Resource Group
 az group create --subscription $subname --name $azureResourceGroup --location $location
