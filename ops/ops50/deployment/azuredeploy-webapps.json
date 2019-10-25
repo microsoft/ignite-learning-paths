@@ -47,7 +47,7 @@
       "type": "Microsoft.Web/serverfarms",
       "kind": "app",
       "name": "[variables('secondaryAppServicePlan')]",
-      "location": "westeurope",
+      "location": "northeurope",
       "properties": {},
       "dependsOn": [],
       "sku": {
@@ -59,7 +59,7 @@
       "type": "Microsoft.Web/sites",
       "kind": "app",
       "name": "[variables('secondaryAppService')]",
-      "location": "westeurope",
+      "location": "northeurope",
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('secondaryAppServicePlan'))]"
       },
