@@ -13,45 +13,43 @@ the product list for the generated label, and returns the results of the search.
 (TIP: You can do this step ahead of time. This step is necessary if you have run
 this demo before on the same deployment.)
 
-We will replace the products.onnx file in the Web app with a version that only recognizes two object categories: "hammer" and "wrench".
+We will replace the products.onnx file in the Web app with a version that only recognizes two object categories: "hammer" and "drill".
 
-1. In the Azure Portal, visit your tailwind-traders-standalone resource group
+1. In the Azure Portal, visit your aiml20-demo resource group
 
-1. Click the "onnx" Web App resource
+1. Click the "aiml20" App Service resource
 
-1. Under Development Tools, Click Advanced tools, then click "Go" in right pane to launch Kudu.
+1. In the left menu under Development Tools, Click Advanced tools, then click "Go" in right pane to launch Kudu.
 
 1. In the main menu bar, Click Debug Console > PowerShell
 
-1. Browse to site / wwwroot / Standalone / Onnxmodels
+1. Browse to: site / wwwroot / Standalone / Onnxmodels
 
-1. With Explorer, open the ONNX / simple model folder from your AIML20 repo
+1. With Explorer, open the `ONNX / simple model` folder from your AIML20 repo
 
-1. Drag products.onnx into the LEFT HALF of the Kudu window. 
+1. Drag products.onnx into the LEFT HALF of the Kudu window. (IMPORTANT: Do NOT drag into the box that says "drag here to upload and unzip".) This model only knows how to identify drills and hammers.
 
-1. Restart the web server. Return to the "onnx" Web App resource and click "Restart".
+1. Restart the web server. Return to the "aiml20" App Service resource and click "Restart" in the top menu bar. Wait two minutes for the website to restart completely.
 
 ## Defining the problem: Shop by Photo doesn't work right
 
 (Note: This section was done at the beginning of the AIML20 presentation.)
 
-1. Visit the Tailwind Traders website you deployed earlier. There is a pre-deployed version at:
-
-https://tailwind-traders-standalone-onnx.azurewebsites.net/
+1. Visit the Tailwind Traders website you deployed earlier. 
 
 1. Scroll down to the "Shop by Photo" section of the website
 
 1. Click "Shop by Photo"
 
-1. In your AIML20 repo, select CV training images / hammers / Carpenters Hammer.jpg
+1. In your AIML20 repo, select: test images > drill.jpg
 
-1. It correctly identifies it as a hammer. Yay!
+1. It correctly identifies it as a drill. Yay!
 
 1. Return to home page and click "Shop by Photo" again
 
-1. In your AIML20 repo, select CV training images / screwdrivers / Big Flat Screwdriver.jpg
+1. In your AIML20 repo, select: test images > pliers.jpg
 
-1. Oh no! It identifies it as a hammer as well. We'll fix that later, but first, let's understand why it failed.
+1. Oh no! It identifies it as a hammer. We'll fix that later, but first, let's understand why it failed.
 
 ## Update the ONNX model in the Tailwind Traders website
 
@@ -69,24 +67,24 @@ First, view the exported model in Netron:
 
 Next, drop the ONNX file we exported into TWT filesystem
 
-1. In the Azure Portal, visit your tailwind-traders-standalone resource group
+1. In the Azure Portal, visit your aiml20-demo resource group
 
-1. Click the "onnx" Web App resource
+1. Click the "aiml20" Web App resource
 
 1. Under Development Tools, Click Advanced tools, then click "Go" in right pane to launch Kudu.
 
 1. In the main menu bar, Click Debug Console > PowerShell
 
-1. Browse to site / wwwroot / Standalone / Onnxmodels
+1. Browse to: site / wwwroot / Standalone / Onnxmodels
 
-1. With Explorer, open the ONNX / custom model folder from your AIML20 repo
+1. With Explorer, open the `ONNX / custom model` folder from your AIML20 repo
 
-1. Drag products.onnx into the LEFT HALF of the Kudu window. 
+1. Drag products.onnx into the LEFT HALF of the Kudu window. (IMPORTANT: Do NOT
+   drag into the box that says "drag here to upload and unzip".)
 
 1. Restart the web server. Return to the "onnx" Web App resource and click "Restart".
 
-Rerun Shop by Photo, upload CV training images / screwdrivers / Big Flat
-Screwdriver.jpg. Now it works!
+Rerun Shop by Photo, upload `test images / pliers.jpg`. Now it works!
 
 ## Next Step
 

@@ -13,29 +13,29 @@ TIP: You can do this section ahead of time, to save time in a live demo.
 
 1. Your new project should have the following settings:
 
-- Name: Tools
-- Description: Products sold by Tailwind Traders
-- Resource: aiml20-cs-resource
-- Project Type: classification
-- Classification Types: Multiclass
-- Domains: Retail (compact)
-- Export capabilities: Basic Platforms
+    - Name: Tools
+    - Description: Products sold by Tailwind   Traders
+    - Resource: aiml20-cs-resource
+    - Project Type: classification
+    - Classification Types: Multiclass
+    - Domains: Retail (compact)
+    - Export capabilities: Basic Platforms
 
 1. In the "Tags" tool in the left side, use the "+" button to add the following tags:
 
-- drill
-- hammer
-- pliers
-- screwdriver
+    - drill
+    - hammer
+    - pliers
+    - screwdriver
 
 1. We will now add images for each tag from the corresponding folder in "CV Training Images". Here's how to do it for "drill"
 
-- Click "Add Images" in the top row
-- Browse to CV Training Images / drills
-- Select all files: click one file, then press Control-A
-- Click Open
-- In the "Image Upload" dialog that appears next, select "drill" in "My Tags" and then click "Upload 16 Files"
-- repeat this process for the tags hammer, pliers, screwdriver, hard hat
+    - Click "Add Images" in the top row
+    - Browse to CV Training Images / drills
+    - Select all files: click one file, then press Control-A
+    - Click Open
+    - In the "Image Upload" dialog that appears next, select "drill" in "My Tags" and then click "Upload 16 Files"
+    - repeat this process for the tags: hammer, pliers, screwdriver (we will do "hard hat" later)
 
 ## Add images and train a model
 
