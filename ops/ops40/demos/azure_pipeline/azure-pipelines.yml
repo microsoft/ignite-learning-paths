@@ -4,10 +4,6 @@ trigger:
     include:
     - master
 
-  paths:
-    include:
-    - ops/*
-
 pr:
 - master
 
