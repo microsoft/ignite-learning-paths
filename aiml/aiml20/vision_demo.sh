@@ -45,6 +45,8 @@ VISIONENDPOINT="https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze"
 # images can be found in "test images" folder
 # man in hardhat.jpg -- this will give the same results as via the Web app
 IMG="https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/aiml/aiml20/test%20images/man%20in%20hardhat.jpg"
+echo $IMG
+
 curl -H "Ocp-Apim-Subscription-Key: $KEY" \
       -H "Content-Type: application/json" \
       "$VISIONENDPOINT?visualFeatures=Tags&language=en" \
