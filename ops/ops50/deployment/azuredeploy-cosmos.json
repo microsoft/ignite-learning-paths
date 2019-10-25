@@ -97,6 +97,9 @@
         }
 	],
     "outputs": {
-		
+		"cosmosAccountKey" : {
+            "type" : "String",
+            "value" : "[listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts', variables('accountName')), providers('Microsoft.DocumentDB', 'databaseAccounts').apiVersions[0]).primaryMasterKey]"
+        }
 	}
 }

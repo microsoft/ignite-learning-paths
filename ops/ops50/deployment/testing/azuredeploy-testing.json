@@ -117,6 +117,9 @@
 				"parameters": {
 					"prefix" : {
 						"value" : "[variables('prefix')]"
+					},
+					"cosmosAccountKey": {
+						"value" : "[reference('linkedTemplateCosmos').outputs.cosmosAccountKey.value]"
 					}
 				}
 			}

@@ -7,6 +7,12 @@
             "metadata": {
                 "description": "unique prefix passed in from parent template"
             }
+        },
+        "cosmosAccountKey" : {
+            "type" : "string",
+            "metadata": {
+                "description": "cosmosdb account key passed in from parent template"
+            }
         }
 	},
 	"variables": {
@@ -22,7 +28,10 @@
 			"location": "[variables('location')]",
 			"properties": {
 				"displayName": "CosmosDB",
-				"customParameterValues": {},
+                "parameterValues": {
+					"databaseAccount": "[concat(parameters('prefix'),'acc')]",
+                    "accessKey": "[parameters('cosmosAccountKey')]"
+				},
 				"api": {
 					"id": "[concat('subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/documentdb')]"
 				}
