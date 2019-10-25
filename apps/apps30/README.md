@@ -203,6 +203,18 @@ az acr build --subscription  "Ignite The Tour" --registry igniteapps30acr --imag
 12. Create web app
 
 ```
+
+az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-nameigniteapps30acr.azurecr.io/twtapp:v1
+
+
+13. Navigate to App Settings in portal
+
+
+14. Add connection string (these go in application vars, not encrypted connection string section):
+
+### EXAMPLE SQL Server
+
+=======
 az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-name igniteapps30acr.azurecr.io/twtapp:v1
 ```
 
@@ -216,21 +228,29 @@ az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps3
 SqlConnectionString="Server=tcp:twtsqlmod20.database.windows.net,1433;Initial Catalog=twtmod10;Persist Security Info=False;User ID=twtmod10;Password=;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" 
 ```
 
-### MongoDB Server
+
+
+### EXAMPLE MongoDB Server
+
 
 ```
 MongoConnectionString="mongodb://:Hi5L2yajHopNUTDZRU8uDQf6hXYrK7WUPM4FVgk4P9h2VIRHircIkyKB7NFH0bTqC9WPBvHXc1YGGn2Y8XrHPw==@twtnosql.documents.azure.com:10255/?ssl=true&amp;replicaSet=globaldb" 
 ```
 
-### Env Vars
+
+
+### Additional Env Vars
+
 
 ```
 apiUrl=/api/v1 
 ApiUrlShoppingCart=/api/v1 
+
+productImagesUrl="https://raw.githubusercontent.com/microsoft/TailwindTraders-Backend/master/Deploy/tailwindtraders-images/product-detail"
 ```
 
-![](images/shot1.png)
-![](images/shot2.png)
+![](images/shot3.png)
+
 
 16. View webapp url and verify running app (show container settings in portal, then navigate to the web url)
 
@@ -239,3 +259,4 @@ ApiUrlShoppingCart=/api/v1
 You've now learned how to move an application a little further in your moderinzation journey.  You're removing your need to manually manage systems and adding scale based on needs, not what you bought a long time ago.  
 
 stick around for the apps40 and learn how you can take your next step in containers on Azure and work with Kubernetes.
+master
