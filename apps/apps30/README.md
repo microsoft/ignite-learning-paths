@@ -151,7 +151,7 @@ Demo:
 2. Open cloud shell
 3. Create a resource group
 
-**SPOKEN** "We're goung to create a resource group, in this command I'll name it igniteapps30, put it in my subscription specific to my app and then provide a location where our metadata for our resource group will be held"
+"We're goung to create a resource group, in this command I'll name it igniteapps30, put it in my subscription specific to my app and then provide a location where our metadata for our resource group will be held"
  
 ```
 az group create --subscription "Ignite The Tour" --name igniteapps30 --location eastus
@@ -159,7 +159,7 @@ az group create --subscription "Ignite The Tour" --name igniteapps30 --location 
 
 4. VNET creation
 
-**SPOKEN** "Now it's time to create our virtual network, this will replace all network gear you used to have to maintain.  Rather than configuring switchports and replacing failed line-cards, you can manage your network from the commandline or portal.
+"Now it's time to create our virtual network, this will replace all network gear you used to have to maintain.  Rather than configuring switchports and replacing failed line-cards, you can manage your network from the commandline or portal.
 
 ```
 az network vnet create --name igniteapps30vnet --subscription  "Ignite The Tour" --resource-group igniteapps30    --subnet-name default
