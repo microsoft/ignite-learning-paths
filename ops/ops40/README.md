@@ -8,7 +8,7 @@ In this session, we will see how continuous delivery pipelines have helped Tailw
 
 The following asset can be used for delivering this talk:
 
-- [PowerPoint deck with embeded demo videos](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
+- [PowerPoint deck](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
 
 ## Demo environment deployment
 
@@ -28,6 +28,8 @@ Update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](
 az acr list -o table
 az aks list -o table
 ```
+
+Once done, push the updates back to GitHub. This file is used in demo 1 when creating an Azure Pipeline.
 
 **Optional: Break Tailwind Traders**
 
@@ -73,6 +75,18 @@ kubectl delete pod my-tt-cart-7cd4cbd744-j6ngl
 ```
 
 ## Demo 1 - Azure DevOps
+
+**Demo broken application**
+
+If you have elected to break the Tailwind Traders app, you can demo the break here. To get the address of the application run the following command.
+
+```
+$ k get ingress
+NAME                                       HOSTS                                   ADDRESS        PORTS   AGE
+my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io   40.71.39.243   80      30h
+```
+
+Browse to the `HOSTS` address and click on the ailwind cart icon.
 
 **Create Azure Service Connection**
 
@@ -187,7 +201,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbt6grppp3eluvk.documents.azure.com:443/
+      hostDB: https://ttshoppingdbomilfggi3gb4k.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -249,7 +263,7 @@ In this demo, an Azure Resource Manager template is examined, updated, and deplo
 
 A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
 
-- The four sections of the template [(parameters, variables, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
+- The four sections of the template [(parameters, variables, resources, and outputs)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
 
 **Deploy more complex template**
 
@@ -260,7 +274,7 @@ A more complex template named `azuredeploy.json` can also be found in the demos 
 2. Deploy the template with the following command making sure that the resource group names match.
 
 ```
-az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json
+az group deployment create --resource-group ops40-tailwind --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
 3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
