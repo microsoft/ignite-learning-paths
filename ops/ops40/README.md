@@ -263,7 +263,7 @@ In this demo, an Azure Resource Manager template is examined, updated, and deplo
 
 A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
 
-- The four sections of the template [(parameters, variables, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
+- The four sections of the template [(parameters, variables, resources, and outputs)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
 
 **Deploy more complex template**
 
