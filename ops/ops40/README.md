@@ -201,7 +201,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbomilfggi3gb4k.documents.azure.com:443/
+      hostDB: https://ttshoppingdbrly6xwisey3vs.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -274,7 +274,7 @@ A more complex template named `azuredeploy.json` can also be found in the demos 
 2. Deploy the template with the following command making sure that the resource group names match.
 
 ```
-az group deployment create --resource-group ops40-tailwind --template-file ops/ops40/demos/arm_template/azuredeploy.json
+az group deployment create --resource-group tailwind-ops-fourty --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
 3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
