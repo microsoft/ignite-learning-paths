@@ -31,6 +31,16 @@ az aks list -o table
 
 Once done, push the updates back to GitHub. This file is used in demo 1 when creating an Azure Pipeline.
 
+**Create Azure Pipeline Service Connection**
+
+This step was originally part of the demo however can take a few minutes to complete. To expedite the process I recommend configuring the service connection before starting the demo.
+
+1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
+
+2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+
+3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+
 **Optional: Break Tailwind Traders**
 
 If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
@@ -87,14 +97,6 @@ my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io
 ```
 
 Browse to the `HOSTS` address and click on the ailwind cart icon.
-
-**Create Azure Service Connection**
-
-1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
-
-2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
-
-3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
 
 **Create Pipeline**
 
