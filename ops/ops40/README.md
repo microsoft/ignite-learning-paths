@@ -76,6 +76,18 @@ kubectl delete pod my-tt-cart-7cd4cbd744-j6ngl
 
 ## Demo 1 - Azure DevOps
 
+**Demo broken application**
+
+If you have elected to break the Tailwind Traders app, you can demo the break here. To get the address of the application run the following command.
+
+```
+$ k get ingress
+NAME                                       HOSTS                                   ADDRESS        PORTS   AGE
+my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io   40.71.39.243   80      30h
+```
+
+Browse to the `HOSTS` address and click on the ailwind cart icon.
+
 **Create Azure Service Connection**
 
 1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
@@ -262,7 +274,7 @@ A more complex template named `azuredeploy.json` can also be found in the demos 
 2. Deploy the template with the following command making sure that the resource group names match.
 
 ```
-az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json
+az group deployment create --resource-group ops40-tailwind --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
 3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
