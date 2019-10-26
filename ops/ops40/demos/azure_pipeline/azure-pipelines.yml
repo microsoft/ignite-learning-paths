@@ -1,8 +1,5 @@
 trigger:
-
-  branches:
-    include:
-    - master
+  - master
 
 pr:
 - master
