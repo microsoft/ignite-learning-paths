@@ -1,8 +1,5 @@
 trigger:
-
-  branches:
-    include:
-    - master
+- master
 
 pr:
 - master
@@ -13,18 +10,18 @@ variables:
   azureSubscription: azure-service-connection
 
   # Container Registry
-  containerRegistryName: ttacromilfggi3gb4k
-  containerRegistryFqdn: ttacromilfggi3gb4k.azurecr.io
+  containerRegistryName: ttacr3b2ssqysc23di
+  containerRegistryFqdn: ttacr3b2ssqysc23di.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: ops40-tailwind
-  aks-cluster-pre-prod: tailwindtradersaksomilfggi3gb4k
-  ingress-pre-prod: d4aa3f5a552742c8be0f.eastus.aksapp.io
+  aks-cluster-rg-pre-prod: tailwind-ops-fourty-two
+  aks-cluster-pre-prod: tailwindtradersaks3b2ssqysc23di
+  ingress-pre-prod: a1b9610ee9754e0d86e3.eastus.aksapp.io
 
   # Production
-  aks-cluster-rg: ops40-tailwind
-  aks-cluster: tailwindtradersaksomilfggi3gb4k
-  ingress: d4aa3f5a552742c8be0f.eastus.aksapp.io
+  aks-cluster-rg: tailwind-ops-fourty-two
+  aks-cluster: tailwindtradersaks3b2ssqysc23di
+  ingress: a1b9610ee9754e0d86e3.eastus.aksapp.io
 
 stages:
 
@@ -143,7 +140,7 @@ stages:
                 az acr helm repo add --name $(containerRegistryName)
                 az aks get-credentials --name $(aks-cluster-pre-prod) --resource-group $(aks-cluster-rg-pre-prod) --admin
                 pwsh /home/vsts/work/1/drop/ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/ops/deployment/helm-values/gvalues.template -outputFile values.yaml
-                kubectl delete configmap cfg-my-tt-cart
+                kubectl delete configmap -l app=cart-api
                 helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress-pre-prod)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)
 
 - stage: release_production
@@ -180,5 +177,5 @@ stages:
                 az acr helm repo add --name $(containerRegistryName)
                 az aks get-credentials --name $(aks-cluster) --resource-group $(aks-cluster-rg) --admin
                 pwsh /home/vsts/work/1/drop/ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/ops/deployment/helm-values/gvalues.template -outputFile values.yaml
-                kubectl delete configmap cfg-my-tt-cart-cart-api
+                kubectl delete configmap -l app=cart-api
                 helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress-pre-prod)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)

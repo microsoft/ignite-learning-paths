@@ -31,6 +31,16 @@ az aks list -o table
 
 Once done, push the updates back to GitHub. This file is used in demo 1 when creating an Azure Pipeline.
 
+**Create Azure Pipeline Service Connection**
+
+This step was originally part of the demo however can take a few minutes to complete. To expedite the process I recommend configuring the service connection before starting the demo.
+
+1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
+
+2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+
+3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+
 **Optional: Break Tailwind Traders**
 
 If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
@@ -86,15 +96,7 @@ NAME                                       HOSTS                                
 my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io   40.71.39.243   80      30h
 ```
 
-Browse to the `HOSTS` address and click on the ailwind cart icon.
-
-**Create Azure Service Connection**
-
-1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
-
-2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
-
-3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+Browse to the `HOSTS` address and click on the tailwind cart icon.
 
 **Create Pipeline**
 
@@ -201,7 +203,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbomilfggi3gb4k.documents.azure.com:443/
+      hostDB: https://ttshoppingdbrly6xwisey3vs.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -274,7 +276,7 @@ A more complex template named `azuredeploy.json` can also be found in the demos 
 2. Deploy the template with the following command making sure that the resource group names match.
 
 ```
-az group deployment create --resource-group ops40-tailwind --template-file ops/ops40/demos/arm_template/azuredeploy.json
+az group deployment create --resource-group tailwind-ops-fourty --template-file ops/ops40/demos/arm_template/azuredeploy.json
 ```
 
 3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
