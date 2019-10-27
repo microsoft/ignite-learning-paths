@@ -96,7 +96,7 @@ NAME                                       HOSTS                                
 my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io   40.71.39.243   80      30h
 ```
 
-Browse to the `HOSTS` address and click on the ailwind cart icon.
+Browse to the `HOSTS` address and click on the tailwind cart icon.
 
 **Create Pipeline**
 
