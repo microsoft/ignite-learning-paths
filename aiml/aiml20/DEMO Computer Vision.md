@@ -128,10 +128,9 @@ The commands in this script will:
 
 ## Manually generating Keys for use with Computer Vision
 
-If you prefer, you can [create keys interactively with the Azure
-Portal](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-apis-create-account?tabs=multiservice%2Clinux&WT.mc_id=msignitethetour2019-github-aiml20).
-In the script [vision_demo.sh](vision_demo.sh), in the section "Create a Key" we
-do it programatically using the Azure Command Line Interface.
+In the script [vision_demo.sh](vision_demo.sh), run the section "Create a Key" to programatically create a Cognitive Sevices key using the Azure Command Line Interface.
+(If you prefer, you can [create keys interactively with the Azure
+Portal](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-apis-create-account?tabs=multiservice%2Clinux&WT.mc_id=msignitethetour2019-github-aiml20).)
 
 ## Next Step
 

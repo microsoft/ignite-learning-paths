@@ -2,20 +2,19 @@
 set -e
 
 # Credentials
-azureResourceGroup=ignitemod10
-adminUser=twtadmin
-adminPassword=twtmod10pD
-subname=cd400f31-6f94-40ab-863a-673192a3c0d0
-location=eastus
+azureResourceGroup=
+adminUser=
+adminPassword=
+subname=
+location=
 
 # DB Name
 
-cosmosdbname=twtnosql
-sqldbname=twtsql
+cosmosdbname=
+sqldbname=
 
 # Create Resource Group
-az group create --subscription $subname --name $azureResourceGroup --location
-$location
+az group create --subscription $subname --name $azureResourceGroup --location $location
 
 # Create Azure Cosmos DB
 az cosmosdb create --name $cosmosdbname --resource-group $azureResourceGroup --kind MongoDB --subscription $subname

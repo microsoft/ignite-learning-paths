@@ -6,7 +6,7 @@ Personalizer will dynamically reconfigure the interface to optimize the
 likelihood of an anonymous visitor clicking on the featured category in the
 Recommended section.
 
-1. Deploy the Tailwind Traders Website app
+1. Deploy the Tailwind Traders Website app (if you didn't already do so with `DEMO Setup.md`)
 
 2. Visit the Tailwind Traders homepage
 
