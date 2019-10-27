@@ -10,18 +10,18 @@ variables:
   azureSubscription: azure-service-connection
 
   # Container Registry
-  containerRegistryName: ttacr3b2ssqysc23di
-  containerRegistryFqdn: ttacr3b2ssqysc23di.azurecr.io
+  containerRegistryName: ttacrq4rce7x27o5u6
+  containerRegistryFqdn: ttacrq4rce7x27o5u6.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: tailwind-ops-fourty-two
-  aks-cluster-pre-prod: tailwindtradersaks3b2ssqysc23di
-  ingress-pre-prod: a1b9610ee9754e0d86e3.eastus.aksapp.io
+  aks-cluster-rg-pre-prod: ops-fourty-demo-three
+  aks-cluster-pre-prod: tailwindtradersaksq4rce7x27o5u6
+  ingress-pre-prod: fd44c3df7a704e2da6af.eastus.aksapp.io
 
   # Production
-  aks-cluster-rg: tailwind-ops-fourty-two
-  aks-cluster: tailwindtradersaks3b2ssqysc23di
-  ingress: a1b9610ee9754e0d86e3.eastus.aksapp.io
+  aks-cluster-rg: ops-fourty-demo-three
+  aks-cluster: tailwindtradersaksq4rce7x27o5u6
+  ingress: fd44c3df7a704e2da6af.eastus.aksapp.io
 
 stages:
 
