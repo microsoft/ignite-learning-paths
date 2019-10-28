@@ -203,18 +203,6 @@ az acr build --subscription  "Ignite The Tour" --registry igniteapps30acr --imag
 12. Create web app
 
 ```
-
-az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-nameigniteapps30acr.azurecr.io/twtapp:v1
-
-
-13. Navigate to App Settings in portal
-
-
-14. Add connection string (these go in application vars, not encrypted connection string section):
-
-### EXAMPLE SQL Server
-
-=======
 az webapp create  --subscription  "Ignite The Tour" --resource-group igniteapps30 --plan igniteapps30plan --name twtwebapp30 --deployment-container-image-name igniteapps30acr.azurecr.io/twtapp:v1
 ```
 
