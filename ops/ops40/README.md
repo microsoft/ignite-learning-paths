@@ -203,7 +203,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbhsjzrmsurqpjk.documents.azure.com:443/
+      hostDB: https://ttshoppingdbvbiauvv2shkf6.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -256,30 +256,6 @@ Containers:
 3. Once the testing stage has completed, show the test results.
 
 ![Azure Pipeline test results](./images/tests.png)
-
-## Demo 2 - Azure Resource Manager templates
-
-In this demo, an Azure Resource Manager template is examined, updated, and deployed.
-
-**Examine a simple template**
-
-A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
-
-- The four sections of the template [(parameters, variables, resources, and outputs)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
-
-**Deploy more complex template**
-
-A more complex template named `azuredeploy.json` can also be found in the demos directory.
-
-1. First, show the already created Tailwind Traders resources in the Azure portal. Make note that only a single storage account exists.
-
-2. Deploy the template with the following command making sure that the resource group names match.
-
-```
-az group deployment create --resource-group ops40-e2e-demo-004 --template-file ops/ops40/demos/arm_template/azuredeploy.json
-```
-
-3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
 
 ## Teardown instructions
 
