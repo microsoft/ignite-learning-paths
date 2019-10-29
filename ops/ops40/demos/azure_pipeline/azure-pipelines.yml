@@ -10,23 +10,26 @@ variables:
   azureSubscription: azure-service-connection
 
   # Container Registry
-  containerRegistryName: ttacrhsjzrmsurqpjk
-  containerRegistryFqdn: ttacrhsjzrmsurqpjk.azurecr.io
+  containerRegistryName: ttacrvbiauvv2shkf6
+  containerRegistryFqdn: ttacrvbiauvv2shkf6.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: ops40-e2e-demo-004
-  aks-cluster-pre-prod: tailwindtradersakshsjzrmsurqpjk
-  ingress-pre-prod: 8283c2006f36400ca678.eastus.aksapp.io
+  aks-cluster-rg-pre-prod: ops40-e2e-008
+  aks-cluster-pre-prod: tailwindtradersaksvbiauvv2shkf6
+  ingress-pre-prod: 9bb661f0dca34d2da8aa.eastus2.aksapp.io
 
   # Production
-  aks-cluster-rg: ops40-e2e-demo-004
-  aks-cluster: tailwindtradersakshsjzrmsurqpjk
-  ingress: 8283c2006f36400ca678.eastus.aksapp.io
+  aks-cluster-rg: ops40-e2e-008
+  aks-cluster: tailwindtradersaksvbiauvv2shkf6
+  ingress: 9bb661f0dca34d2da8aa.eastus2.aksapp.io
 
+# Stages - a collection of related jobs. Stages can be controlled by conditions and approval checks.
 stages:
 
 - stage: build
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+  # Jobs - a collection of steps to be run on an agent. Jobs can depend on other jobs or be run conditionally.
   jobs:
   - job: helm
 
@@ -107,12 +110,17 @@ stages:
         artifactName: 'drop'
 
 - stage: release_pre_production
+
+  # Deployment job - special type of job that runs against an environment (run once, matrix, parallel)
   jobs:
   - deployment: release_pre_production
     displayName: Release Pre-Production
+
     pool:
       name: Hosted Ubuntu 1604
-    environment: pre-production
+
+      environment: pre-production
+
     strategy:
       runOnce:
         deploy:
@@ -147,9 +155,12 @@ stages:
   jobs:
   - deployment: release_production
     displayName: Release Production
+
     pool:
       name: Hosted Ubuntu 1604
+
     environment: production
+
     strategy:
       runOnce:
         deploy:
