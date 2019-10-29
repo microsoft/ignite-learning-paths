@@ -119,7 +119,7 @@ stages:
     pool:
       name: Hosted Ubuntu 1604
 
-      environment: pre-production
+    environment: pre-production
 
     strategy:
       runOnce:
