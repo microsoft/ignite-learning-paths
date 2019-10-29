@@ -135,6 +135,7 @@ Open up the pipeline YAML, and detail the following items:
 - [Variable groups](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml)
 - [Conditions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml)
 - [Tasks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml)
+- [environments](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
 
 **Production Reconciliation**
 

@@ -23,10 +23,13 @@ variables:
   aks-cluster: tailwindtradersaksvbiauvv2shkf6
   ingress: 9bb661f0dca34d2da8aa.eastus2.aksapp.io
 
+# Stages - a collection of related jobs. It can be controlled by conditions and approval checks.
 stages:
 
 - stage: build
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+  # Jobs - a collection of steps to be run on an agent. It can depend on other jobs or be run conditionally.
   jobs:
   - job: helm
 
@@ -107,12 +110,17 @@ stages:
         artifactName: 'drop'
 
 - stage: release_pre_production
+
+  # Deployment job - special type of job that runs against an environment (run once, matrix, parallel)
   jobs:
   - deployment: release_pre_production
     displayName: Release Pre-Production
+
     pool:
       name: Hosted Ubuntu 1604
-    environment: pre-production
+
+      environment: pre-production
+
     strategy:
       runOnce:
         deploy:
@@ -147,9 +155,12 @@ stages:
   jobs:
   - deployment: release_production
     displayName: Release Production
+
     pool:
       name: Hosted Ubuntu 1604
+
     environment: production
+
     strategy:
       runOnce:
         deploy:
