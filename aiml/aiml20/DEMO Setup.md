@@ -82,6 +82,10 @@ In the form that appears, select the following options:
 
 * Branch: accept the default, `master`
 
+(As a backup, you can also use the Repo URL
+`https://github.com/revodavid/TailwindTraders-Website` with the branch `aiml20`.
+This was forked on 2019-10-25 and is known to work.)
+
 Check "I agree to the terms and condtions" and click "Purchase".
 
 Allow at least 15 minutes for the site to deploy. 
