@@ -1,9 +1,6 @@
 ## Demo 4
 
-<video width="480" height="270" controls>
-  <source src="https://globaleventcdn.blob.core.windows.net/assets/aiml/aiml10/videos/Demo4.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+[![Demo 4](images/demo4.png)](https://globaleventcdn.blob.core.windows.net/assets/aiml/aiml10/videos/Demo4.mp4 "Demo 4")
 
 ### What you need:
 - File

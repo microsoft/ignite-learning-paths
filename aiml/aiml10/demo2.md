@@ -1,9 +1,6 @@
 ## Demo 2 - Using Form Recognizer
 
-<video width="480" height="270" controls>
-  <source src="https://globaleventcdn.blob.core.windows.net/assets/aiml/aiml10/videos/Demo2.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+[![Demo 2](images/demo2.png)](https://globaleventcdn.blob.core.windows.net/assets/aiml/aiml10/videos/Demo2.mp4 "Demo 2")
 
 ### What you need:
 - File
