@@ -6,9 +6,9 @@ In this session, you’ll dive into one of the most important topics for improvi
 
 ## Demo environment deployment
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
- <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
+First, deploy the Tailwind Traders application onto a Kubernetes cluster. Deployment steps and automation can be found here:
+
+https://github.com/microsoft/ignite-learning-paths/tree/master/ops/deployment
 
 ## Delivery assets
 

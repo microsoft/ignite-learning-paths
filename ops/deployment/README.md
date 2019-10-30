@@ -14,7 +14,15 @@ az provider register --namespace Microsoft.Sql
 az provider register --namespace Microsoft.ContainerRegistry
 ```
 
+## Service Principal
+
+You need to provide service principal credentials to the deployment for the Azure Kubernetes Service cluster creation. For information on creating an Azure Service Principal, see the following documentation:
+
+[Create an Azure Service Principal with Azure CLI](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest)
+
 ## Deployment
+
+Use this button to deploy the Tailwind Traders application.
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
  <img src="http://azuredeploy.net/deploybutton.png"/>
