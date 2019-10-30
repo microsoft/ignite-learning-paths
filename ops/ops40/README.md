@@ -20,7 +20,7 @@ Once completed, fork this repo into your own GitHub account and clone to your de
 
 https://github.com/microsoft/ignite-learning-paths.git
 
-Update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments. The following commands can be used to find these values.
+Update the values in the `/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml` file to match the AKS and ACR deployments. The following commands can be used to find these values.
 
 ```
 az acr list -o table
