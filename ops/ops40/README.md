@@ -12,11 +12,9 @@ The following asset can be used for delivering this talk:
 
 ## Demo environment deployment
 
-The following deployment produces the Tailwind application + and Azure DevOps instance for the OPS40 demos.
+First, deploy the Tailwind Traders application onto a Kubernetes cluster. Deployment steps and automation can be found here:
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
- <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
+https://github.com/microsoft/ignite-learning-paths/tree/master/ops/deployment
 
 Once completed, fork this repo into your own GitHub account and clone to your development system.
 
@@ -31,7 +29,7 @@ az aks list -o table
 
 Once done, push the updates back to GitHub. This file is used in demo 1 when creating an Azure Pipeline.
 
-**Create Azure Pipeline Service Connection**
+### Create Azure Pipeline Service Connection
 
 This step was originally part of the demo however can take a few minutes to complete. To expedite the process I recommend configuring the service connection before starting the demo.
 
@@ -41,7 +39,7 @@ This step was originally part of the demo however can take a few minutes to comp
 
 3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
 
-**Optional: Break Tailwind Traders**
+### Optional: Break Tailwind Traders
 
 If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
 
@@ -86,7 +84,7 @@ kubectl delete pod my-tt-cart-7cd4cbd744-j6ngl
 
 ## Demo 1 - Azure DevOps
 
-**Demo broken application**
+### Demo broken application
 
 If you have elected to break the Tailwind Traders app, you can demo the break here. To get the address of the application run the following command.
 
@@ -98,7 +96,7 @@ my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io
 
 Browse to the `HOSTS` address and click on the tailwind cart icon.
 
-**Create Pipeline**
+### Create Pipeline
 
 1. Select **Pipelines** from the left hand Azure DevOps menu.
 
@@ -118,7 +116,7 @@ Browse to the `HOSTS` address and click on the tailwind cart icon.
 
 8. Click **Run** to save and run the pipeline.
 
-**Pipeline Overview**
+### Pipeline Overview
 
 While the pipeline is running, explain stages and jobs while looking at the pipeline overview.
 
@@ -137,7 +135,7 @@ Open up the pipeline YAML, and detail the following items:
 - [Tasks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml)
 - [environments](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
 
-**Production Reconciliation**
+### Production Reconciliation
 
 At this point, hopefully, the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
@@ -194,7 +192,7 @@ Containers:
     Image:          ttacr5iny4v2wygm3k.azurecr.io/cart.api:1818
 ```
 
-**Add Unit Test**
+### Add Unit Test
 
 1. Add the following stage to the pipeline, click **Save**, which will start a new run.
 
@@ -204,7 +202,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbvbiauvv2shkf6.documents.azure.com:443/
+      hostDB: https://ttshoppingdbt3wkbtypkhaaw.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
