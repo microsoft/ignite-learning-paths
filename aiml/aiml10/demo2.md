@@ -11,7 +11,7 @@ In this exercise we learn how to use the Form Recognizer service. It is assumed 
 
 - Access to the limited-access preview. To get access to the preview, fill out and submit the [Form Recognizer access request](https://aka.ms/FormRecognizerRequestAccess) form.
 
-- [Postman](https://www.getpostman.com/) is used to send requests to the Form Recognizer service REST API.
+- [Postman](https://www.getpostman.com/) is used to send requests to the Form Recognizer service REST API. Refer to this [short primer](postman.md) to learn more.
 
 - Postman Form Recognizer requests [collection](src/Collections/Form_Recognizer.postman_collection.json).
 
@@ -82,6 +82,6 @@ pm.environment.set('SASValue', '<SAS>')
 
 ### Use the Form Recognizer Service
 
-1. Open the `AnalyzeForm` request. In the **Body** section click on the `Select Files` button to choose an invoice downloaded previously and send the request. You should get something similar to:
+1. Open the `AnalyzeForm` request. In the **Body** section click on the `Select Files` button to choose an invoice downloaded previously. After sending the request you should get something similar to:
 
 ![Inference Response](images/form_inference.png "Inference Response")
