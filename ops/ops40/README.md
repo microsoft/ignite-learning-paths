@@ -8,28 +8,38 @@ In this session, we will see how continuous delivery pipelines have helped Tailw
 
 The following asset can be used for delivering this talk:
 
-- [PowerPoint deck with embeded demo videos](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
+- [PowerPoint deck](https://globaleventcdn.blob.core.windows.net/assets/ops/ops40/PPT/OPS40_Deployment_Practices_for_Greater_Reliability.pptx)
 
 ## Demo environment deployment
 
-The following deployment produces the Tailwind application + and Azure DevOps instance for the OPS40 demos.
+First, deploy the Tailwind Traders application onto a Kubernetes cluster. Deployment steps and automation can be found here:
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fignite-learning-paths%2Fmaster%2Fops%2Fdeployment%2Fazuredeploy.json" target="_blank">
- <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
+https://github.com/microsoft/ignite-learning-paths/tree/master/ops/deployment
 
 Once completed, fork this repo into your own GitHub account and clone to your development system.
 
 https://github.com/microsoft/ignite-learning-paths.git
 
-Update the values in the [/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml](/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml) file to match the AKS and ACR deployments. The following commands can be used to find these values.
+Update the values in the `/ops/ops40/demos/azure_pipeline/azure-pipelines.yaml` file to match the AKS and ACR deployments. The following commands can be used to find these values.
 
 ```
 az acr list -o table
 az aks list -o table
 ```
 
-**Optional: Break Tailwind Traders**
+Once done, push the updates back to GitHub. This file is used in demo 1 when creating an Azure Pipeline.
+
+### Create Azure Pipeline Service Connection
+
+This step was originally part of the demo however can take a few minutes to complete. To expedite the process I recommend configuring the service connection before starting the demo.
+
+1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
+
+2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+
+3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+
+### Optional: Break Tailwind Traders
 
 If you would like to break the Tailwind app and show remediation using an Azure DevOps pipeline, here is a quick way to do so.
 
@@ -74,15 +84,19 @@ kubectl delete pod my-tt-cart-7cd4cbd744-j6ngl
 
 ## Demo 1 - Azure DevOps
 
-**Create Azure Service Connection**
+### Demo broken application
 
-1. Navigate to the new Azure DevOps organization, and then the new DevOps project.
+If you have elected to break the Tailwind Traders app, you can demo the break here. To get the address of the application run the following command.
 
-2. Select **Project settings** > **Service connections** > **New service connection** > **Azure Resource Manager**.
+```
+$ k get ingress
+NAME                                       HOSTS                                   ADDRESS        PORTS   AGE
+my-tt-cart                                 d4aa3f5a552742c8be0f.eastus.aksapp.io   40.71.39.243   80      30h
+```
 
-3. Enter a connection name of `azure-service-connection`, select the appropriate Azure subscription, and select **OK**.
+Browse to the `HOSTS` address and click on the tailwind cart icon.
 
-**Create Pipeline**
+### Create Pipeline
 
 1. Select **Pipelines** from the left hand Azure DevOps menu.
 
@@ -102,7 +116,7 @@ kubectl delete pod my-tt-cart-7cd4cbd744-j6ngl
 
 8. Click **Run** to save and run the pipeline.
 
-**Pipeline Overview**
+### Pipeline Overview
 
 While the pipeline is running, explain stages and jobs while looking at the pipeline overview.
 
@@ -119,8 +133,9 @@ Open up the pipeline YAML, and detail the following items:
 - [Variable groups](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml)
 - [Conditions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml)
 - [Tasks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml)
+- [environments](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
 
-**Production Reconciliation**
+### Production Reconciliation
 
 At this point, hopefully, the pre-production deployment has completed. Show how production can be reconciled .via build ID (helm release version and container image version).
 
@@ -177,7 +192,7 @@ Containers:
     Image:          ttacr5iny4v2wygm3k.azurecr.io/cart.api:1818
 ```
 
-**Add Unit Test**
+### Add Unit Test
 
 1. Add the following stage to the pipeline, click **Save**, which will start a new run.
 
@@ -187,7 +202,7 @@ Containers:
   - job: tests
 
     variables:
-      hostDB: https://ttshoppingdbt6grppp3eluvk.documents.azure.com:443/
+      hostDB: https://ttshoppingdbt3wkbtypkhaaw.documents.azure.com:443/
 
     pool:
       name: Hosted Ubuntu 1604
@@ -240,30 +255,6 @@ Containers:
 3. Once the testing stage has completed, show the test results.
 
 ![Azure Pipeline test results](./images/tests.png)
-
-## Demo 2 - Azure Resource Manager templates
-
-In this demo, an Azure Resource Manager template is examined, updated, and deployed.
-
-**Examine a simple template**
-
-A simple template named `simple-tempalte.json` can be found under the demos directory. Take a quick walk through the template, highlighting these items.
-
-- The four sections of the template [(parameters, variables, resources, and outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-authoring-templates)
-
-**Deploy more complex template**
-
-A more complex template named `azuredeploy.json` can also be found in the demos directory.
-
-1. First, show the already created Tailwind Traders resources in the Azure portal. Make note that only a single storage account exists.
-
-2. Deploy the template with the following command making sure that the resource group names match.
-
-```
-az group deployment create --resource-group tailwind-production --template-file ops/ops40/demos/arm_template/azuredeploy.json
-```
-
-3. Open up the Azure portal and show that the deployment is occurring and that the only affected resource is the storage account being added.
 
 ## Teardown instructions
 

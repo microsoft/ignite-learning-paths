@@ -37,7 +37,6 @@ az cognitiveservices account keys list \
 # paste in the key you copied above
 KEY="YOUR-KEY-HERE"
 
-
 # If you are not using the westus2 region, check your endpoint in the Azure portal
 # by inspecting "aiml20-cs-resource" in the "aiml20-demo" resource group
 VISIONENDPOINT="https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze"
@@ -45,14 +44,16 @@ VISIONENDPOINT="https://westus2.api.cognitive.microsoft.com/vision/v2.0/analyze"
 ### 6. Analyze test images via API usinh CURL
 # images can be found in "test images" folder
 # man in hardhat.jpg -- this will give the same results as via the Web app
-IMG="https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/test%20images/man%20in%20hardhat.jpg"
+IMG="https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/aiml/aiml20/test%20images/man%20in%20hardhat.jpg"
+echo $IMG
+
 curl -H "Ocp-Apim-Subscription-Key: $KEY" \
       -H "Content-Type: application/json" \
       "$VISIONENDPOINT?visualFeatures=Tags&language=en" \
       -d "{\"url\":\"$IMG\"}"   
 
 # drill.jpg
-IMG="https://raw.githubusercontent.com/revodavid/ignite-learning-paths/master/aiml/aiml20/test%20images/drill.jpg"
+IMG="https://raw.githubusercontent.com/microsoft/ignite-learning-paths/master/aiml/aiml20/test%20images/drill.jpg"
 curl -H "Ocp-Apim-Subscription-Key: $KEY" \
       -H "Content-Type: application/json" \
       "$VISIONENDPOINT?visualFeatures=Tags&language=en" \
