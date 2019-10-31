@@ -1,4 +1,4 @@
-## Demo 3
+## Demo 3 - Creating a Custom Invoice Reader Skill
 
 [![Demo 3](images/demo3.png)](https://globaleventcdn.blob.core.windows.net/assets/aiml/aiml10/videos/Demo2.mp4 "Demo 3")
 
@@ -109,3 +109,6 @@ pm.environment.set('SASValue', '<SAS>')
 2. Verify that the `POST` uri matches the one for the Azure Function (should look something like `https://<YOUR_ENDPOINT>.azurewebsites.net/api/AnalyzeInvoice`) and click on Send. You should get a response similar to that below:
 
 ![Cloud Skill](images/local_skill.png "Cloud Skill")
+
+# Next Demo
+Learn how to tie everything together and finally build the end to end solution by continuing on to [Demo 4 - Tying it all together](demo4.md)

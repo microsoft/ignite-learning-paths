@@ -85,3 +85,6 @@ pm.environment.set('SASValue', '<SAS>')
 1. Open the `AnalyzeForm` request. In the **Body** section click on the `Select Files` button to choose an invoice downloaded previously. After sending the request you should get something similar to:
 
 ![Inference Response](images/form_inference.png "Inference Response")
+
+# Next Demo
+Learn how to create custom Invoice Reader Skill with Azure Functions by continuing on to [Demo 3 - Creating a Custom Invoice Reader Skill](demo3.md)
