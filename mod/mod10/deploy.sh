@@ -23,10 +23,13 @@ sleep .5
 
 # Export Vars
 
+export productImagesUrl="https://raw.githubusercontent.com/microsoft/TailwindTraders-Backend/master/Deploy/tailwindtraders-images/product-detail"
+
 export apiUrl=/api/v1
 export ApiUrlShoppingCart=/api/v1
 export MongoConnectionString=""
 export SqlConnectionString=""
+
 
 sleep .5
 
