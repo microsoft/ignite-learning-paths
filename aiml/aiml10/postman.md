@@ -25,6 +25,8 @@ There are three collections used throughout the demos:
 
 ## Modifying collection variables
 
+Collection variables allow Postman to replace tokens such as `{variable}` with values set by the user. This allows requests to be more portable with changes to variables. For example, the `endpoint` variable in some of the exercises represents the endpoint to your particular Form Recognizer service. 
+
 1. After a collection is loaded, click on the ellipsis to edit the collection variables
 
 ![Edit Variables](images/edit_variables.png "Edit Variables")

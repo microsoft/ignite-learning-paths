@@ -46,6 +46,42 @@ There are three main steps:
 
 In order to do this you must have access to the Form Recognizer preview. To get access to the preview, fill out and submit the [Form Recognizer access request](https://aka.ms/FormRecognizerRequestAccess) form. 
 
-1. Create the Form Recognizer service using the special access link.
 
 [![Form Recognizer](images/form_recognizer.png)](https://docs.microsoft.com/en-us/azure/cognitive-services/form-recognizer/overview?WT.mc_id=msignitethetour2019-github-aiml10#request-access "Form Recognizer")
+
+### Train the Form Recognizer Service
+
+This section uses Postman and assumes you know about loading collections, handling variables, and setting pre-request scripts. To learn how to do these specific things we have included some [instructions](postman.md).
+
+The table below lists the variables set during this section of the exercise:
+
+| Name                       | Type                            | Purpose                    |
+| -------------------------- | ------------------------------- | ------------------------- |
+| `Ocp-Apim-Subscription-Key`       | Authorization         | Key for getting access to Form Recognizer service  |
+| `endpoint`       | Variable         | Specifies the Form Recognizer endpoint  |
+| `modelId`       | Variable         | Current Form Recognizer model (this is set in step 5)  |
+
+1. Load the [Form Recognizer collection](src/Collections/Form_Recognizer.postman_collection.json) into Postman.
+
+2. Set the `Ocp-Apim-Subscription-Key` authorization header as well as the `endpoint` variable to the Form Recognizer service (these can be found in the portal).
+
+3. Open the `TrainModel` Request and change the Pre-request script to set the `storageAccount` variable to your storage account (in the video the variable is `ttinvoicestorage`) and the `SASValue` to the appropriate Secure Access Signature to the `train` container. To learn how to get a Secure Access Signature, refer to our [brief explanation](sas.md).
+
+```javascript
+pm.environment.set('storageAccount', '<YOUR STORAGE ACCOUNT>')
+pm.environment.set('container', 'train')
+pm.environment.set('SASValue', '<SAS>')
+```
+
+4. Hit Send on the Request. Your response should look something like this:
+
+![Training Response](images/form_training.png "Training Response")
+
+5. Set the `modelId` variable for the collection to the returned `modelId` indicated above.
+
+
+### Use the Form Recognizer Service
+
+1. Open the `AnalyzeForm` request. In the **Body** section click on the `Select Files` button to choose an invoice downloaded previously and send the request. You should get something similar to:
+
+![Inference Response](images/form_inference.png "Inference Response")
