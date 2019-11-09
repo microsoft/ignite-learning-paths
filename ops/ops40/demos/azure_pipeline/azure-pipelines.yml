@@ -1,12 +1,5 @@
 trigger:
-
-  branches:
-    include:
-    - master
-
-  paths:
-    include:
-    - ops/*
+- master
 
 pr:
 - master
@@ -17,23 +10,26 @@ variables:
   azureSubscription: azure-service-connection
 
   # Container Registry
-  containerRegistryName: ttacr3foq5lrw6qvde
-  containerRegistryFqdn: ttacr3foq5lrw6qvde.azurecr.io
+  containerRegistryName: ttacrt3wkbtypkhaaw
+  containerRegistryFqdn: ttacrt3wkbtypkhaaw.azurecr.io
 
   # AKS Pre-Production
-  aks-cluster-rg-pre-prod: ops40-path-test
-  aks-cluster-pre-prod: tailwindtradersaks3foq5lrw6qvde
-  ingress-pre-prod: daa3338bb82e4d528f2c.eastus2.aksapp.io
+  aks-cluster-rg-pre-prod: ops40-e2e-0001
+  aks-cluster-pre-prod: tailwindtradersakst3wkbtypkhaaw
+  ingress-pre-prod: 8e8c8c0095024350b73a.eastus.aksapp.io
 
   # Production
-  aks-cluster-rg: ops40-path-test
-  aks-cluster: tailwindtradersaks3foq5lrw6qvde
-  ingress: daa3338bb82e4d528f2c.eastus2.aksapp.io
+  aks-cluster-rg: ops40-e2e-0001
+  aks-cluster: tailwindtradersakst3wkbtypkhaaw
+  ingress: 8e8c8c0095024350b73a.eastus.aksapp.io
 
+# Stages - a collection of related jobs. Stages can be controlled by conditions and approval checks.
 stages:
 
 - stage: build
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+  # Jobs - a collection of steps to be run on an agent. Jobs can depend on other jobs or be run conditionally.
   jobs:
   - job: helm
 
@@ -114,12 +110,17 @@ stages:
         artifactName: 'drop'
 
 - stage: release_pre_production
+
+  # Deployment job - special type of job that runs against an environment (run once, matrix, parallel)
   jobs:
   - deployment: release_pre_production
     displayName: Release Pre-Production
+
     pool:
       name: Hosted Ubuntu 1604
+
     environment: pre-production
+
     strategy:
       runOnce:
         deploy:
@@ -147,16 +148,19 @@ stages:
                 az acr helm repo add --name $(containerRegistryName)
                 az aks get-credentials --name $(aks-cluster-pre-prod) --resource-group $(aks-cluster-rg-pre-prod) --admin
                 pwsh /home/vsts/work/1/drop/ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/ops/deployment/helm-values/gvalues.template -outputFile values.yaml
-                kubectl delete configmap cfg-my-tt-cart
+                kubectl delete configmap -l release=my-tt-cart
                 helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress-pre-prod)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)
 
 - stage: release_production
   jobs:
   - deployment: release_production
     displayName: Release Production
+
     pool:
       name: Hosted Ubuntu 1604
+
     environment: production
+
     strategy:
       runOnce:
         deploy:
@@ -184,5 +188,5 @@ stages:
                 az acr helm repo add --name $(containerRegistryName)
                 az aks get-credentials --name $(aks-cluster) --resource-group $(aks-cluster-rg) --admin
                 pwsh /home/vsts/work/1/drop/ops/deployment/helm-values/generate-config.ps1 -resourceGroup $(aks-cluster-rg-pre-prod) -sqlPwd Password2020! -gvaluesTemplate /home/vsts/work/1/drop/ops/deployment/helm-values/gvalues.template -outputFile values.yaml
-                kubectl delete configmap cfg-my-tt-cart-cart-api
+                kubectl delete configmap -l release=my-tt-cart
                 helm upgrade my-tt-cart $(containerRegistryName)/cart-api --install -f values.yaml --set ingress.hosts={$(ingress-pre-prod)} --set image.repository=$(containerRegistryFqdn)/cart.api --set image.tag=$(Build.BuildId)

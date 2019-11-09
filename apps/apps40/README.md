@@ -38,6 +38,7 @@ Then refresh you account with
 ```
 az provider register --namespace Microsoft.ContainerService
 ```
+You will also need kubectl version 1.14.6
 
 ## Connect to deployment
 
@@ -84,7 +85,7 @@ In the image above you can see that the application is scaling using the metrics
 
 
 ```
-kubectl get pods -o wide
+kubectl get pods -o wide -w
 ```
  ![alt text](./images/pods.png)
 

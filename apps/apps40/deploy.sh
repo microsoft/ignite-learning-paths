@@ -58,7 +58,7 @@ vnetID=$(az network vnet subnet show --resource-group $azureResourceGroup --vnet
 az group deployment create -g $azureResourceGroup --template-file $tailwindInfrastructure \
   --parameters servicePrincipalId=$azureClientID servicePrincipalSecret=$azureClientSecret \
   sqlServerAdministratorLogin=$sqlServerUser sqlServerAdministratorLoginPassword=$sqlServePassword \
-  aksVersion=1.14.6 pgversion=10 vnetSubnetID=$vnetID
+  aksVersion=1.14.8 pgversion=10 vnetSubnetID=$vnetID
 
 # # Application Insights (using preview extension)
 az extension add -n application-insights
