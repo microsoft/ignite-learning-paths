@@ -1,5 +1,7 @@
 # Developers Guide to AI
 
+## ⚠️ This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml).
+
 **Welcome to the 'Developers Guide to AI' Learning Path**. 
 
 **Sessions Included in this Learning Path:** [AIML10](aiml10/README.md), [AIML20](aiml20/README.md), [AIML30](aiml30/README.md), [AIML40](aiml40/README.md) [AIML50](aiml50/README.md) and [AIML21](aiml21/README.md)
