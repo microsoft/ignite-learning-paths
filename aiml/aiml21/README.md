@@ -1,5 +1,7 @@
 # Developers Guide to AI: A Data Story
 
+⚠️ **This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml21).**
+
 In this theatre session we will show the data science process and how to apply it. From exploration of datasets to deployment of services - all applied to an interesting data story. This will also take you on a very brief tour of the Azure AI Platform.
 
 # Demo Environment Deployment
