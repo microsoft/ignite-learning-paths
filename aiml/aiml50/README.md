@@ -1,5 +1,7 @@
 # Machine Learning Operations – Applying DevOps to Data Science
 
+⚠️ **This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml50).**
+
 ### Session Abstract
 
 While many companies have adopted DevOps practices to improve their software delivery, these same techniques are rarely applied to machine learning projects. Collaboration between developers and data scientists can be limited and deploying models to production in a consistent and trustworthy way is often a pipedream. 
