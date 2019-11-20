@@ -1,6 +1,6 @@
 # Using Pre-Built AI to Solve Business Challenges
 
-⚠️ This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml20).
+⚠️ **This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml20).**
 
 
 
