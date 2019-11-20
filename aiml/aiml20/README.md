@@ -1,5 +1,9 @@
 # Using Pre-Built AI to Solve Business Challenges
 
+⚠️ This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml20).
+
+
+
 This is the repository supporting the Ignite Tour 2019-2020 talk, "Using
 Pre-Built AI to Solve Business Challenges". Here you will find links to the
 resources mentioned in the talk, and the code and scripts you will need to
