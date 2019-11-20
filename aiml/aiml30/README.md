@@ -1,5 +1,8 @@
 # AIML30 -Start Building Machine Learning Models Faster than You Think -Train the trainer
 
+
+⚠️ **This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml30).**
+
 Tailwind Traders uses custom machine learning models to fix their inventory issues – without changing their Software Development Life Cycle! How? Azure Machine Learning Visual Interface.
  
 In this session, you’ll learn the data science process that Tailwind Traders’ uses and get an introduction to Azure Machine Learning Visual Interface. You’ll see how to find, import, and prepare data, select a machine learning algorithm, train and test the model, and deploy a complete model to an API. Get the tips, best practices, and resources you and your development team need to continue your machine learning journey, build your first model, and more.
