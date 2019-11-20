@@ -1,5 +1,7 @@
 # AIML40 - Taking Models to the Next Level with Azure Machine Learning Best Practices
 
+⚠️ **This content as been moved to the new Repo: [Ignite Learning Paths Training AIML](https://github.com/microsoft/ignite-learning-paths-training-aiml/tree/master/aiml40).**
+
 ## Session information
 
 Artificial Intelligence and Machine Learning can be used in many ways to increase productivity of business processes and gather meaningful insights, by analyzing images, texts and trends within unstructured flows of data. While many tasks can be solved using existing models, in some cases it is also required to train your own model for more specific tasks, or for increased accuracy. 
