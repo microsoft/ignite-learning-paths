@@ -1,1 +1,0 @@
-# Managing Cloud Operations

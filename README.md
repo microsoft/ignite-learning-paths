@@ -1,16 +1,10 @@
-# Ignite Learning Paths
+# Ignite Learning Paths Moved
 
-- [APPS - Building Applications for the Cloud](./apps)
-- [AIML - Developers Guide to AI](./aiml)
-- [AFUN - Azure Fundamentals](./afun)
-- [MCO - Managing Cloud Operations](./mco)
-- [MOD - Modernizing Data, Applications, and APIs to the Cloud](./mod)
-- [MSI - Migrating your Server Infrastructure](./msi)
-- [OPS - Improving Your Reliability through Modern Operations Practices](./ops)
+This repo and resoruces have been moved to https://github.com/microsoft/ignite-learning-paths-training
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
